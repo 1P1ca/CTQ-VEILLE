@@ -599,8 +599,17 @@ function renderItem(item) {{
   const isNew = item.is_new ? "new-item" : "";
   const newBadge = item.is_new ? `<span style="background:#E84B1C;color:white;font-size:9px;font-weight:800;padding:1px 6px;border-radius:2px;margin-left:6px;">NOUVEAU</span>` : "";
   const tags = (item.tags || []).map(renderTag).join(" ");
-  const desc = item.description ? `<div class="item-desc">${{item.description.substring(0,180)}}</div>` : "";
-  
+  const desc = item.description ? `<div class="item-desc">${{item.description.substring(0,220)}}</div>` : "";
+
+  // Label du lien selon la section
+  const linkLabels = {{
+    "avis_publics": "📋 Portail avis publics →",
+    "calendrier_audiences": "🗓️ Calendrier des audiences →",
+    "decisions": "⚖️ Recherche de décisions →",
+    "actualites": "📢 Actualités CTQ →",
+  }};
+  const linkLabel = linkLabels[item.section] || "Voir sur CTQ →";
+
   return `
     <div class="item-card ${{sectionClass}} ${{isNew}}" data-section="${{item.section}}" data-new="${{item.is_new}}" data-text="${{(item.title+' '+(item.description||'')+' '+(item.tags||[]).join(' ')).toLowerCase()}}">
       <div class="item-title">${{item.icon || ''}} ${{item.title}} ${{newBadge}}</div>
@@ -608,7 +617,7 @@ function renderItem(item) {{
       <div class="item-footer">
         <span class="item-date">📅 ${{item.date_publie}}</span>
         ${{tags}}
-        ${{item.url ? `<a href="${{item.url}}" target="_blank" class="item-link">Voir →</a>` : ""}}
+        ${{item.url ? `<a href="${{item.url}}" target="_blank" class="item-link">${{linkLabel}}</a>` : ""}}
       </div>
     </div>
   `;

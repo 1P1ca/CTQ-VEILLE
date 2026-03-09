@@ -189,14 +189,24 @@ def fetch_rss_feed(feed_key: str, feed_config: dict) -> list[CTQItem]:
             if not title:
                 continue
 
+            # Use item link if it's a real page, otherwise use the correct portal URL per section
+            SECTION_URLS = {
+                "avis_publics": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
+                "actualites": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/",
+                "decisions": "https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/",
+                "calendrier_audiences": "https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/",
+            }
+            section_key = feed_config["section"]
+            item_url = link if (link.startswith('http') and not link.endswith('.xml')) else SECTION_URLS.get(section_key, "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics")
+
             item = CTQItem(
-                section=feed_config["section"],
+                section=section_key,
                 section_label=feed_config["label"],
                 icon=feed_config["icon"],
                 priority=feed_config["priority"],
                 title=title,
                 description=description,
-                url=link if link.startswith('http') else url,
+                url=item_url,
                 date_publie=pub_date,
                 hash_id=make_hash(guid + title),
                 tags=detect_tags(title + " " + description),

@@ -1,0 +1,76 @@
+name: CTQ Veille — Rapport Quotidien
+
+on:
+  schedule:
+    # 7h00 heure de Montréal (UTC-5 hiver = 12h00 UTC | UTC-4 été = 11h00 UTC)
+    # On utilise 11h30 UTC pour couvrir les deux fuseaux (heure avancée)
+    - cron: "30 11 * * 1-5"  # Lundi–Vendredi, 7h30 AM Montréal
+
+  # Déclenchement manuel depuis l'interface GitHub Actions
+  workflow_dispatch:
+    inputs:
+      force_all_new:
+        description: "Marquer tous les éléments comme nouveaux (reset)"
+        required: false
+        default: "false"
+        type: boolean
+
+permissions:
+  contents: write  # Pour commit les données et mettre à jour GitHub Pages
+  pages: write
+  id-token: write
+
+jobs:
+  ctq-veille:
+    name: Scraping & Rapport CTQ
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Installer les dépendances
+        run: |
+          pip install -r requirements.txt
+
+      - name: Reset hashes (si force_all_new)
+        if: ${{ github.event.inputs.force_all_new == 'true' }}
+        run: |
+          echo "🔄 Reset des hashes connus..."
+          rm -f data/known_hashes.json
+
+      - name: Exécuter le scraper CTQ
+        run: python run_daily.py
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SENDER_NAME: "CTQ Veille — 1+1 Discovery"
+          DASHBOARD_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+
+      - name: Commit et push des données
+        run: |
+          git config --global user.name "CTQ Veille Bot"
+          git config --global user.email "bot@1p1.ca"
+          git add data/ docs/
+          git diff --cached --quiet || git commit -m "📊 CTQ Veille — $(date +'%Y-%m-%d %H:%M') UTC"
+          git push
+
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          commit_message: "🚀 Deploy dashboard ${{ github.run_number }}"

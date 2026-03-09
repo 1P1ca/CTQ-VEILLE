@@ -1,25 +1,20 @@
 {
   "date": "2026-03-09",
-  "generated_at": "2026-03-09T18:27:35.608612",
+  "generated_at": "2026-03-09T19:38:39.917880",
   "total_items": 8,
   "new_items_count": 3,
-  "summary": {
-    "avis_publics": 2,
-    "calendrier_audiences": 1,
-    "decisions": 0,
-    "actualites": 0
-  },
   "new_items": [
     {
       "section": "avis_publics",
-      "section_label": "Avis publics",
-      "icon": "📋",
+      "section_label": "Avis publics — Autobus",
+      "icon": "🚌",
       "priority": "haute",
-      "title": "Demande de permis — Transport nolisé — Autobus Laval Express inc.",
-      "description": "Demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière. Audience prévue si opposition.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
+      "source": "rss",
+      "title": "Demande de permis nolisé — Autobus Laval Express inc. — Laval, Montréal, Lanaudière",
+      "description": "Dépôt d'une demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière. Audience publique prévue si opposition reçue dans les 20 jours.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml",
       "date_publie": "2026-03-09",
-      "hash_id": "abc123",
+      "hash_id": "rss_abc001",
       "is_new": true,
       "tags": [
         "Nouveau permis",
@@ -28,14 +23,15 @@
     },
     {
       "section": "avis_publics",
-      "section_label": "Avis publics",
-      "icon": "📋",
+      "section_label": "Avis publics — Autobus",
+      "icon": "🚌",
       "priority": "haute",
-      "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Autobus Rive-Nord 2025",
-      "description": "Demande de transfert d'un permis de transport d'élèves. Commission scolaire des Affluents. Territoire : Terrebonne.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
+      "source": "rss",
+      "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord 2025",
+      "description": "Demande de transfert d'un permis de transport d'élèves. Commission scolaire des Affluents, territoire de Terrebonne.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml",
       "date_publie": "2026-03-09",
-      "hash_id": "def456",
+      "hash_id": "rss_abc002",
       "is_new": true,
       "tags": [
         "Transfert",
@@ -43,34 +39,34 @@
       ]
     },
     {
-      "section": "calendrier_audiences",
-      "section_label": "Calendrier des audiences",
-      "icon": "🗓️",
+      "section": "actualites",
+      "section_label": "Erratum & Corrections",
+      "icon": "🔔",
       "priority": "haute",
-      "title": "18 mars 2026 — Audience publique — Autobus Laurentides inc. — Demande de modification de territoire",
-      "description": "Audience publique à Québec. Demande de modification du territoire d'exploitation — ajout de la MRC des Laurentides.",
-      "url": "https://www.ctq.gouv.qc.ca/la-commission/laudience/",
+      "source": "rss",
+      "title": "Erratum — Décision 2026 QCCTQ 0198 — Correction du territoire accordé",
+      "description": "La Commission rectifie la décision 2026 QCCTQ 0198 rendue le 14 février 2026. Correction du territoire d'exploitation accordé suite à une erreur matérielle.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml",
       "date_publie": "2026-03-09",
-      "hash_id": "ghi789",
+      "hash_id": "rss_err001",
       "is_new": true,
       "tags": [
-        "Audience",
-        "Modification territoire",
-        "Interurbain"
+        "Erratum"
       ]
     }
   ],
   "all_items": [
     {
       "section": "avis_publics",
-      "section_label": "Avis publics",
-      "icon": "📋",
+      "section_label": "Avis publics — Autobus",
+      "icon": "🚌",
       "priority": "haute",
-      "title": "Demande de permis — Transport nolisé — Autobus Laval Express inc.",
-      "description": "Demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
+      "source": "rss",
+      "title": "Demande de permis nolisé — Autobus Laval Express inc. — Laval, Montréal, Lanaudière",
+      "description": "Dépôt d'une demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière. Audience publique prévue si opposition reçue dans les 20 jours.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml",
       "date_publie": "2026-03-09",
-      "hash_id": "abc123",
+      "hash_id": "rss_abc001",
       "is_new": true,
       "tags": [
         "Nouveau permis",
@@ -79,14 +75,15 @@
     },
     {
       "section": "avis_publics",
-      "section_label": "Avis publics",
-      "icon": "📋",
+      "section_label": "Avis publics — Autobus",
+      "icon": "🚌",
       "priority": "haute",
-      "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Autobus Rive-Nord 2025",
-      "description": "Demande de transfert. Commission scolaire des Affluents. Territoire : Terrebonne.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
+      "source": "rss",
+      "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord 2025",
+      "description": "Demande de transfert d'un permis de transport d'élèves. Commission scolaire des Affluents, territoire de Terrebonne.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml",
       "date_publie": "2026-03-09",
-      "hash_id": "def456",
+      "hash_id": "rss_abc002",
       "is_new": true,
       "tags": [
         "Transfert",
@@ -95,50 +92,68 @@
     },
     {
       "section": "avis_publics",
-      "section_label": "Avis publics",
-      "icon": "📋",
+      "section_label": "Avis publics — Autobus",
+      "icon": "🚌",
       "priority": "haute",
-      "title": "Renouvellement de permis — Transport urbain — Groupe Transit Estrie",
-      "description": "Renouvellement du permis de transport urbain pour la ville de Sherbrooke.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
-      "date_publie": "2026-03-07",
-      "hash_id": "jkl012",
+      "source": "rss",
+      "title": "Modification de territoire — Autobus Laurentides inc. — Ajout MRC des Laurentides",
+      "description": "Demande de modification du territoire d'exploitation. Ajout de la MRC des Laurentides au permis interurbain existant.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml",
+      "date_publie": "2026-03-08",
+      "hash_id": "rss_abc003",
       "is_new": false,
       "tags": [
-        "Urbain"
-      ]
-    },
-    {
-      "section": "calendrier_audiences",
-      "section_label": "Calendrier des audiences",
-      "icon": "🗓️",
-      "priority": "haute",
-      "title": "18 mars 2026 — Audience publique — Autobus Laurentides inc.",
-      "description": "Demande de modification du territoire d'exploitation — ajout MRC des Laurentides.",
-      "url": "https://www.ctq.gouv.qc.ca/la-commission/laudience/",
-      "date_publie": "2026-03-09",
-      "hash_id": "ghi789",
-      "is_new": true,
-      "tags": [
-        "Audience",
         "Modification territoire",
         "Interurbain"
       ]
     },
     {
+      "section": "avis_publics",
+      "section_label": "Avis publics — Courtage",
+      "icon": "📋",
+      "priority": "moyenne",
+      "source": "rss",
+      "title": "Renouvellement de permis de courtage — Zone Montréal — Transport en vrac",
+      "description": "Demande de renouvellement de permis de courtage en services de camionnage en vrac pour la zone de Montréal.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml",
+      "date_publie": "2026-03-07",
+      "hash_id": "rss_crt001",
+      "is_new": false,
+      "tags": [
+        "Courtage"
+      ]
+    },
+    {
+      "section": "actualites",
+      "section_label": "Erratum & Corrections",
+      "icon": "🔔",
+      "priority": "haute",
+      "source": "rss",
+      "title": "Erratum — Décision 2026 QCCTQ 0198 — Correction du territoire accordé",
+      "description": "La Commission rectifie la décision 2026 QCCTQ 0198 rendue le 14 février 2026. Correction du territoire d'exploitation accordé suite à une erreur matérielle.",
+      "url": "https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml",
+      "date_publie": "2026-03-09",
+      "hash_id": "rss_err001",
+      "is_new": true,
+      "tags": [
+        "Erratum"
+      ]
+    },
+    {
       "section": "calendrier_audiences",
       "section_label": "Calendrier des audiences",
       "icon": "🗓️",
       "priority": "haute",
-      "title": "25 mars 2026 — Audience — Suspension de permis — Transporteur XYZ",
-      "description": "Audience relative à une demande de suspension de permis pour non-conformité.",
+      "source": "html",
+      "title": "18 mars 2026 — Audience publique — Autobus Laurentides inc. — Modification territoire",
+      "description": "Audience publique à Québec. Demande de modification du territoire d'exploitation.",
       "url": "https://www.ctq.gouv.qc.ca/la-commission/laudience/",
-      "date_publie": "2026-03-06",
-      "hash_id": "mno345",
+      "date_publie": "2026-03-09",
+      "hash_id": "html_cal001",
       "is_new": false,
       "tags": [
         "Audience",
-        "Révocation"
+        "Modification territoire"
       ]
     },
     {
@@ -146,11 +161,12 @@
       "section_label": "Décisions rendues",
       "icon": "⚖️",
       "priority": "moyenne",
-      "title": "2026 QCCTQ 0231 — Permis accordé — Transport nolisé — Montérégie",
+      "source": "html",
+      "title": "2026 QCCTQ 0231 — Permis accordé — Transport nolisé — Montérégie, Estrie",
       "description": "La Commission accorde le permis de transport nolisé demandé. Territoire : Montérégie, Estrie.",
       "url": "https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/",
-      "date_publie": "2026-03-05",
-      "hash_id": "pqr678",
+      "date_publie": "2026-03-06",
+      "hash_id": "html_dec001",
       "is_new": false,
       "tags": [
         "Nouveau permis",
@@ -158,35 +174,32 @@
       ]
     },
     {
-      "section": "decisions",
-      "section_label": "Décisions rendues",
-      "icon": "⚖️",
-      "priority": "moyenne",
-      "title": "2026 QCCTQ 0228 — Refus de transfert — Transport interurbain",
-      "description": "La Commission refuse le transfert de permis interurbain en raison d'insuffisance de capitalisation.",
-      "url": "https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/",
-      "date_publie": "2026-03-04",
-      "hash_id": "stu901",
-      "is_new": false,
-      "tags": [
-        "Transfert",
-        "Interurbain"
-      ]
-    },
-    {
       "section": "actualites",
-      "section_label": "Actualités & dossiers prioritaires",
+      "section_label": "Actualités et dossiers prioritaires",
       "icon": "📢",
       "priority": "moyenne",
+      "source": "html",
       "title": "Indexation des tarifs au 1er avril 2026",
       "description": "La Commission procède à l'indexation annuelle des frais et droits payables conformément à la Loi sur l'administration financière.",
       "url": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/",
-      "date_publie": "2026-02-28",
-      "hash_id": "vwx234",
+      "date_publie": "2026-03-04",
+      "hash_id": "html_act001",
       "is_new": false,
       "tags": [
         "Tarification"
       ]
     }
+  ],
+  "summary": {
+    "avis_publics": 2,
+    "calendrier_audiences": 0,
+    "decisions": 0,
+    "actualites": 1
+  },
+  "rss_feeds": [
+    "autobus",
+    "courtage",
+    "ferroviaire",
+    "erratum"
   ]
 }

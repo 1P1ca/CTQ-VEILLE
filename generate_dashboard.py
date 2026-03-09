@@ -450,12 +450,17 @@ def build_dashboard(report: dict, history: list) -> str:
       </div>
 
       <div class="sidebar-panel">
-        <div class="sidebar-header">🔗 Liens directs CTQ</div>
+        <div class="sidebar-header">🔗 Sources CTQ</div>
         <div class="sidebar-body" style="font-size:12px;line-height:2;">
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">📋 Avis publics</a>
-          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🗓️ Calendrier audiences</a>
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">⚖️ Recherche décisions</a>
-          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">📢 Actualités</a>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Flux RSS officiels</div>
+          <a href="https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🚌 RSS Autobus</a>
+          <a href="https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">📋 RSS Courtage</a>
+          <a href="https://www.pes.ctq.gouv.qc.ca/rss/FERROVIAIR.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🚂 RSS Ferroviaire</a>
+          <a href="https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:8px;">🔔 RSS Erratum</a>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:4px;">Site CTQ</div>
+          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🗓️ Audiences</a>
+          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">⚖️ Décisions</a>
+          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">📢 Actualités</a>
           <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🚌 Permis autobus</a>
         </div>
       </div>

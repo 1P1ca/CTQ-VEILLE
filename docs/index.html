@@ -395,58 +395,67 @@
       <div class="sidebar-panel" style="border:1px solid rgba(232,75,28,0.35);">
         <div class="sidebar-header" style="background:rgba(232,75,28,0.12);color:#ff7f5c;">🔎 Lookup détenteur de permis</div>
         <div class="sidebar-body">
-          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.4;">Rechercher un transporteur directement dans le portail officiel CTQ (PES)</div>
-
-          <input type="text" id="lookupInput"
-            placeholder="Nom du transporteur ou # permis..."
-            style="width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;"
-            oninput="updateLookupLinks(this.value)"
-          >
-
-          <div style="display:grid;gap:6px;" id="lookupLinks">
-            <a id="lnkDossier"
-              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU"
-              target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(232,75,28,0.1);border:1px solid rgba(232,75,28,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(232,75,28,0.2)'" onmouseout="this.style.background='rgba(232,75,28,0.1)'">
-              <span style="font-size:16px;">🏢</span>
-              <div><div style="color:#ff7f5c;">Dossier entreprise / individu</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Tous permis du détenteur</div></div>
-              <span style="margin-left:auto;color:var(--muted);">↗</span>
-            </a>
-
-            <a id="lnkPermisNolise"
-              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU"
-              target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(59,130,246,0.2)'" onmouseout="this.style.background='rgba(59,130,246,0.1)'">
-              <span style="font-size:16px;">🚌</span>
-              <div><div style="color:#60a5fa;">Permis nolisé — Recherche</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Carte interactive des permis</div></div>
-              <span style="margin-left:auto;color:var(--muted);">↗</span>
-            </a>
-
-            <a id="lnkCote"
-              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/registrecote"
-              target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(16,185,129,0.2)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">
-              <span style="font-size:16px;">🛡️</span>
-              <div><div style="color:#34d399;">Cote de sécurité & registre</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Comportement des transporteurs</div></div>
-              <span style="margin-left:auto;color:var(--muted);">↗</span>
-            </a>
-
-            <a id="lnkAttestation"
-              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_RESTREINT_NIR_FR_MENU"
-              target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(139,92,246,0.2)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">
-              <span style="font-size:16px;">📜</span>
-              <div><div style="color:#a78bfa;">Attestation RPEVL par NIR</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Recherche par # NIR (R0000000)</div></div>
-              <span style="margin-left:auto;color:var(--muted);">↗</span>
-            </a>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+            Entrer un nom de transporteur — le nom sera <strong style="color:var(--text)">copié automatiquement</strong> dans le presse-papier avant l'ouverture du portail CTQ.
           </div>
 
-          <div id="lookupHint" style="display:none;margin-top:8px;font-size:10px;color:var(--muted);text-align:center;background:rgba(255,255,255,0.04);border-radius:4px;padding:6px;">
-            💡 Cliquer un bouton → le portail CTQ s'ouvre<br>Chercher "<span id="lookupTerm" style="color:#ff7f5c;font-weight:700;"></span>" dans le champ de recherche
+          <div style="position:relative;margin-bottom:10px;">
+            <input type="text" id="lookupInput"
+              placeholder="Ex: Autobus Ménard, Groupe Rive-Nord..."
+              style="width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;box-sizing:border-box;"
+              oninput="updateLookupLinks(this.value)"
+            >
+            <span id="copiedBadge" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#10B981;color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;">✓ COPIÉ</span>
+          </div>
+
+          <div style="display:grid;gap:6px;">
+
+            <button onclick="launchPortal('https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU', 'Nom du transporteur')"
+              style="display:flex;align-items:center;gap:8px;background:rgba(232,75,28,0.1);border:1px solid rgba(232,75,28,0.25);border-radius:6px;padding:9px 10px;cursor:pointer;color:var(--text);font-size:11px;font-weight:600;text-align:left;width:100%;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(232,75,28,0.22)'" onmouseout="this.style.background='rgba(232,75,28,0.1)'">
+              <span style="font-size:15px;">🏢</span>
+              <div style="flex:1;"><div style="color:#ff7f5c;">Dossier entreprise / individu</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Tous permis du détenteur — champ «Nom»</div></div>
+              <span style="color:var(--muted);font-size:13px;">↗</span>
+            </button>
+
+            <button onclick="launchPortal('https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU', 'Titulaire')"
+              style="display:flex;align-items:center;gap:8px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:9px 10px;cursor:pointer;color:var(--text);font-size:11px;font-weight:600;text-align:left;width:100%;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(59,130,246,0.22)'" onmouseout="this.style.background='rgba(59,130,246,0.1)'">
+              <span style="font-size:15px;">🚌</span>
+              <div style="flex:1;"><div style="color:#60a5fa;">Permis nolisé — carte interactive</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Territoires desservis — champ «Titulaire»</div></div>
+              <span style="color:var(--muted);font-size:13px;">↗</span>
+            </button>
+
+            <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/inscription-au-registre-nir-et-cote-de-securite/" target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(16,185,129,0.22)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">
+              <span style="font-size:15px;">🛡️</span>
+              <div style="flex:1;"><div style="color:#34d399;">NIR &amp; cote de sécurité</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Inscription, cote, réévaluation</div></div>
+              <span style="color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+            <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/registre-des-proprietaires-et-des-exploitants-de-vehicules-lourds/" target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(139,92,246,0.22)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">
+              <span style="font-size:15px;">📋</span>
+              <div style="flex:1;"><div style="color:#a78bfa;">Registre RPEVL</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Propriétaires et exploitants de véhicules lourds</div></div>
+              <span style="color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+            <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(251,146,60,0.22)'" onmouseout="this.style.background='rgba(251,146,60,0.1)'">
+              <span style="font-size:15px;">📄</span>
+              <div style="flex:1;"><div style="color:#fb923c;">Info permis d'autobus</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Catégories, transfert, renouvellement, révocation</div></div>
+              <span style="color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+          </div>
+
+          <!-- Toast de confirmation -->
+          <div id="lookupToast" style="display:none;margin-top:10px;border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.5;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#34d399;">
+            ✅ <strong id="toastName" style="color:white;"></strong> copié dans le presse-papier<br>
+            <span style="color:var(--muted);">Coller dans le champ <strong id="toastField" style="color:#34d399;"></strong> du portail CTQ</span>
           </div>
         </div>
       </div>

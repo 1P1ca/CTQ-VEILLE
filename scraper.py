@@ -29,13 +29,13 @@ HEADERS = {
 SECTIONS = {
     "avis_publics": {
         "label": "Avis publics",
-        "url": f"{BASE_URL}/services-en-ligne/avis-publics/",
+        "url": f"{BASE_URL}/services-en-ligne/",
         "icon": "📋",
         "priority": "haute",
     },
     "calendrier_audiences": {
         "label": "Calendrier des audiences",
-        "url": f"{BASE_URL}/la-commission/calendrier-des-audiences/",
+        "url": f"{BASE_URL}/la-commission/laudience/",
         "icon": "🗓️",
         "priority": "haute",
     },

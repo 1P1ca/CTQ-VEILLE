@@ -452,8 +452,8 @@ def build_dashboard(report: dict, history: list) -> str:
       <div class="sidebar-panel">
         <div class="sidebar-header">🔗 Liens directs CTQ</div>
         <div class="sidebar-body" style="font-size:12px;line-height:2;">
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/avis-publics/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">📋 Avis publics</a>
-          <a href="https://www.ctq.gouv.qc.ca/la-commission/calendrier-des-audiences/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🗓️ Calendrier audiences</a>
+          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">📋 Avis publics</a>
+          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🗓️ Calendrier audiences</a>
           <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">⚖️ Recherche décisions</a>
           <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">📢 Actualités</a>
           <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🚌 Permis autobus</a>

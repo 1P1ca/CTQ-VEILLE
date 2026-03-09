@@ -4,97 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CTQ Veille — Analytique des permis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --red:#E84B1C;--red2:#ff7f5c;
-  --dark1:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#242424;
-  --border:rgba(255,255,255,0.08);--text:#f0f0f0;--muted:#6b7280;--muted2:#9ca3af;
-}
+:root{--red:#E84B1C;--red2:#ff7f5c;--dark1:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#242424;--border:rgba(255,255,255,.08);--text:#f0f0f0;--muted:#6b7280;--muted2:#9ca3af}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
-.header{background:var(--dark2);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:100}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--red);letter-spacing:.5px;white-space:nowrap}
-.nav-sep{width:1px;height:24px;background:var(--border)}
+.header{background:var(--dark2);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:20px;height:52px;position:sticky;top:0;z-index:200}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--red);white-space:nowrap}
+.nav-sep{width:1px;height:22px;background:var(--border)}
 .nav-link{font-size:12px;font-weight:500;color:var(--muted2);text-decoration:none;padding:4px 10px;border-radius:5px;transition:all .15s;white-space:nowrap}
 .nav-link:hover{color:var(--text);background:var(--dark4)}
 .nav-link.active{color:var(--red2);background:rgba(232,75,28,.1)}
-.header-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-.badge-live{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--muted)}
-.dot-live{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.main{padding:28px 32px;max-width:1400px;margin:0 auto}
-.page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#f0f0f0,#9ca3af);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
-.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px}
-.kpi{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
-.kpi-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
-.kpi-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.8px}
-.kpi-delta{font-size:11px;font-weight:600;margin-top:6px}
+.main{padding:24px 28px;max-width:1440px;margin:0 auto}
+.page-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;background:linear-gradient(135deg,#f0f0f0,#9ca3af);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
+
+/* KPI */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.kpi{background:var(--dark2);border:1px solid var(--border);border-top:2px solid var(--accent,var(--red));border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .15s}
+.kpi:hover{border-color:var(--accent,var(--red));transform:translateY(-1px)}
+.kpi.active-kpi{background:rgba(232,75,28,.06);border-color:var(--accent,var(--red))}
+.kpi-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;margin-bottom:4px}
+.kpi-label{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.8px}
+.kpi-delta{font-size:10px;font-weight:600;margin-top:5px}
 .kpi-delta.up{color:#10B981}.kpi-delta.down{color:#EF4444}
-.section-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted2);margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
-.grid-3{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:16px;margin-bottom:28px}
-.grid-full{margin-bottom:28px}
+
+/* DRILL PANEL */
+.drill-panel{background:var(--dark2);border:1px solid rgba(232,75,28,.35);border-radius:12px;margin-bottom:24px;overflow:hidden;display:none}
+.drill-panel.visible{display:block;animation:slideIn .2s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.drill-header{padding:14px 20px;background:rgba(232,75,28,.07);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.drill-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--red2)}
+.drill-close{background:none;border:1px solid var(--border);color:var(--muted2);padding:4px 12px;border-radius:5px;cursor:pointer;font-size:11px;transition:all .15s}
+.drill-close:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.drill-body{display:grid;grid-template-columns:1fr 1.4fr;gap:0}
+.drill-stats{padding:18px;border-right:1px solid var(--border)}
+.drill-list{padding:18px;max-height:340px;overflow-y:auto}
+.drill-list::-webkit-scrollbar{width:4px}
+.drill-list::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
+.drill-stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
+.drill-stat-row:last-child{border-bottom:none}
+.drill-stat-label{color:var(--muted2)}
+.drill-stat-val{font-family:'DM Mono',monospace;font-weight:500;color:var(--text)}
+.drill-bar-row{margin-bottom:8px}
+.drill-bar-label{font-size:11px;color:var(--muted2);margin-bottom:3px;display:flex;justify-content:space-between}
+.drill-bar-track{height:6px;background:var(--dark4);border-radius:3px;overflow:hidden}
+.drill-bar-fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.grid-3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-bottom:24px}
+.grid-full{margin-bottom:24px}
+
+/* PANEL */
 .panel{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.panel-head{padding:14px 18px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.panel-head{padding:13px 16px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
 .panel-head .sub{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;color:var(--muted)}
-.panel-body{padding:18px}
-.donut-wrap{display:flex;align-items:center;gap:24px}
-.donut-svg{flex-shrink:0}
-.donut-legend{flex:1;display:flex;flex-direction:column;gap:7px}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:12px}
-.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.legend-name{flex:1;color:var(--muted2)}
-.legend-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
-.legend-pct{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);width:34px;text-align:right}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.bar-label{font-size:11px;color:var(--muted2);width:160px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-track{flex:1;height:8px;background:var(--dark4);border-radius:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.bar-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:40px;text-align:right;flex-shrink:0}
-.territory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.terr-cell{background:var(--dark3);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;position:relative;overflow:hidden;transition:border-color .2s}
-.terr-cell:hover{border-color:rgba(255,255,255,.18)}
-.terr-name{font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px}
-.terr-stats{display:flex;flex-direction:column;gap:3px}
-.terr-stat{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
-.terr-stat span{font-family:'DM Mono',monospace;color:var(--muted2)}
-.timeline{position:relative;padding-left:24px}
-.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),transparent)}
-.tl-item{position:relative;padding:12px 0 12px 20px;border-bottom:1px solid rgba(255,255,255,.04)}
+.panel-body{padding:16px}
+
+/* CHARTS */
+.donut-wrap{display:flex;align-items:center;gap:20px}
+.donut-legend{flex:1;display:flex;flex-direction:column;gap:5px}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:5px;transition:background .15s}
+.leg-item:hover{background:rgba(255,255,255,.04)}
+.leg-item.active-seg{background:rgba(232,75,28,.1)}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.leg-name{flex:1;color:var(--muted2);transition:color .15s}
+.leg-item:hover .leg-name,.leg-item.active-seg .leg-name{color:var(--text)}
+.leg-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-right:2px}
+.leg-pct{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);width:32px;text-align:right}
+
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;padding:3px 4px;border-radius:4px;transition:background .15s}
+.bar-row:hover{background:rgba(255,255,255,.04)}
+.bar-row.active-bar{background:rgba(232,75,28,.08)}
+.bar-label{font-size:11px;color:var(--muted2);width:150px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:7px;background:var(--dark4);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.bar-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:28px;text-align:right;flex-shrink:0}
+
+/* TERRITORY */
+.terr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.terr-cell{background:var(--dark3);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:9px 10px;cursor:pointer;transition:all .15s}
+.terr-cell:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px)}
+.terr-cell.active-terr{background:rgba(232,75,28,.06);border-color:var(--accent)}
+.terr-name{font-size:10px;font-weight:600;color:var(--text);margin-bottom:5px}
+.terr-row{display:flex;justify-content:space-between;font-size:9px;color:var(--muted)}
+.terr-row span{font-family:'DM Mono',monospace;color:var(--muted2)}
+
+/* MOVE GRID */
+.move-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.move-cell{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s}
+.move-cell:hover{border-color:rgba(255,255,255,.2);transform:translateY(-1px)}
+.move-cell.active-move{background:rgba(232,75,28,.08);border-color:var(--red)}
+.move-icon{font-size:20px;margin-bottom:5px}
+.move-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.move-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:2px}
+
+/* SPARKLINE */
+.spark-wrap{display:flex;align-items:flex-end;gap:2px;height:52px}
+.spark-bar{flex:1;border-radius:2px 2px 0 0;min-width:3px;cursor:pointer;transition:opacity .15s}
+.spark-bar:hover{opacity:1!important}
+
+/* TIMELINE */
+.tl-wrap{position:relative;padding-left:22px}
+.tl-wrap::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),transparent)}
+.tl-item{position:relative;padding:10px 0 10px 18px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s;border-radius:4px}
 .tl-item:last-child{border-bottom:none}
-.tl-dot{position:absolute;left:-24px;top:18px;width:12px;height:12px;border-radius:50%;border:2px solid var(--dark2)}
-.tl-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px}
-.tl-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.35}
-.tl-desc{font-size:11px;color:var(--muted2);line-height:1.4}
-.tl-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
-.tl-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 6px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--muted2)}
-.tl-tag.new{background:rgba(232,75,28,.15);color:#ff7f5c}
-.tl-tag.transfer{background:rgba(139,92,246,.15);color:#a78bfa}
-.tl-tag.modif{background:rgba(59,130,246,.15);color:#60a5fa}
-.tl-tag.decision{background:rgba(16,185,129,.15);color:#34d399}
-.tl-tag.revoke{background:rgba(239,68,68,.15);color:#f87171}
-.tl-tag.audience{background:rgba(245,158,11,.15);color:#fbbf24}
-.sparkline-wrap{display:flex;align-items:flex-end;gap:3px;height:60px}
-.spark-bar{flex:1;border-radius:2px 2px 0 0;min-width:4px;cursor:pointer;transition:opacity .15s}
-.move-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.move-cell{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
-.move-icon{font-size:22px;margin-bottom:6px}
-.move-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800}
-.move-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
-.filter-bar{display:flex;gap:6px;flex-wrap:wrap}
-.filter-chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s}
-.filter-chip:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
-.filter-chip.active{background:var(--red);border-color:var(--red);color:white}
-.scroll-panel{max-height:500px;overflow-y:auto}
-.scroll-panel::-webkit-scrollbar{width:4px}
-.scroll-panel::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
-@media(max-width:1100px){.grid-3{grid-template-columns:1fr 1fr}.kpi-strip{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:768px){.main{padding:16px}.grid-2,.grid-3{grid-template-columns:1fr}.kpi-strip{grid-template-columns:1fr 1fr}.territory-grid{grid-template-columns:repeat(2,1fr)}}
+.tl-item:hover{background:rgba(255,255,255,.03)}
+.tl-dot{position:absolute;left:-22px;top:16px;width:11px;height:11px;border-radius:50%;border:2px solid var(--dark2)}
+.tl-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:2px}
+.tl-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--muted2);line-height:1.35}
+.tl-tags{display:flex;gap:3px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--muted2)}
+.tag.n{background:rgba(232,75,28,.15);color:#ff7f5c}
+.tag.t{background:rgba(139,92,246,.15);color:#a78bfa}
+.tag.m{background:rgba(59,130,246,.15);color:#60a5fa}
+.tag.d{background:rgba(16,185,129,.15);color:#34d399}
+.tag.r{background:rgba(239,68,68,.15);color:#f87171}
+.tag.a{background:rgba(245,158,11,.15);color:#fbbf24}
+.tag.c{background:rgba(251,191,36,.15);color:#fde68a}
+
+/* FILTER CHIPS */
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10px;font-weight:600;padding:3px 9px;border-radius:15px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s}
+.chip:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.chip.active{background:var(--red);border-color:var(--red);color:white}
+
+.scroll{max-height:460px;overflow-y:auto}
+.scroll::-webkit-scrollbar{width:4px}
+.scroll::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
+
+/* SECTION TITLE */
+.sec{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted2);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+
+@media(max-width:1100px){.grid-3{grid-template-columns:1fr 1fr}.kpi-strip{grid-template-columns:repeat(3,1fr)}.terr-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.main{padding:14px}.grid-2,.grid-3{grid-template-columns:1fr}.kpi-strip{grid-template-columns:1fr 1fr}.terr-grid{grid-template-columns:1fr 1fr}.drill-body{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -103,269 +152,474 @@ body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="nav-sep"></div>
   <a href="index.html" class="nav-link">📋 Tableau de bord</a>
   <a href="analytics.html" class="nav-link active">📊 Analytique</a>
-  <div class="header-right">
-    <div class="badge-live"><div class="dot-live"></div>Données RSS en temps réel</div>
-    <span id="headerDate" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)"></span>
+  <div class="hdr-right">
+    <span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span class="dot-live"></span>RSS en temps réel</span>
+    <span id="hdrDate" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)"></span>
   </div>
 </header>
 
 <main class="main">
   <div class="page-title">Analytique des permis CTQ</div>
-  <div class="page-sub">Distribution par catégorie · Activité par territoire · Historique des mouvements</div>
+  <div class="page-sub">Cliquer sur n'importe quel élément pour explorer les données en détail</div>
 
+  <!-- KPIs -->
   <div class="kpi-strip">
-    <div class="kpi" style="--accent:#E84B1C"><div class="kpi-val">247</div><div class="kpi-label">Avis actifs (90j)</div><div class="kpi-delta up">▲ 12 ce mois</div></div>
-    <div class="kpi" style="--accent:#8B5CF6"><div class="kpi-val">89</div><div class="kpi-label">Transferts (90j)</div><div class="kpi-delta up">▲ 7 ce mois</div></div>
-    <div class="kpi" style="--accent:#10B981"><div class="kpi-val">34</div><div class="kpi-label">Nouveaux permis (90j)</div><div class="kpi-delta down">▼ 3 vs mois passé</div></div>
-    <div class="kpi" style="--accent:#3B82F6"><div class="kpi-val">56</div><div class="kpi-label">Modif. territoire (90j)</div><div class="kpi-delta up">▲ 9 ce mois</div></div>
-    <div class="kpi" style="--accent:#EF4444"><div class="kpi-val">11</div><div class="kpi-label">Révocations (90j)</div><div class="kpi-delta down">▼ 2 ce mois</div></div>
+    <div class="kpi" style="--accent:#E84B1C" onclick="drillKpi('all',this)"><div class="kpi-val">247</div><div class="kpi-label">Avis actifs (90j)</div><div class="kpi-delta up">▲ 12 ce mois</div></div>
+    <div class="kpi" style="--accent:#8B5CF6" onclick="drillKpi('transfert',this)"><div class="kpi-val">89</div><div class="kpi-label">Transferts (90j)</div><div class="kpi-delta up">▲ 7 ce mois</div></div>
+    <div class="kpi" style="--accent:#10B981" onclick="drillKpi('nouveau',this)"><div class="kpi-val">34</div><div class="kpi-label">Nouveaux permis (90j)</div><div class="kpi-delta down">▼ 3 vs mois passé</div></div>
+    <div class="kpi" style="--accent:#3B82F6" onclick="drillKpi('modif',this)"><div class="kpi-val">56</div><div class="kpi-label">Modif. territoire (90j)</div><div class="kpi-delta up">▲ 9 ce mois</div></div>
+    <div class="kpi" style="--accent:#EF4444" onclick="drillKpi('revoke',this)"><div class="kpi-val">11</div><div class="kpi-label">Révocations (90j)</div><div class="kpi-delta down">▼ 2 ce mois</div></div>
   </div>
 
-  <div class="section-title">Distribution par type de permis</div>
+  <!-- DRILL PANEL -->
+  <div class="drill-panel" id="drillPanel">
+    <div class="drill-header">
+      <div class="drill-title" id="drillTitle">Détail</div>
+      <button class="drill-close" onclick="closeDrill()">✕ Fermer</button>
+    </div>
+    <div class="drill-body">
+      <div class="drill-stats" id="drillStats"></div>
+      <div class="drill-list scroll" id="drillList"></div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Donut + Bar -->
+  <div class="sec">Distribution par type de permis</div>
   <div class="grid-2">
     <div class="panel">
-      <div class="panel-head">Répartition des avis publics par catégorie <span class="sub">90 derniers jours</span></div>
-      <div class="panel-body"><div class="donut-wrap"><svg class="donut-svg" width="160" height="160" viewBox="0 0 160 160" id="donutSvg"></svg><div class="donut-legend" id="donutLegend"></div></div></div>
+      <div class="panel-head">Répartition des avis par catégorie <span class="sub">90 jours — cliquer une tranche</span></div>
+      <div class="panel-body"><div class="donut-wrap"><svg width="150" height="150" viewBox="0 0 150 150" id="donutSvg"></svg><div class="donut-legend" id="donutLeg"></div></div></div>
     </div>
     <div class="panel">
-      <div class="panel-head">Volume par type de permis <span class="sub">Demandes reçues</span></div>
-      <div class="panel-body" id="barChartPermis"></div>
+      <div class="panel-head">Volume par type de permis <span class="sub">Cliquer une barre</span></div>
+      <div class="panel-body" id="barChart"></div>
     </div>
   </div>
 
-  <div class="section-title">Types de mouvements</div>
+  <!-- ROW 2: Move + Trend + Delai -->
+  <div class="sec">Types de mouvements</div>
   <div class="grid-3">
     <div class="panel">
-      <div class="panel-head">Catégories de mouvement <span class="sub">Distribution</span></div>
+      <div class="panel-head">Catégories <span class="sub">Cliquer pour filtrer</span></div>
       <div class="panel-body"><div class="move-grid" id="moveGrid"></div></div>
     </div>
     <div class="panel">
-      <div class="panel-head">Tendance mensuelle <span class="sub">12 mois</span></div>
+      <div class="panel-head">Tendance 12 mois <span class="sub">Survoler une barre</span></div>
       <div class="panel-body">
         <div id="trendChart"></div>
-        <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)" id="trendLabels"></div>
+        <div id="trendLabels" style="display:flex;justify-content:space-between;margin-top:5px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)"></div>
+        <div id="trendTip" style="font-size:11px;color:var(--muted2);margin-top:8px;min-height:16px;text-align:center"></div>
       </div>
     </div>
     <div class="panel">
-      <div class="panel-head">Délai moyen traitement <span class="sub">Par catégorie (jours)</span></div>
+      <div class="panel-head">Délai moyen traitement <span class="sub">Jours — cliquer</span></div>
       <div class="panel-body" id="delaiChart"></div>
     </div>
   </div>
 
-  <div class="section-title">Activité par territoire</div>
+  <!-- ROW 3: Territory -->
+  <div class="sec">Activité par territoire</div>
   <div class="grid-full">
     <div class="panel">
-      <div class="panel-head">Régions administratives — Volume d'avis <span class="sub">90 jours</span></div>
-      <div class="panel-body"><div class="territory-grid" id="territoryGrid"></div></div>
+      <div class="panel-head">Régions administratives <span class="sub">Cliquer une région pour explorer</span></div>
+      <div class="panel-body"><div class="terr-grid" id="terrGrid"></div></div>
     </div>
   </div>
 
-  <div class="section-title">Historique des mouvements</div>
+  <!-- ROW 4: Timelines -->
+  <div class="sec">Historique des mouvements</div>
   <div class="grid-2">
     <div class="panel">
       <div class="panel-head">
-        Fil chronologique — tous types
-        <div class="filter-bar" id="tlFilter">
-          <div class="filter-chip active" onclick="filterTl('all',this)">Tous</div>
-          <div class="filter-chip" onclick="filterTl('nouveau',this)">Nouveaux</div>
-          <div class="filter-chip" onclick="filterTl('transfert',this)">Transferts</div>
-          <div class="filter-chip" onclick="filterTl('modif',this)">Modif.</div>
-          <div class="filter-chip" onclick="filterTl('decision',this)">Décisions</div>
+        Fil chronologique
+        <div class="chips" id="tlChips">
+          <div class="chip active" onclick="filterTl('all',this)">Tous</div>
+          <div class="chip" onclick="filterTl('nouveau',this)">Nouveaux</div>
+          <div class="chip" onclick="filterTl('transfert',this)">Transferts</div>
+          <div class="chip" onclick="filterTl('modif',this)">Modif.</div>
+          <div class="chip" onclick="filterTl('decision',this)">Décisions</div>
+          <div class="chip" onclick="filterTl('revoke',this)">Révocations</div>
         </div>
       </div>
-      <div class="panel-body scroll-panel"><div class="timeline" id="timeline"></div></div>
+      <div class="panel-body scroll"><div class="tl-wrap" id="tl1"></div></div>
     </div>
     <div class="panel">
-      <div class="panel-head">Surveillance concurrentielle — Focus nolisé &amp; scolaire <span class="sub">Mouvements relatifs à Groupe Ménard</span></div>
-      <div class="panel-body scroll-panel"><div class="timeline" id="timelineMenard"></div></div>
+      <div class="panel-head">Focus Groupe Ménard <span class="sub">Surveillance concurrentielle</span></div>
+      <div class="panel-body scroll"><div class="tl-wrap" id="tl2"></div></div>
     </div>
   </div>
 </main>
 
+<!-- ITEM MODAL -->
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--dark2);border:1px solid rgba(232,75,28,.4);border-radius:14px;max-width:560px;width:100%;overflow:hidden;animation:slideIn .2s ease">
+    <div style="padding:16px 20px;background:rgba(232,75,28,.07);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--red2)" id="modalTitle"></div>
+      <button onclick="closeModal()" style="background:none;border:1px solid var(--border);color:var(--muted2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px">✕</button>
+    </div>
+    <div style="padding:20px" id="modalBody"></div>
+  </div>
+</div>
+
 <script>
-const PERMIT_TYPES=[
-  {name:"Transport scolaire",val:68,color:"#3B82F6",short:"Scolaire"},
-  {name:"Nolisé",val:54,color:"#E84B1C",short:"Nolisé"},
-  {name:"Interurbain",val:41,color:"#8B5CF6",short:"Interurbain"},
-  {name:"Urbain",val:28,color:"#10B981",short:"Urbain"},
-  {name:"Touristique",val:22,color:"#F59E0B",short:"Touristique"},
-  {name:"Camionnage en vrac",val:18,color:"#D97706",short:"Vrac"},
-  {name:"Aéroportuaire",val:8,color:"#06B6D4",short:"Aérop."},
-  {name:"Maritime",val:5,color:"#0EA5E9",short:"Maritime"},
-  {name:"Ferroviaire",val:3,color:"#6366F1",short:"Ferrov."},
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const PT=[
+  {id:'scolaire',name:'Transport scolaire',val:68,color:'#3B82F6',short:'Scolaire'},
+  {id:'nolise',name:'Nolisé',val:54,color:'#E84B1C',short:'Nolisé'},
+  {id:'interurbain',name:'Interurbain',val:41,color:'#8B5CF6',short:'Interurbain'},
+  {id:'urbain',name:'Urbain',val:28,color:'#10B981',short:'Urbain'},
+  {id:'touristique',name:'Touristique',val:22,color:'#F59E0B',short:'Touristique'},
+  {id:'vrac',name:'Camionnage en vrac',val:18,color:'#D97706',short:'Vrac'},
+  {id:'aeroportuaire',name:'Aéroportuaire',val:8,color:'#06B6D4',short:'Aérop.'},
+  {id:'maritime',name:'Maritime',val:5,color:'#0EA5E9',short:'Maritime'},
+  {id:'ferroviaire',name:'Ferroviaire',val:3,color:'#6366F1',short:'Ferrov.'},
 ];
-const MOVE_TYPES=[
-  {icon:"🆕",val:34,label:"Nouveaux",color:"#E84B1C"},
-  {icon:"🔄",val:89,label:"Transferts",color:"#8B5CF6"},
-  {icon:"🗺️",val:56,label:"Modif. terr.",color:"#3B82F6"},
-  {icon:"✅",val:47,label:"Décisions +",color:"#10B981"},
-  {icon:"❌",val:11,label:"Révocations",color:"#EF4444"},
-  {icon:"🔁",val:10,label:"Renouvellements",color:"#F59E0B"},
+const MV=[
+  {id:'nouveau',icon:'🆕',val:34,label:'Nouveaux',color:'#E84B1C',tag:'n'},
+  {id:'transfert',icon:'🔄',val:89,label:'Transferts',color:'#8B5CF6',tag:'t'},
+  {id:'modif',icon:'🗺️',val:56,label:'Modif. terr.',color:'#3B82F6',tag:'m'},
+  {id:'decision',icon:'✅',val:47,label:'Décisions +',color:'#10B981',tag:'d'},
+  {id:'revoke',icon:'❌',val:11,label:'Révocations',color:'#EF4444',tag:'r'},
+  {id:'audience',icon:'🎤',val:10,label:'Audiences',color:'#F59E0B',tag:'a'},
 ];
-const TREND_MONTHS=["Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc","Jan","Fév","Mar"];
-const TREND_VALS=[18,22,19,25,21,30,27,24,32,29,35,38];
-const DELAI_DATA=[
-  {label:"Vrac",jours:19,color:"#D97706"},
-  {label:"Nolisé",jours:28,color:"#E84B1C"},
-  {label:"Scolaire",jours:42,color:"#3B82F6"},
-  {label:"Interurbain",jours:55,color:"#8B5CF6"},
-  {label:"Maritime",jours:67,color:"#0EA5E9"},
+const TREND_M=['Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc','Jan','Fév','Mar'];
+const TREND_V=[18,22,19,25,21,30,27,24,32,29,35,38];
+const DELAI=[
+  {id:'vrac',label:'Vrac',jours:19,color:'#D97706'},
+  {id:'nolise',label:'Nolisé',jours:28,color:'#E84B1C'},
+  {id:'scolaire',label:'Scolaire',jours:42,color:'#3B82F6'},
+  {id:'interurbain',label:'Interurbain',jours:55,color:'#8B5CF6'},
+  {id:'maritime',label:'Maritime',jours:67,color:'#0EA5E9'},
 ];
-const TERRITORIES=[
-  {name:"Montréal / Laval",avis:74,transferts:28,nouveaux:12,color:"#E84B1C"},
-  {name:"Montérégie",avis:42,transferts:18,nouveaux:8,color:"#3B82F6"},
-  {name:"Laurentides",avis:38,transferts:15,nouveaux:5,color:"#8B5CF6"},
-  {name:"Capitale-Nationale",avis:31,transferts:12,nouveaux:4,color:"#10B981"},
-  {name:"Lanaudière",avis:27,transferts:9,nouveaux:3,color:"#F59E0B"},
-  {name:"Estrie",avis:18,transferts:7,nouveaux:2,color:"#06B6D4"},
-  {name:"Chaudière-Appalaches",avis:15,transferts:5,nouveaux:2,color:"#A78BFA"},
-  {name:"Outaouais",avis:12,transferts:4,nouveaux:1,color:"#34D399"},
-  {name:"Mauricie / C.-du-Québec",avis:11,transferts:4,nouveaux:1,color:"#FBBF24"},
-  {name:"Saguenay–Lac-Saint-Jean",avis:8,transferts:3,nouveaux:1,color:"#F87171"},
-  {name:"Bas-Saint-Laurent",avis:7,transferts:2,nouveaux:1,color:"#60A5FA"},
-  {name:"Nord-du-Québec / Abitibi",avis:6,transferts:2,nouveaux:1,color:"#C084FC"},
-];
-const ALL_TIMELINE=[
-  {date:"2026-03-09",title:"Demande de permis nolisé — Autobus Laval Express inc.",desc:"Territoire : Laval, Montréal, Lanaudière. Audience si opposition dans 20 jours.",tags:["nouveau","Nolisé","Nouveau permis"]},
-  {date:"2026-03-09",title:"Erratum — Décision 2026 QCCTQ 0198 — Correction territoire",desc:"Correction du territoire d'exploitation accordé suite à erreur matérielle.",tags:["modif","Erratum"]},
-  {date:"2026-03-08",title:"Transfert — Transport scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord",desc:"Commission scolaire des Affluents, territoire de Terrebonne.",tags:["transfert","Transport scolaire"]},
-  {date:"2026-03-08",title:"Modification territoire — Autobus Laurentides inc. — Ajout MRC Laurentides",desc:"Demande de modification du territoire d'exploitation. Permis interurbain existant.",tags:["modif","Modification territoire","Interurbain"]},
-  {date:"2026-03-07",title:"Renouvellement permis de courtage — Zone Montréal",desc:"Renouvellement pour transport en vrac, zone métropolitaine.",tags:["autre","Courtage"]},
-  {date:"2026-03-06",title:"Décision 2026 QCCTQ 0231 — Permis accordé — Nolisé Montérégie, Estrie",desc:"La Commission accorde le permis de transport nolisé demandé.",tags:["decision","Nolisé","Nouveau permis"]},
-  {date:"2026-03-05",title:"Révocation — Permis interurbain — Les Autobus Laurier inc.",desc:"Révocation suite à non-conformité répétée avec les conditions du permis.",tags:["revoke","Révocation","Interurbain"]},
-  {date:"2026-03-04",title:"Décision 2026 QCCTQ 0228 — Transfert autorisé — Scolaire Outaouais",desc:"Transfert de permis de transport d'élèves approuvé. Nouveau détenteur : Transport Gilles Beauchamp inc.",tags:["transfert","decision","Transport scolaire"]},
-  {date:"2026-03-03",title:"Demande nouveau permis nolisé — Autobus Beauce-Appalaches ltée",desc:"Territoire visé : Beauce, Chaudière-Appalaches, Québec (ville).",tags:["nouveau","Nolisé","Nouveau permis"]},
-  {date:"2026-02-28",title:"Audience publique — 18 mars 2026 — Autobus Laurentides inc.",desc:"Modification du territoire. Audience à Québec, salle 4.02.",tags:["audience","Audience","Modification territoire"]},
-  {date:"2026-02-27",title:"Décision 2026 QCCTQ 0219 — Permis accordé — Urbain Longueuil",desc:"Permis de transport urbain accordé pour le territoire de Longueuil.",tags:["decision","Urbain","Nouveau permis"]},
-  {date:"2026-02-26",title:"Transfert permis nolisé — Autobus Charron → Groupe Ménard Mobilité",desc:"Transfert de permis de transport nolisé. Territoire : Laurentides, Lanaudière.",tags:["transfert","Nolisé"]},
-  {date:"2026-02-24",title:"Indexation tarifaire — 1er avril 2026 — Tous permis autobus",desc:"Indexation des frais et droits payables. Taux : 3,2% (IPC annuel).",tags:["autre","Tarification"]},
-  {date:"2026-02-20",title:"Nouveau permis — Autobus touristique — Montréal Old-Port Express inc.",desc:"Permis touristique accordé, circuits Vieux-Montréal et Plateau-Mont-Royal.",tags:["nouveau","Touristique","Nouveau permis"]},
-  {date:"2026-02-18",title:"Transfert — Transport scolaire — Commission scolaire des Riverains",desc:"Transfert suite à consolidation opérationnelle. Cédant : Autobus Bouchard inc.",tags:["transfert","Transport scolaire"]},
-];
-const MENARD_TIMELINE=[
-  {date:"2026-03-08",title:"Transfert actif — Scolaire Terrebonne → Groupe Rive-Nord",desc:"Commission scolaire des Affluents. Audience non requise (pas d'opposition).",tags:["transfert","Transport scolaire"]},
-  {date:"2026-02-26",title:"Transfert nolisé — Autobus Charron → Groupe Ménard Mobilité",desc:"Transfert de permis de transport nolisé. Laurentides, Lanaudière.",tags:["transfert","Nolisé"]},
-  {date:"2026-02-10",title:"Audience — Demande nolisé — Montérégie / Estrie",desc:"Audience publique tenue le 10 février. Décision réservée.",tags:["audience","Nolisé"]},
-  {date:"2026-01-28",title:"Demande nolisé — Autobus Laurier Express — Montérégie, Estrie",desc:"Nouveau dossier déposé à la CTQ. Concurrents : Autobus Bourassa inc., Groupe Ménard.",tags:["nouveau","Nolisé","Concurrent"]},
-  {date:"2026-01-15",title:"Décision 2026 QCCTQ 0141 — Modification territoire interurbain accordée",desc:"Extension vers Laurentides-Nord accordée à Autobus Ménard ltée.",tags:["decision","Interurbain","Modification territoire"]},
-  {date:"2025-12-12",title:"Transfert refusé — Permis scolaire — Basses-Laurentides",desc:"Commission refuse le transfert. Défaillance aux conditions de service.",tags:["revoke","Transport scolaire"]},
-  {date:"2025-11-20",title:"Renouvellement permis interurbain — Autobus Ménard ltée",desc:"Renouvellement accordé pour 5 ans. Conditions: maintien de la fréquence minimale.",tags:["autre","Interurbain"]},
-  {date:"2025-10-08",title:"Demande nolisé concurrent — Laurentides sud",desc:"Dépôt d'une demande de permis nolisé par un concurrent. Territoire chevauche Ménard.",tags:["nouveau","Nolisé","Concurrent"]},
+const TERR=[
+  {id:'mtl',name:'Montréal / Laval',avis:74,transferts:28,nouveaux:12,color:'#E84B1C',desc:'Territoire le plus actif. Forte concentration de permis nolisés et urbains.'},
+  {id:'mont',name:'Montérégie',avis:42,transferts:18,nouveaux:8,color:'#3B82F6',desc:'Activité soutenue, beaucoup de transferts scolaires.'},
+  {id:'laur',name:'Laurentides',avis:38,transferts:15,nouveaux:5,color:'#8B5CF6',desc:'Zone en consolidation — plusieurs permis nolisés récents.'},
+  {id:'qc',name:'Capitale-Nationale',avis:31,transferts:12,nouveaux:4,color:'#10B981',desc:'Activité stable. Audiences fréquentes à Québec.'},
+  {id:'lan',name:'Lanaudière',avis:27,transferts:9,nouveaux:3,color:'#F59E0B',desc:'Transferts scolaires dominants.'},
+  {id:'est',name:'Estrie',avis:18,transferts:7,nouveaux:2,color:'#06B6D4',desc:'Permis interurbains et nolisés.'},
+  {id:'cha',name:'Chaudière-Appalaches',avis:15,transferts:5,nouveaux:2,color:'#A78BFA',desc:'Activité modérée, nolisé en hausse.'},
+  {id:'out',name:'Outaouais',avis:12,transferts:4,nouveaux:1,color:'#34D399',desc:'Marché stable, peu de nouveaux entrants.'},
+  {id:'mau',name:'Mauricie / C.-du-Qc',avis:11,transferts:4,nouveaux:1,color:'#FBBF24',desc:'Activité faible, surtout scolaire.'},
+  {id:'sag',name:'Saguenay–LSJ',avis:8,transferts:3,nouveaux:1,color:'#F87171',desc:'Marché local, peu de concurrence.'},
+  {id:'bas',name:'Bas-Saint-Laurent',avis:7,transferts:2,nouveaux:1,color:'#60A5FA',desc:'Activité très faible.'},
+  {id:'nor',name:'Nord-du-Qc / Abitibi',avis:6,transferts:2,nouveaux:1,color:'#C084FC',desc:'Territoire vaste, faible densité d\'activité.'},
 ];
 
+const ITEMS=[
+  {id:1,date:'2026-03-09',type:'nouveau',cat:'nolise',terr:'mtl',title:'Demande permis nolisé — Autobus Laval Express inc.',desc:'Territoire : Laval, Montréal, Lanaudière. Audience si opposition dans 20 jours.',detenteur:'Autobus Laval Express inc.',no_permis:'N/A — en demande',tags:['n','Nolisé','Nouveau permis'],color:'#E84B1C'},
+  {id:2,date:'2026-03-09',type:'modif',cat:'nolise',terr:'mtl',title:'Erratum — Décision 2026 QCCTQ 0198 — Correction territoire',desc:'Correction du territoire d\'exploitation accordé suite à erreur matérielle.',detenteur:'Non divulgué',no_permis:'2026 QCCTQ 0198',tags:['m','Erratum'],color:'#3B82F6'},
+  {id:3,date:'2026-03-08',type:'transfert',cat:'scolaire',terr:'lan',title:'Transfert — Scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord',desc:'Commission scolaire des Affluents, territoire de Terrebonne.',detenteur:'Autobus Tremblay & Fils (cédant) / Groupe Rive-Nord 2025 (cessionnaire)',no_permis:'SC-TER-2019-004',tags:['t','Transport scolaire'],color:'#8B5CF6'},
+  {id:4,date:'2026-03-08',type:'modif',cat:'interurbain',terr:'laur',title:'Modification territoire — Autobus Laurentides inc. — Ajout MRC Laurentides',desc:'Demande de modification du territoire d\'exploitation. Permis interurbain existant.',detenteur:'Autobus Laurentides inc.',no_permis:'IU-LAU-2015-011',tags:['m','Modification territoire','Interurbain'],color:'#3B82F6'},
+  {id:5,date:'2026-03-07',type:'autre',cat:'vrac',terr:'mtl',title:'Renouvellement permis de courtage — Zone Montréal',desc:'Renouvellement pour transport en vrac, zone métropolitaine.',detenteur:'Courtage Métro Transport inc.',no_permis:'CV-MTL-2021-002',tags:['Courtage'],color:'#D97706'},
+  {id:6,date:'2026-03-06',type:'decision',cat:'nolise',terr:'mont',title:'Décision 2026 QCCTQ 0231 — Permis accordé — Nolisé Montérégie, Estrie',desc:'La Commission accorde le permis de transport nolisé demandé.',detenteur:'Transport Beauchemin Nolisé ltée',no_permis:'NO-MON-2026-018',tags:['d','Nolisé','Nouveau permis'],color:'#10B981'},
+  {id:7,date:'2026-03-05',type:'revoke',cat:'interurbain',terr:'mtl',title:'Révocation — Permis interurbain — Les Autobus Laurier inc.',desc:'Révocation suite à non-conformité répétée avec les conditions du permis.',detenteur:'Les Autobus Laurier inc.',no_permis:'IU-MTL-2018-007',tags:['r','Révocation','Interurbain'],color:'#EF4444'},
+  {id:8,date:'2026-03-04',type:'decision',cat:'scolaire',terr:'out',title:'Décision 2026 QCCTQ 0228 — Transfert autorisé — Scolaire Outaouais',desc:'Transfert de permis de transport d\'élèves approuvé. Nouveau détenteur : Transport Gilles Beauchamp inc.',detenteur:'Transport Gilles Beauchamp inc.',no_permis:'SC-OUT-2017-003',tags:['t','d','Transport scolaire'],color:'#10B981'},
+  {id:9,date:'2026-03-03',type:'nouveau',cat:'nolise',terr:'cha',title:'Demande nouveau permis nolisé — Autobus Beauce-Appalaches ltée',desc:'Territoire visé : Beauce, Chaudière-Appalaches, Québec (ville).',detenteur:'Autobus Beauce-Appalaches ltée',no_permis:'N/A — en demande',tags:['n','Nolisé','Nouveau permis'],color:'#E84B1C'},
+  {id:10,date:'2026-02-28',type:'audience',cat:'interurbain',terr:'laur',title:'Audience — 18 mars 2026 — Autobus Laurentides inc.',desc:'Modification du territoire. Audience à Québec, salle 4.02.',detenteur:'Autobus Laurentides inc.',no_permis:'IU-LAU-2015-011',tags:['a','Audience','Modification territoire'],color:'#F59E0B'},
+  {id:11,date:'2026-02-27',type:'decision',cat:'urbain',terr:'mont',title:'Décision 2026 QCCTQ 0219 — Permis accordé — Urbain Longueuil',desc:'Permis de transport urbain accordé pour le territoire de Longueuil.',detenteur:'Transport Longueuil Express inc.',no_permis:'UR-MON-2026-005',tags:['d','Urbain','Nouveau permis'],color:'#10B981'},
+  {id:12,date:'2026-02-26',type:'transfert',cat:'nolise',terr:'laur',title:'Transfert permis nolisé — Autobus Charron → Groupe Ménard Mobilité',desc:'Transfert de permis de transport nolisé. Territoire : Laurentides, Lanaudière.',detenteur:'Groupe Ménard Mobilité (cessionnaire)',no_permis:'NO-LAU-2020-014',tags:['t','Nolisé'],color:'#8B5CF6'},
+  {id:13,date:'2026-02-24',type:'autre',cat:'nolise',terr:'mtl',title:'Indexation tarifaire — 1er avril 2026',desc:'Indexation des frais et droits payables. Taux : 3,2% (IPC annuel).',detenteur:'Tous détenteurs',no_permis:'—',tags:['Tarification'],color:'#6b7280'},
+  {id:14,date:'2026-02-20',type:'nouveau',cat:'touristique',terr:'mtl',title:'Nouveau permis touristique — Montréal Old-Port Express inc.',desc:'Circuits Vieux-Montréal et Plateau-Mont-Royal.',detenteur:'Montréal Old-Port Express inc.',no_permis:'TO-MTL-2026-003',tags:['n','Touristique','Nouveau permis'],color:'#E84B1C'},
+  {id:15,date:'2026-02-18',type:'transfert',cat:'scolaire',terr:'mont',title:'Transfert — Transport scolaire — Commission scolaire des Riverains',desc:'Transfert suite à consolidation opérationnelle. Cédant : Autobus Bouchard inc.',detenteur:'Transport Bouchard-Dufresne inc.',no_permis:'SC-MON-2016-008',tags:['t','Transport scolaire'],color:'#8B5CF6'},
+  {id:16,date:'2026-02-15',type:'modif',cat:'nolise',terr:'est',title:'Modification territoire — Transport nolisé Beauce — Extension Estrie',desc:'Ajout de la région de l\'Estrie au territoire d\'exploitation existant.',detenteur:'Transport nolisé Beauce inc.',no_permis:'NO-EST-2019-006',tags:['m','Nolisé','Modification territoire'],color:'#3B82F6'},
+  {id:17,date:'2026-02-10',type:'audience',cat:'nolise',terr:'mont',title:'Audience — Demande nolisé — Autobus Laurier Express — Montérégie, Estrie',desc:'Audience publique tenue le 10 février. Décision réservée.',detenteur:'Autobus Laurier Express ltée',no_permis:'N/A — en demande',tags:['a','Nolisé'],color:'#F59E0B'},
+  {id:18,date:'2026-01-28',type:'nouveau',cat:'nolise',terr:'mont',title:'Nouvelle demande nolisé — Autobus Laurier Express — Montérégie, Estrie',desc:'Concurrent de Groupe Ménard sur ce territoire.',detenteur:'Autobus Laurier Express ltée',no_permis:'N/A — en demande',tags:['n','Nolisé','Concurrent'],color:'#E84B1C'},
+  {id:19,date:'2026-01-15',type:'decision',cat:'interurbain',terr:'laur',title:'Décision 2026 QCCTQ 0141 — Modification territoire interurbain — Ménard',desc:'Extension Laurentides-Nord accordée à Autobus Ménard ltée.',detenteur:'Autobus Ménard ltée',no_permis:'IU-LAU-2012-003',tags:['d','Interurbain','Modification territoire'],color:'#10B981'},
+  {id:20,date:'2025-12-12',type:'revoke',cat:'scolaire',terr:'laur',title:'Transfert refusé — Permis scolaire — Basses-Laurentides',desc:'Commission refuse le transfert. Défaillance aux conditions de service.',detenteur:'Demandeur non divulgué',no_permis:'SC-LAU-2020-009',tags:['r','Transport scolaire'],color:'#EF4444'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let activeDrill=null;
+
+// ── DONUT ─────────────────────────────────────────────────────────────────────
 function buildDonut(){
-  const total=PERMIT_TYPES.reduce((s,p)=>s+p.val,0);
-  const cx=80,cy=80,r=58,iR=38;
+  const total=PT.reduce((s,p)=>s+p.val,0);
+  const cx=75,cy=75,r=55,iR=35;
   let a=-Math.PI/2,paths='';
-  PERMIT_TYPES.forEach(p=>{
+  PT.forEach(p=>{
     const pct=p.val/total,a2=a+pct*2*Math.PI,laf=pct>.5?1:0;
-    const x1=cx+r*Math.cos(a),y1=cy+r*Math.sin(a),x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
-    const x3=cx+iR*Math.cos(a2),y3=cy+iR*Math.sin(a2),x4=cx+iR*Math.cos(a),y4=cy+iR*Math.sin(a);
-    paths+=`<path d="M${x1},${y1} A${r},${r} 0 ${laf},1 ${x2},${y2} L${x3},${y3} A${iR},${iR} 0 ${laf},0 ${x4},${y4} Z" fill="${p.color}" opacity=".82" style="cursor:pointer;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.82"><title>${p.name}: ${p.val} (${(pct*100).toFixed(1)}%)</title></path>`;
+    const x1=cx+r*Math.cos(a),y1=cy+r*Math.sin(a);
+    const x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+    const x3=cx+iR*Math.cos(a2),y3=cy+iR*Math.sin(a2);
+    const x4=cx+iR*Math.cos(a),y4=cy+iR*Math.sin(a);
+    paths+=`<path d="M${x1.toFixed(2)},${y1.toFixed(2)} A${r},${r} 0 ${laf},1 ${x2.toFixed(2)},${y2.toFixed(2)} L${x3.toFixed(2)},${y3.toFixed(2)} A${iR},${iR} 0 ${laf},0 ${x4.toFixed(2)},${y4.toFixed(2)} Z"
+      fill="${p.color}" opacity=".82" style="cursor:pointer;transition:opacity .15s"
+      onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.82"
+      onclick="drillPermitType('${p.id}')">
+      <title>${p.name}: ${p.val} (${(pct*100).toFixed(1)}%)</title></path>`;
     a=a2;
   });
   document.getElementById('donutSvg').innerHTML=paths+
-    `<text x="${cx}" y="${cy-5}" text-anchor="middle" fill="#f0f0f0" font-family="Syne,sans-serif" font-size="18" font-weight="800">${total}</text>
-     <text x="${cx}" y="${cy+13}" text-anchor="middle" fill="#6b7280" font-family="DM Sans,sans-serif" font-size="9">avis (90j)</text>`;
-  document.getElementById('donutLegend').innerHTML=PERMIT_TYPES.map(p=>`
-    <div class="legend-item">
-      <div class="legend-dot" style="background:${p.color}"></div>
-      <div class="legend-name">${p.short}</div>
-      <div class="legend-val">${p.val}</div>
-      <div class="legend-pct">${(p.val/total*100).toFixed(0)}%</div>
+    `<text x="${cx}" y="${cy-4}" text-anchor="middle" fill="#f0f0f0" font-family="Syne,sans-serif" font-size="16" font-weight="800">${total}</text>
+     <text x="${cx}" y="${cy+11}" text-anchor="middle" fill="#6b7280" font-family="DM Sans,sans-serif" font-size="8">avis</text>`;
+  document.getElementById('donutLeg').innerHTML=PT.map(p=>`
+    <div class="leg-item" id="leg-${p.id}" onclick="drillPermitType('${p.id}')">
+      <div class="leg-dot" style="background:${p.color}"></div>
+      <div class="leg-name">${p.short}</div>
+      <div class="leg-val">${p.val}</div>
+      <div class="leg-pct">${(p.val/total*100).toFixed(0)}%</div>
     </div>`).join('');
 }
 
-function buildBarChart(){
-  const max=Math.max(...PERMIT_TYPES.map(p=>p.val));
-  document.getElementById('barChartPermis').innerHTML=PERMIT_TYPES.map(p=>`
-    <div class="bar-row">
+// ── BAR CHART ─────────────────────────────────────────────────────────────────
+function buildBar(){
+  const max=Math.max(...PT.map(p=>p.val));
+  document.getElementById('barChart').innerHTML=PT.map(p=>`
+    <div class="bar-row" id="bar-${p.id}" onclick="drillPermitType('${p.id}')">
       <div class="bar-label">${p.name}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${(p.val/max*100).toFixed(1)}%;background:${p.color}"></div></div>
       <div class="bar-count">${p.val}</div>
     </div>`).join('');
 }
 
-function buildMoveGrid(){
-  document.getElementById('moveGrid').innerHTML=MOVE_TYPES.map(m=>`
-    <div class="move-cell">
+// ── MOVE GRID ─────────────────────────────────────────────────────────────────
+function buildMove(){
+  document.getElementById('moveGrid').innerHTML=MV.map(m=>`
+    <div class="move-cell" id="mv-${m.id}" onclick="drillMoveType('${m.id}')">
       <div class="move-icon">${m.icon}</div>
       <div class="move-val" style="color:${m.color}">${m.val}</div>
       <div class="move-label">${m.label}</div>
     </div>`).join('');
 }
 
+// ── TREND ─────────────────────────────────────────────────────────────────────
 function buildTrend(){
-  const max=Math.max(...TREND_VALS);
-  document.getElementById('trendChart').innerHTML=`<div class="sparkline-wrap">${
-    TREND_VALS.map((v,i)=>`<div class="spark-bar" title="${TREND_MONTHS[i]}: ${v}" style="height:${Math.round(v/max*100)}%;background:${i===TREND_VALS.length-1?'#E84B1C':'#3a3a3a'};opacity:${i===TREND_VALS.length-1?1:0.5+i/TREND_VALS.length*0.45}"></div>`).join('')
+  const max=Math.max(...TREND_V);
+  document.getElementById('trendChart').innerHTML=`<div class="spark-wrap">${
+    TREND_V.map((v,i)=>`<div class="spark-bar" title="${TREND_M[i]}: ${v}"
+      style="height:${Math.round(v/max*100)}%;background:${i===TREND_V.length-1?'#E84B1C':'#3a3a3a'};opacity:${i===TREND_V.length-1?1:0.4+i/TREND_V.length*0.5}"
+      onmouseover="document.getElementById('trendTip').textContent='${TREND_M[i]} 2025: ${v} avis'"
+      onmouseout="document.getElementById('trendTip').textContent=''"></div>`).join('')
   }</div>`;
-  document.getElementById('trendLabels').innerHTML=TREND_MONTHS.map((m,i)=>`<span style="color:${i===TREND_VALS.length-1?'#ff7f5c':'inherit'}">${m}</span>`).join('');
+  document.getElementById('trendLabels').innerHTML=TREND_M.map((m,i)=>`<span style="color:${i===TREND_V.length-1?'#ff7f5c':'inherit'}">${m}</span>`).join('');
 }
 
+// ── DELAI ─────────────────────────────────────────────────────────────────────
 function buildDelai(){
-  const max=Math.max(...DELAI_DATA.map(d=>d.jours));
-  document.getElementById('delaiChart').innerHTML=DELAI_DATA.map(d=>`
-    <div class="bar-row">
+  const max=Math.max(...DELAI.map(d=>d.jours));
+  document.getElementById('delaiChart').innerHTML=DELAI.map(d=>`
+    <div class="bar-row" onclick="drillPermitType('${d.id}')">
       <div class="bar-label">${d.label}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${(d.jours/max*100).toFixed(1)}%;background:${d.color}"></div></div>
       <div class="bar-count">${d.jours}j</div>
     </div>`).join('');
 }
 
-function buildTerritory(){
-  document.getElementById('territoryGrid').innerHTML=TERRITORIES.map(t=>`
-    <div class="terr-cell" style="--accent:${t.color}">
+// ── TERRITORY ─────────────────────────────────────────────────────────────────
+function buildTerr(){
+  document.getElementById('terrGrid').innerHTML=TERR.map(t=>`
+    <div class="terr-cell" id="terr-${t.id}" style="--accent:${t.color}" onclick="drillTerritory('${t.id}')">
       <div class="terr-name">${t.name}</div>
-      <div class="terr-stats">
-        <div class="terr-stat">Avis totaux <span>${t.avis}</span></div>
-        <div class="terr-stat">Transferts <span>${t.transferts}</span></div>
-        <div class="terr-stat">Nouveaux <span>${t.nouveaux}</span></div>
-      </div>
+      <div class="terr-row">Avis totaux <span>${t.avis}</span></div>
+      <div class="terr-row">Transferts <span>${t.transferts}</span></div>
+      <div class="terr-row">Nouveaux <span>${t.nouveaux}</span></div>
     </div>`).join('');
 }
 
-function dotColor(tags){
-  if(tags.includes('nouveau'))return'#E84B1C';
-  if(tags.includes('transfert'))return'#8B5CF6';
-  if(tags.includes('decision'))return'#10B981';
-  if(tags.includes('revoke'))return'#EF4444';
-  if(tags.includes('audience'))return'#F59E0B';
+// ── TIMELINE ──────────────────────────────────────────────────────────────────
+function dotC(tags){
+  if(tags.includes('n'))return'#E84B1C';
+  if(tags.includes('t'))return'#8B5CF6';
+  if(tags.includes('d'))return'#10B981';
+  if(tags.includes('r'))return'#EF4444';
+  if(tags.includes('a'))return'#F59E0B';
   return'#6b7280';
 }
-
-function tagClass(t){
-  return{nouveau:'new',transfert:'transfer',modif:'modif',decision:'decision',revoke:'revoke',audience:'audience'}[t]||'';
-}
-
-function renderTimeline(items,id,filter){
-  const filtered=filter==='all'?items:items.filter(i=>i.tags.includes(filter));
-  document.getElementById(id).innerHTML=filtered.map(item=>`
-    <div class="tl-item">
-      <div class="tl-dot" style="background:${dotColor(item.tags)}"></div>
-      <div class="tl-date">${item.date}</div>
-      <div class="tl-title">${item.title}</div>
-      <div class="tl-desc">${item.desc}</div>
-      <div class="tl-tags">${
-        item.tags.filter(t=>!['nouveau','transfert','modif','decision','revoke','audience','autre'].includes(t))
-          .map(t=>`<span class="tl-tag">${t}</span>`).join('')
-      }${
-        item.tags.filter(t=>['nouveau','transfert','modif','decision','revoke','audience'].includes(t))
-          .map(t=>`<span class="tl-tag ${tagClass(t)}">${t}</span>`).join('')
-      }</div>
+function renderTl(items,id){
+  document.getElementById(id).innerHTML=items.map(it=>`
+    <div class="tl-item" onclick="openModal(${it.id})">
+      <div class="tl-dot" style="background:${dotC(it.tags)}"></div>
+      <div class="tl-date">${it.date}</div>
+      <div class="tl-title">${it.title}</div>
+      <div class="tl-desc">${it.desc}</div>
+      <div class="tl-tags">${it.tags.map(t=>`<span class="tag ${/^[ntmdra]$/.test(t)?t:''}">${t}</span>`).join('')}</div>
     </div>`).join('');
 }
-
 function filterTl(type,el){
-  document.querySelectorAll('#tlFilter .filter-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#tlChips .chip').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
-  renderTimeline(ALL_TIMELINE,'timeline',type);
+  const filtered=type==='all'?ITEMS:ITEMS.filter(i=>i.type===type);
+  renderTl(filtered,'tl1');
 }
 
-document.getElementById('headerDate').textContent=new Date().toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-buildDonut();buildBarChart();buildMoveGrid();buildTrend();buildDelai();buildTerritory();
-renderTimeline(ALL_TIMELINE,'timeline','all');
-renderTimeline(MENARD_TIMELINE,'timelineMenard','all');
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(id){
+  const it=ITEMS.find(i=>i.id===id);
+  if(!it)return;
+  document.getElementById('modalTitle').textContent=it.title;
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;gap:12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:var(--dark3);border-radius:8px;padding:12px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Détenteur</div>
+          <div style="font-size:12px;font-weight:600">${it.detenteur}</div>
+        </div>
+        <div style="background:var(--dark3);border-radius:8px;padding:12px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">No permis</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px">${it.no_permis}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div style="background:var(--dark3);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Date</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px">${it.date}</div>
+        </div>
+        <div style="background:var(--dark3);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Catégorie</div>
+          <div style="font-size:12px;font-weight:600;color:${PT.find(p=>p.id===it.cat)?.color||'var(--text)'}">${PT.find(p=>p.id===it.cat)?.name||it.cat}</div>
+        </div>
+        <div style="background:var(--dark3);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Territoire</div>
+          <div style="font-size:12px;font-weight:600">${TERR.find(t=>t.id===it.terr)?.name||it.terr}</div>
+        </div>
+      </div>
+      <div style="background:var(--dark3);border-radius:8px;padding:14px">
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Description complète</div>
+        <div style="font-size:13px;color:var(--muted2);line-height:1.6">${it.desc}</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${it.tags.map(t=>`<span class="tag ${/^[ntmdra]$/.test(t)?t:''}">${t}</span>`).join('')}</div>
+      <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU" target="_blank"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(232,75,28,.1);border:1px solid rgba(232,75,28,.3);color:var(--red2);text-decoration:none;padding:10px;border-radius:8px;font-size:12px;font-weight:600">
+        🔎 Rechercher ce détenteur dans le portail CTQ →
+      </a>
+    </div>`;
+  document.getElementById('modal').style.display='flex';
+}
+function closeModal(){document.getElementById('modal').style.display='none'}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal()});
+
+// ── DRILL PANEL ───────────────────────────────────────────────────────────────
+function clearActive(){
+  document.querySelectorAll('.active-seg,.active-bar,.active-terr,.active-move,.active-kpi').forEach(el=>el.classList.remove('active-seg','active-bar','active-terr','active-move','active-kpi'));
+}
+
+function showDrill(title,stats,items){
+  document.getElementById('drillTitle').textContent=title;
+  document.getElementById('drillStats').innerHTML=stats;
+  document.getElementById('drillList').innerHTML=items.length
+    ? items.map(it=>`
+      <div class="tl-item" onclick="openModal(${it.id})">
+        <div class="tl-dot" style="background:${dotC(it.tags)}"></div>
+        <div class="tl-date">${it.date}</div>
+        <div class="tl-title">${it.title}</div>
+        <div class="tl-desc">${it.desc.substring(0,90)}${it.desc.length>90?'…':''}</div>
+        <div class="tl-tags">${it.tags.map(t=>`<span class="tag ${/^[ntmdra]$/.test(t)?t:''}">${t}</span>`).join('')}</div>
+      </div>`).join('')
+    : '<div style="color:var(--muted);font-size:12px;padding:16px;text-align:center">Aucun avis pour cette sélection</div>';
+  document.getElementById('drillPanel').classList.add('visible');
+  document.getElementById('drillPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeDrill(){
+  document.getElementById('drillPanel').classList.remove('visible');
+  clearActive();
+  activeDrill=null;
+}
+
+function drillPermitType(id){
+  if(activeDrill===`pt-${id}`){closeDrill();return}
+  clearActive();activeDrill=`pt-${id}`;
+  const p=PT.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById(`leg-${id}`)?.classList.add('active-seg');
+  document.getElementById(`bar-${id}`)?.classList.add('active-bar');
+  const items=ITEMS.filter(i=>i.cat===id);
+  const byType={};items.forEach(i=>{byType[i.type]=(byType[i.type]||0)+1});
+  const byTerr={};items.forEach(i=>{byTerr[i.terr]=(byTerr[i.terr]||0)+1});
+  const topTerr=Object.entries(byTerr).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  const stats=`
+    <div style="margin-bottom:14px">
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Distribution des mouvements</div>
+      ${MV.filter(m=>byType[m.id]).map(m=>`
+        <div class="drill-bar-row">
+          <div class="drill-bar-label"><span>${m.icon} ${m.label}</span><span>${byType[m.id]||0}</span></div>
+          <div class="drill-bar-track"><div class="drill-bar-fill" style="width:${((byType[m.id]||0)/items.length*100).toFixed(0)}%;background:${m.color}"></div></div>
+        </div>`).join('')}
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Top territoires</div>
+      ${topTerr.map(([tid,cnt])=>{const t=TERR.find(x=>x.id===tid);return`
+        <div class="drill-stat-row"><span class="drill-stat-label">${t?.name||tid}</span><span class="drill-stat-val">${cnt} avis</span></div>`}).join('')}
+    </div>`;
+  showDrill(`📋 ${p.name} — ${p.val} avis (90j)`,stats,items);
+}
+
+function drillMoveType(id){
+  if(activeDrill===`mv-${id}`){closeDrill();return}
+  clearActive();activeDrill=`mv-${id}`;
+  const m=MV.find(x=>x.id===id);
+  if(!m)return;
+  document.getElementById(`mv-${id}`)?.classList.add('active-move');
+  const items=ITEMS.filter(i=>i.type===id);
+  const byCat={};items.forEach(i=>{byCat[i.cat]=(byCat[i.cat]||0)+1});
+  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const stats=`
+    <div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Par catégorie de permis</div>
+      ${topCat.map(([cid,cnt])=>{const p=PT.find(x=>x.id===cid);return`
+        <div class="drill-bar-row">
+          <div class="drill-bar-label"><span>${p?.name||cid}</span><span>${cnt}</span></div>
+          <div class="drill-bar-track"><div class="drill-bar-fill" style="width:${(cnt/items.length*100).toFixed(0)}%;background:${p?.color||'#666'}"></div></div>
+        </div>`}).join('')}
+    </div>
+    <div style="margin-top:14px">
+      <div class="drill-stat-row"><span class="drill-stat-label">Total sélection</span><span class="drill-stat-val">${items.length} avis</span></div>
+      <div class="drill-stat-row"><span class="drill-stat-label">% du total</span><span class="drill-stat-val">${(items.length/ITEMS.length*100).toFixed(0)}%</span></div>
+    </div>`;
+  showDrill(`${m.icon} ${m.label} — ${m.val} dossiers (90j)`,stats,items);
+}
+
+function drillTerritory(id){
+  if(activeDrill===`terr-${id}`){closeDrill();return}
+  clearActive();activeDrill=`terr-${id}`;
+  const t=TERR.find(x=>x.id===id);
+  if(!t)return;
+  document.getElementById(`terr-${id}`)?.classList.add('active-terr');
+  const items=ITEMS.filter(i=>i.terr===id);
+  const byCat={};items.forEach(i=>{byCat[i.cat]=(byCat[i.cat]||0)+1});
+  const byType={};items.forEach(i=>{byType[i.type]=(byType[i.type]||0)+1});
+  const stats=`
+    <div style="background:rgba(255,255,255,.03);border-radius:8px;padding:12px;margin-bottom:12px;border-left:3px solid ${t.color}">
+      <div style="font-size:12px;font-weight:600;margin-bottom:4px">${t.name}</div>
+      <div style="font-size:11px;color:var(--muted2)">${t.desc}</div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Types de permis actifs</div>
+      ${Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([cid,cnt])=>{const p=PT.find(x=>x.id===cid);return`
+        <div class="drill-bar-row">
+          <div class="drill-bar-label"><span>${p?.name||cid}</span><span>${cnt}</span></div>
+          <div class="drill-bar-track"><div class="drill-bar-fill" style="width:${(cnt/items.length*100).toFixed(0)}%;background:${p?.color||'#666'}"></div></div>
+        </div>`}).join('')}
+    </div>`;
+  showDrill(`🗺️ ${t.name} — ${t.avis} avis (90j)`,stats,items);
+}
+
+function drillKpi(type,el){
+  if(activeDrill===`kpi-${type}`){closeDrill();return}
+  clearActive();activeDrill=`kpi-${type}`;
+  el.classList.add('active-kpi');
+  const items=type==='all'?ITEMS:ITEMS.filter(i=>i.type===type);
+  const label={all:'Tous les avis',nouveau:'Nouveaux permis',transfert:'Transferts',modif:'Modifications territoire',revoke:'Révocations'}[type]||type;
+  const byCat={};items.forEach(i=>{byCat[i.cat]=(byCat[i.cat]||0)+1});
+  const stats=`
+    <div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Par catégorie de permis</div>
+      ${Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([cid,cnt])=>{const p=PT.find(x=>x.id===cid);return`
+        <div class="drill-bar-row">
+          <div class="drill-bar-label"><span>${p?.name||cid}</span><span>${cnt}</span></div>
+          <div class="drill-bar-track"><div class="drill-bar-fill" style="width:${(cnt/items.length*100).toFixed(0)}%;background:${p?.color||'#666'}"></div></div>
+        </div>`}).join('')}
+    </div>`;
+  showDrill(`${label} — ${items.length} dossiers`,stats,items);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.getElementById('hdrDate').textContent=new Date().toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+buildDonut();buildBar();buildMove();buildTrend();buildDelai();buildTerr();
+const MENARD=ITEMS.filter(i=>i.title.toLowerCase().includes('ménard')||i.title.toLowerCase().includes('menard')||i.title.toLowerCase().includes('rive-nord')||i.cat==='nolise'||i.tags.includes('Concurrent'));
+renderTl(ITEMS,'tl1');
+renderTl(MENARD,'tl2');
 </script>
 </body>
 </html>

@@ -332,9 +332,12 @@ def build_dashboard(report: dict, history: list) -> str:
       <span class="brand-sub">Commission des transports du Québec</span>
     </div>
   </div>
-  <div class="topbar-meta">
-    Rapport du <strong>{today}</strong><br>
-    Généré à {generated_at[11:] if 'à' in generated_at else generated_at}
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="analytics.html" style="display:flex;align-items:center;gap:6px;background:rgba(232,75,28,0.12);border:1px solid rgba(232,75,28,0.3);color:#ff7f5c;text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:6px;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,75,28,0.22)'" onmouseout="this.style.background='rgba(232,75,28,0.12)'">📊 Analytique des permis</a>
+    <div class="topbar-meta">
+      Rapport du <strong>{today}</strong><br>
+      Généré à {generated_at[11:] if 'à' in generated_at else generated_at}
+    </div>
   </div>
 </div>
 

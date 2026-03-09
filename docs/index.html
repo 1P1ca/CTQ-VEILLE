@@ -391,6 +391,66 @@
         <div class="sidebar-body" id="tagCloud"></div>
       </div>
 
+      <!-- LOOKUP DÉTENTEURS -->
+      <div class="sidebar-panel" style="border:1px solid rgba(232,75,28,0.35);">
+        <div class="sidebar-header" style="background:rgba(232,75,28,0.12);color:#ff7f5c;">🔎 Lookup détenteur de permis</div>
+        <div class="sidebar-body">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.4;">Rechercher un transporteur directement dans le portail officiel CTQ (PES)</div>
+
+          <input type="text" id="lookupInput"
+            placeholder="Nom du transporteur ou # permis..."
+            style="width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;"
+            oninput="updateLookupLinks(this.value)"
+          >
+
+          <div style="display:grid;gap:6px;" id="lookupLinks">
+            <a id="lnkDossier"
+              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU"
+              target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(232,75,28,0.1);border:1px solid rgba(232,75,28,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(232,75,28,0.2)'" onmouseout="this.style.background='rgba(232,75,28,0.1)'">
+              <span style="font-size:16px;">🏢</span>
+              <div><div style="color:#ff7f5c;">Dossier entreprise / individu</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Tous permis du détenteur</div></div>
+              <span style="margin-left:auto;color:var(--muted);">↗</span>
+            </a>
+
+            <a id="lnkPermisNolise"
+              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU"
+              target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(59,130,246,0.2)'" onmouseout="this.style.background='rgba(59,130,246,0.1)'">
+              <span style="font-size:16px;">🚌</span>
+              <div><div style="color:#60a5fa;">Permis nolisé — Recherche</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Carte interactive des permis</div></div>
+              <span style="margin-left:auto;color:var(--muted);">↗</span>
+            </a>
+
+            <a id="lnkCote"
+              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/registrecote"
+              target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(16,185,129,0.2)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">
+              <span style="font-size:16px;">🛡️</span>
+              <div><div style="color:#34d399;">Cote de sécurité & registre</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Comportement des transporteurs</div></div>
+              <span style="margin-left:auto;color:var(--muted);">↗</span>
+            </a>
+
+            <a id="lnkAttestation"
+              href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_RESTREINT_NIR_FR_MENU"
+              target="_blank"
+              style="display:flex;align-items:center;gap:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:6px;padding:8px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
+              onmouseover="this.style.background='rgba(139,92,246,0.2)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">
+              <span style="font-size:16px;">📜</span>
+              <div><div style="color:#a78bfa;">Attestation RPEVL par NIR</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Recherche par # NIR (R0000000)</div></div>
+              <span style="margin-left:auto;color:var(--muted);">↗</span>
+            </a>
+          </div>
+
+          <div id="lookupHint" style="display:none;margin-top:8px;font-size:10px;color:var(--muted);text-align:center;background:rgba(255,255,255,0.04);border-radius:4px;padding:6px;">
+            💡 Cliquer un bouton → le portail CTQ s'ouvre<br>Chercher "<span id="lookupTerm" style="color:#ff7f5c;font-weight:700;"></span>" dans le champ de recherche
+          </div>
+        </div>
+      </div>
+
       <div class="sidebar-panel">
         <div class="sidebar-header">🔗 Sources CTQ</div>
         <div class="sidebar-body" style="font-size:12px;line-height:2;">
@@ -555,6 +615,56 @@ function buildTagCloud() {
       return `<span class="tag" style="background:${color};cursor:pointer;margin:3px;padding:4px 8px;font-size:10px;${active}" onclick="filterByTag('${tag}')">${tag} (${count})</span>`;
     }).join(" ");
 }
+
+// ── LOOKUP DÉTENTEUR ────────────────────────────────────────────────────────
+function updateLookupLinks(query) {
+  const hint = document.getElementById('lookupHint');
+  const term = document.getElementById('lookupTerm');
+  const q = query.trim();
+
+  if (q.length >= 2) {
+    hint.style.display = 'block';
+    term.textContent = q;
+
+    // Construire les URLs avec paramètre de recherche pré-rempli
+    // Le portail PES ne supporte pas les query params directs — on affiche le nom à chercher
+    const base = 'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/';
+    document.getElementById('lnkDossier').href = base + 'dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU';
+    document.getElementById('lnkPermisNolise').href = base + 'permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU';
+    document.getElementById('lnkCote').href = base + 'registrecote';
+    document.getElementById('lnkAttestation').href = base + 'dossierclient?voletContexte=RECHERCHE_RESTREINT_NIR_FR_MENU';
+
+    // Animation sur les boutons
+    document.querySelectorAll('#lookupLinks a').forEach(a => {
+      a.style.transform = 'scale(1.01)';
+      setTimeout(() => a.style.transform = '', 200);
+    });
+  } else {
+    hint.style.display = 'none';
+  }
+}
+
+// Clic sur item → pre-fill lookup
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.item-card');
+  if (card) {
+    const titleEl = card.querySelector('.item-title');
+    if (titleEl) {
+      // Extraire le nom du transporteur (avant le premier tiret)
+      const full = titleEl.textContent.trim();
+      const parts = full.split('—');
+      const transporteur = parts.length > 1 ? parts[parts.length - 1].trim().replace('NOUVEAU','').trim() : '';
+      if (transporteur.length > 3) {
+        const input = document.getElementById('lookupInput');
+        input.value = transporteur.substring(0, 60);
+        updateLookupLinks(input.value);
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.style.borderColor = 'var(--red)';
+        setTimeout(() => input.style.borderColor = 'var(--border)', 2000);
+      }
+    }
+  }
+});
 
 // Init
 renderSection("avis_publics", "sectionAvis", "badgeAvis");

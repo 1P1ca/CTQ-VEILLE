@@ -521,19 +521,37 @@ def build_dashboard(report: dict, history: list) -> str:
         </div>
       </div>
 
+      <!-- RSS READER -->
       <div class="sidebar-panel">
-        <div class="sidebar-header">🔗 Sources CTQ</div>
-        <div class="sidebar-body" style="font-size:12px;line-height:2;">
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Flux RSS officiels</div>
-          <a href="https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🚌 RSS Autobus</a>
-          <a href="https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">📋 RSS Courtage</a>
-          <a href="https://www.pes.ctq.gouv.qc.ca/rss/FERROVIAIR.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🚂 RSS Ferroviaire</a>
-          <a href="https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:8px;">🔔 RSS Erratum</a>
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:4px;">Site CTQ</div>
-          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">🗓️ Audiences</a>
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">⚖️ Décisions</a>
-          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="color:var(--red);display:block;text-decoration:none;margin-bottom:2px;">📢 Actualités</a>
-          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" style="color:var(--red);display:block;text-decoration:none;">🚌 Permis autobus</a>
+        <div class="sidebar-header" style="flex-direction:column;align-items:flex-start;gap:8px;">
+          <span>📡 Avis publics en direct</span>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            <button class="rss-tab active" onclick="loadFeed('AUTOBUS','🚌 Autobus',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid rgba(232,75,28,.4);background:rgba(232,75,28,.15);color:#ff7f5c;cursor:pointer;">🚌 Autobus</button>
+            <button class="rss-tab" onclick="loadFeed('COURTAGE','📋 Courtage',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">📋 Courtage</button>
+            <button class="rss-tab" onclick="loadFeed('FERROVIAIR','🚂 Ferrov.',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">🚂 Ferrov.</button>
+            <button class="rss-tab" onclick="loadFeed('ERRATUM','🔔 Erratum',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">🔔 Erratum</button>
+          </div>
+        </div>
+        <div class="sidebar-body" style="padding:0">
+          <div id="rssFeedTitle" style="font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;padding:10px 14px 0;"></div>
+          <div id="rssFeed" style="max-height:340px;overflow-y:auto;padding:6px 10px 10px;">
+            <div style="color:var(--muted);font-size:12px;padding:16px;text-align:center;">Chargement...</div>
+          </div>
+          <div style="border-top:1px solid var(--border);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:10px;color:var(--muted)">Source: pes.ctq.gouv.qc.ca</span>
+            <a id="rssDirectLink" href="#" target="_blank" style="font-size:10px;color:var(--muted2);text-decoration:none;">XML brut ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIENS CTQ -->
+      <div class="sidebar-panel">
+        <div class="sidebar-header">🔗 Portails CTQ</div>
+        <div class="sidebar-body" style="display:grid;gap:5px;">
+          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">🗓️ <span>Calendrier des audiences</span></a>
+          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">⚖️ <span>Recherche de décisions</span></a>
+          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">📢 <span>Actualités & dossiers</span></a>
+          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">🚌 <span>Info permis autobus</span></a>
         </div>
       </div>
     </div>
@@ -735,6 +753,113 @@ document.addEventListener('click', function(e) {{
     }}
   }}
 }});
+
+// ── RSS READER ───────────────────────────────────────────────────────────────
+let currentFeed = 'AUTOBUS';
+
+async function loadFeed(feed, label, tabEl) {{
+  currentFeed = feed;
+  const url = `https://www.pes.ctq.gouv.qc.ca/rss/${{feed}}.xml`;
+  document.getElementById('rssDirectLink').href = url;
+  document.getElementById('rssFeedTitle').textContent = label;
+  document.getElementById('rssFeed').innerHTML = '<div style="color:var(--muted);font-size:12px;padding:16px 6px;text-align:center;">⏳ Chargement...</div>';
+
+  // Update tab styles
+  document.querySelectorAll('.rss-tab').forEach(t => {{
+    t.style.background = 'var(--dark3)';
+    t.style.color = 'var(--muted2)';
+    t.style.borderColor = 'var(--border)';
+  }});
+  if (tabEl) {{
+    tabEl.style.background = 'rgba(232,75,28,.15)';
+    tabEl.style.color = '#ff7f5c';
+    tabEl.style.borderColor = 'rgba(232,75,28,.4)';
+  }}
+
+  try {{
+    // Use allorigins proxy to bypass CORS
+    const proxy = `https://api.allorigins.win/get?url=${{encodeURIComponent(url)}}`;
+    const res = await fetch(proxy, {{ signal: AbortSignal.timeout(10000) }});
+    const json = await res.json();
+    const xml = new DOMParser().parseFromString(json.contents, 'text/xml');
+    const items = xml.querySelectorAll('item');
+
+    if (!items.length) {{
+      document.getElementById('rssFeed').innerHTML = '<div style="color:var(--muted);font-size:12px;padding:16px 6px;text-align:center;">Aucun avis actif</div>';
+      return;
+    }}
+
+    let html = '';
+    items.forEach(item => {{
+      const title = item.querySelector('title')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || '#';
+      const desc = item.querySelector('description')?.textContent || '';
+      const pub = item.querySelector('pubDate')?.textContent || '';
+
+      // Parse description: strip HTML tags, extract key fields
+      const clean = desc.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '').trim();
+      const lines = clean.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+
+      // Extract structured fields
+      let demandeur = '', noPermis = '', typePermis = '', dateIntro = '';
+      lines.forEach(l => {{
+        if (l.startsWith('Numéro de la demande')) noPermis = l.replace('Numéro de la demande :', '').trim();
+        if (l.startsWith('Date d\'introduction')) dateIntro = l.replace('Date d\'introduction :', '').trim();
+        if (l.match(/^[A-Z][A-Z\s\.]+INC\.|LTÉE|ENRG\.|TRANSPORT|AUTOBUS|GROUPE/)) demandeur = l;
+        if (l.includes('permis') || l.includes('Permis') || l.includes('nolisé') || l.includes('Maintien')) typePermis = l;
+      }});
+
+      const dateStr = pub ? new Date(pub).toLocaleDateString('fr-CA', {{day:'numeric',month:'short',year:'numeric'}}) : '';
+
+      // Detect type for color coding
+      let tagColor = '#6b7280', tagLabel = '';
+      const titleLow = title.toLowerCase() + clean.toLowerCase();
+      if (titleLow.includes('nolisé') || titleLow.includes('nolise')) {{ tagColor = '#E84B1C'; tagLabel = 'Nolisé'; }}
+      else if (titleLow.includes('scolaire') || titleLow.includes('élèves')) {{ tagColor = '#3B82F6'; tagLabel = 'Scolaire'; }}
+      else if (titleLow.includes('interurbain')) {{ tagColor = '#8B5CF6'; tagLabel = 'Interurbain'; }}
+      else if (titleLow.includes('urbain')) {{ tagColor = '#10B981'; tagLabel = 'Urbain'; }}
+      else if (titleLow.includes('courtage')) {{ tagColor = '#D97706'; tagLabel = 'Courtage'; }}
+      else if (titleLow.includes('ferroviaire')) {{ tagColor = '#6366F1'; tagLabel = 'Ferroviaire'; }}
+      else if (titleLow.includes('erratum')) {{ tagColor = '#F59E0B'; tagLabel = 'Erratum'; }}
+      else if (titleLow.includes('maintien') || titleLow.includes('acquisition')) {{ tagColor = '#8B5CF6'; tagLabel = 'Maintien'; }}
+
+      // Detect movement type
+      let mvLabel = '', mvColor = '#6b7280';
+      if (titleLow.includes('maintien') || titleLow.includes('acquisition d\'intérêts') || titleLow.includes('transfert')) {{ mvLabel = 'Transfert'; mvColor = '#8B5CF6'; }}
+      else if (titleLow.includes('nouveau') || typePermis.includes('Demande')) {{ mvLabel = 'Nouveau'; mvColor = '#E84B1C'; }}
+      else if (titleLow.includes('modification')) {{ mvLabel = 'Modif.'; mvColor = '#3B82F6'; }}
+      else if (titleLow.includes('révocation') || titleLow.includes('revocation')) {{ mvLabel = 'Révocation'; mvColor = '#EF4444'; }}
+
+      html += `
+        <div style="border:1px solid var(--border);border-left:3px solid ${{tagColor}};border-radius:7px;padding:10px 12px;margin-bottom:7px;background:var(--dark3);cursor:pointer;transition:border-color .15s"
+          onmouseover="this.style.borderColor='rgba(255,255,255,.15)'" onmouseout="this.style.borderTopColor=this.style.borderRightColor=this.style.borderBottomColor='var(--border)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px">
+            <div style="font-size:11px;font-weight:700;color:var(--text);line-height:1.3;flex:1">${{demandeur || (lines[0]||'Demandeur').substring(0,50)}}</div>
+            <div style="font-size:9px;color:var(--muted);white-space:nowrap">${{dateStr}}</div>
+          </div>
+          ${{typePermis ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:6px;line-height:1.35">${{typePermis.substring(0,90)}}${{typePermis.length>90?'…':''}}</div>` : ''}}
+          ${{noPermis ? `<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:6px;">Demande #${{noPermis}}</div>` : ''}}
+          <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+            ${{tagLabel ? `<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px;background:${{tagColor}}22;color:${{tagColor}}">${{tagLabel}}</span>` : ''}}
+            ${{mvLabel ? `<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px;background:${{mvColor}}22;color:${{mvColor}}">${{mvLabel}}</span>` : ''}}
+            <a href="${{link}}" target="_blank" style="margin-left:auto;font-size:10px;color:var(--muted2);text-decoration:none;padding:2px 6px;border:1px solid var(--border);border-radius:3px;transition:color .15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'">Voir ↗</a>
+          </div>
+        </div>`;
+    }});
+
+    document.getElementById('rssFeed').innerHTML = html;
+
+  }} catch(e) {{
+    document.getElementById('rssFeed').innerHTML = `
+      <div style="color:var(--muted);font-size:11px;padding:12px 6px;text-align:center;line-height:1.6">
+        ⚠️ Impossible de charger le flux en direct.<br>
+        <a href="https://www.pes.ctq.gouv.qc.ca/rss/${{currentFeed}}.xml" target="_blank" style="color:var(--red2);">Ouvrir le flux XML ↗</a>
+      </div>`;
+  }}
+}}
+
+// Init RSS on load
+loadFeed('AUTOBUS', '🚌 Autobus', document.querySelector('.rss-tab'));
 
 // Init
 renderSection("avis_publics", "sectionAvis", "badgeAvis");

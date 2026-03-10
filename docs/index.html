@@ -749,17 +749,15 @@ async function loadFeed(feed, label, tabEl) {
       const pub = item.querySelector('pubDate')?.textContent || '';
 
       // Parse description: strip HTML tags, extract key fields
-      const clean = desc.replace(/<br\s*\/?>/gi, '
-').replace(/<[^>]+>/g, '').trim();
-      const lines = clean.split('
-').map(l => l.trim()).filter(l => l.length > 2);
+      const clean = desc.replace(/<br[^>]*>/gi, '|').replace(/<[^>]+>/g, '').trim();
+      const lines = clean.split('|').map(l => l.trim()).filter(l => l.length > 2);
 
       // Extract structured fields
       let demandeur = '', noPermis = '', typePermis = '', dateIntro = '';
       lines.forEach(l => {
         if (l.startsWith('Numéro de la demande')) noPermis = l.replace('Numéro de la demande :', '').trim();
-        if (l.startsWith('Date d'introduction')) dateIntro = l.replace('Date d'introduction :', '').trim();
-        if (l.match(/^[A-Z][A-Z\s\.]+INC\.|LTÉE|ENRG\.|TRANSPORT|AUTOBUS|GROUPE/)) demandeur = l;
+        if (l.includes("introduction")) dateIntro = l.replace("Date d'introduction :", "").trim();
+        if (l.match(/^[A-Z][A-Z .]+INC[.]|LTEE|ENRG[.]|TRANSPORT|AUTOBUS|GROUPE/)) demandeur = l;
         if (l.includes('permis') || l.includes('Permis') || l.includes('nolisé') || l.includes('Maintien')) typePermis = l;
       });
 
@@ -775,13 +773,13 @@ async function loadFeed(feed, label, tabEl) {
       else if (titleLow.includes('courtage')) { tagColor = '#D97706'; tagLabel = 'Courtage'; }
       else if (titleLow.includes('ferroviaire')) { tagColor = '#6366F1'; tagLabel = 'Ferroviaire'; }
       else if (titleLow.includes('erratum')) { tagColor = '#F59E0B'; tagLabel = 'Erratum'; }
-      else if (titleLow.includes('maintien') || titleLow.includes('acquisition')) { tagColor = '#8B5CF6'; tagLabel = 'Maintien'; }
+      else if (titleLow.includes("maintien") || titleLow.includes('acquisition')) { tagColor = '#8B5CF6'; tagLabel = 'Maintien'; }
 
       // Detect movement type
-      let mvLabel = '', mvColor = '#6b7280';
-      if (titleLow.includes('maintien') || titleLow.includes('acquisition d'intérêts') || titleLow.includes('transfert')) { mvLabel = 'Transfert'; mvColor = '#8B5CF6'; }
-      else if (titleLow.includes('nouveau') || typePermis.includes('Demande')) { mvLabel = 'Nouveau'; mvColor = '#E84B1C'; }
-      else if (titleLow.includes('modification')) { mvLabel = 'Modif.'; mvColor = '#3B82F6'; }
+      if (titleLow.includes("maintien") || titleLow.includes("acquisition") || titleLow.includes("transfert")) { mvLabel = "Transfert"; mvColor = "#8B5CF6"; }
+      else if (titleLow.includes("nouveau") || typePermis.includes("Demande")) { mvLabel = "Nouveau"; mvColor = "#E84B1C"; }
+      else if (titleLow.includes("modification")) { mvLabel = "Modif."; mvColor = "#3B82F6"; }
+      else if (titleLow.includes("revocation") || titleLow.includes("révocation")) { mvLabel = "Révocation"; mvColor = "#EF4444"; }
       else if (titleLow.includes('révocation') || titleLow.includes('revocation')) { mvLabel = 'Révocation'; mvColor = '#EF4444'; }
 
       html += `

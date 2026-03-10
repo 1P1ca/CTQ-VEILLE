@@ -595,8 +595,7 @@ function renderTag(tag) {{
 }}
 
 function renderItem(item) {{
-  const sectionClass = `section-${{item.section.replace("_","-").replace("calendrier-audiences","audience")
-    .replace("avis-publics","avis").replace("actualites","actu")}}`;
+  const sectionClass = `section-${{item.section.replace("_","-").replace("calendrier-audiences","audience").replace("avis-publics","avis").replace("actualites","actu").replace("decisions","decision")}}`;
   const isNew = item.is_new ? "new-item" : "";
   const newBadge = item.is_new ? `<span style="background:#E84B1C;color:white;font-size:9px;font-weight:800;padding:1px 6px;border-radius:2px;margin-left:6px;">NOUVEAU</span>` : "";
   const tags = (item.tags || []).map(renderTag).join(" ");

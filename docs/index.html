@@ -2,823 +2,475 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CTQ Veille — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTQ Veille — Tableau de bord</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --red: #E84B1C;
-    --dark: #0f0f1a;
-    --dark2: #1a1a2e;
-    --dark3: #16213e;
-    --card: #1e1e32;
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e8f0;
-    --muted: #8892a4;
-    --avis: #E84B1C;
-    --audience: #3B82F6;
-    --decision: #8B5CF6;
-    --actu: #10B981;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    min-height: 100vh;
-  }
+:root{--red:#E84B1C;--red2:#ff7f5c;--dark1:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#242424;--border:rgba(255,255,255,.08);--text:#f0f0f0;--muted:#6b7280;--muted2:#9ca3af;--avis:#E84B1C;--audience:#3B82F6;--decision:#8B5CF6;--actu:#10B981}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
 
-  /* ── TOP BAR ── */
-  .topbar {
-    background: var(--dark2);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .topbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .logo-dot {
-    width: 10px; height: 10px;
-    background: var(--red);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity:1; transform:scale(1); }
-    50% { opacity:0.5; transform:scale(1.4); }
-  }
-  .brand-text { font-family:'Syne',sans-serif; font-weight:800; font-size:16px; letter-spacing:0.5px; }
-  .brand-sub { font-size:11px; color:var(--muted); margin-left:4px; }
-  .topbar-meta { font-size:11px; color:var(--muted); text-align:right; }
-  .topbar-meta strong { color:var(--red); }
+/* TOPBAR */
+.topbar{background:var(--dark2);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--red);white-space:nowrap}
+.logo span{color:var(--muted);font-weight:400}
+.sep{width:1px;height:22px;background:var(--border)}
+.nav-link{font-size:12px;font-weight:500;color:var(--muted2);text-decoration:none;padding:5px 12px;border-radius:5px;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+.nav-link:hover{color:var(--text);background:var(--dark4)}
+.nav-link.active{color:var(--text);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.dot{width:7px;height:7px;border-radius:50%;background:#10B981;display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-  /* ── LAYOUT ── */
-  .main { max-width:1280px; margin:0 auto; padding:28px 24px; }
+/* LAYOUT */
+.main{max-width:1300px;margin:0 auto;padding:22px 24px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
 
-  /* ── ALERT BANNER ── */
-  .alert-banner {
-    border-radius:8px;
-    padding:14px 20px;
-    margin-bottom:24px;
-    font-weight:600;
-    font-size:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .alert-new { background:rgba(232,75,28,0.15); border:1px solid rgba(232,75,28,0.4); color:#ff7f5c; }
-  .alert-ok { background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); color:#34d399; }
+/* ALERT */
+.alert{border-radius:8px;padding:12px 18px;margin-bottom:18px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px}
+.alert.loading{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa}
+.alert.ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#34d399}
+.alert.new{background:rgba(232,75,28,.1);border:1px solid rgba(232,75,28,.3);color:#ff7f5c}
+.alert.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#f87171}
 
-  /* ── STATS ── */
-  .stats-grid {
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-bottom:24px;
-  }
-  .stat-card {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:18px 20px;
-    position:relative;
-    overflow:hidden;
-  }
-  .stat-card::before {
-    content:'';
-    position:absolute;
-    top:0; left:0; right:0;
-    height:3px;
-  }
-  .stat-card.avis::before { background:var(--avis); }
-  .stat-card.audience::before { background:var(--audience); }
-  .stat-card.decision::before { background:var(--decision); }
-  .stat-card.actu::before { background:var(--actu); }
-  .stat-number { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; line-height:1; }
-  .stat-label { font-size:11px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:0.8px; }
-  .stat-icon { position:absolute; right:16px; top:16px; font-size:22px; opacity:0.3; }
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.stat{background:var(--dark2);border:1px solid var(--border);border-top:2px solid var(--c);border-radius:8px;padding:12px 14px}
+.stat-n{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--c);line-height:1}
+.stat-l{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.7px;margin-top:3px}
 
-  /* ── GRID LAYOUT ── */
-  .content-grid {
-    display:grid;
-    grid-template-columns:1fr 340px;
-    gap:20px;
-  }
+/* FEED TABS */
+.feed-tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.ftab{font-size:11px;font-weight:700;padding:5px 12px;border-radius:5px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.ftab:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.ftab.active{background:rgba(232,75,28,.15);border-color:rgba(232,75,28,.4);color:var(--red2)}
+.ftab .cnt{display:inline-block;background:rgba(255,255,255,.08);border-radius:3px;padding:0 5px;font-size:9px;margin-left:4px;min-width:16px;text-align:center}
+.ftab.active .cnt{background:rgba(232,75,28,.25)}
 
-  /* ── SECTION PANEL ── */
-  .panel {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:10px;
-    overflow:hidden;
-    margin-bottom:16px;
-  }
-  .panel-header {
-    padding:14px 18px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .panel-title {
-    font-family:'Syne',sans-serif;
-    font-weight:700;
-    font-size:13px;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .new-badge {
-    background:var(--red);
-    color:white;
-    font-size:10px;
-    font-weight:700;
-    padding:2px 7px;
-    border-radius:3px;
-    letter-spacing:0.5px;
-  }
-  .panel-body { padding:14px 18px; }
+/* PANELS */
+.panel{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.badge{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px}
+.panel-body{padding:0}
+.scroll{max-height:420px;overflow-y:auto}
+.scroll::-webkit-scrollbar{width:4px}
+.scroll::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
 
-  /* ── ITEM CARD ── */
-  .item-card {
-    border-left:3px solid;
-    padding:10px 14px;
-    margin-bottom:8px;
-    border-radius:0 6px 6px 0;
-    background:rgba(255,255,255,0.03);
-    transition:background 0.2s;
-    cursor:pointer;
-  }
-  .item-card:hover { background:rgba(255,255,255,0.07); }
-  .item-card.new-item { background:rgba(232,75,28,0.08); }
-  .item-card.section-avis { border-color:var(--avis); }
-  .item-card.section-audience { border-color:var(--audience); }
-  .item-card.section-decision { border-color:var(--decision); }
-  .item-card.section-actu { border-color:var(--actu); }
-  .item-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px; }
-  .item-desc { font-size:11px; color:var(--muted); margin-bottom:6px; line-height:1.4; }
-  .item-footer { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .item-date { font-size:10px; color:var(--muted); }
-  .item-link { font-size:10px; color:var(--red); text-decoration:none; font-weight:600; }
-  .item-link:hover { text-decoration:underline; }
-  .tag {
-    display:inline-block;
-    font-size:9px;
-    font-weight:700;
-    padding:1px 6px;
-    border-radius:2px;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    color:white;
-  }
-  .empty-state { text-align:center; padding:20px; color:var(--muted); font-size:12px; }
+/* ITEMS */
+.item{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);border-left:3px solid var(--ic);cursor:pointer;transition:background .15s}
+.item:last-child{border-bottom:none}
+.item:hover{background:rgba(255,255,255,.03)}
+.item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:3px}
+.item-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.35;flex:1}
+.item-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.item-desc{font-size:11px;color:var(--muted2);line-height:1.4;margin-bottom:6px}
+.item-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px}
+.item-link{margin-left:auto;font-size:10px;color:var(--red2);text-decoration:none;padding:2px 8px;border:1px solid rgba(232,75,28,.3);border-radius:3px;transition:all .15s;flex-shrink:0}
+.item-link:hover{background:rgba(232,75,28,.12)}
+.new-badge{font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 5px;border-radius:2px;margin-left:4px}
 
-  /* ── SIDEBAR ── */
-  .sidebar-panel {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:10px;
-    margin-bottom:16px;
-    overflow:hidden;
-  }
-  .sidebar-header {
-    padding:12px 16px;
-    border-bottom:1px solid var(--border);
-    font-family:'Syne',sans-serif;
-    font-size:12px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:0.8px;
-    color:var(--muted);
-  }
-  .sidebar-body { padding:14px 16px; }
+/* EMPTY / LOADING */
+.empty{padding:24px;text-align:center;color:var(--muted);font-size:12px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.1);border-top-color:#60a5fa;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ── FILTER BAR ── */
-  .filter-bar {
-    display:flex;
-    gap:8px;
-    margin-bottom:16px;
-    flex-wrap:wrap;
-  }
-  .filter-btn {
-    background:var(--card);
-    border:1px solid var(--border);
-    color:var(--muted);
-    padding:6px 14px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:600;
-    cursor:pointer;
-    transition:all 0.2s;
-    font-family:'DM Sans',sans-serif;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    border-color:var(--red);
-    color:var(--red);
-    background:rgba(232,75,28,0.1);
-  }
+/* SIDEBAR */
+.sidebar-panel{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.sidebar-head{padding:11px 14px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:11px;font-weight:700}
+.sidebar-body{padding:12px 14px}
 
-  /* ── HISTORY CHART ── */
-  .chart-container { height:100px; position:relative; }
-  .chart-bars { display:flex; align-items:flex-end; gap:3px; height:80px; }
-  .bar { flex:1; border-radius:2px 2px 0 0; min-width:6px; transition:opacity 0.2s; cursor:pointer; position:relative; }
-  .bar:hover { opacity:0.8; }
-  .chart-labels { display:flex; justify-content:space-between; margin-top:4px; }
-  .chart-label { font-size:9px; color:var(--muted); }
+/* LOOKUP */
+.lookup-input{width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;transition:border-color .15s}
+.lookup-input:focus{border-color:var(--red)}
+.lookup-btn{display:flex;align-items:center;gap:7px;width:100%;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:11px;font-weight:500;margin-bottom:5px;transition:background .15s;cursor:pointer}
+.lookup-btn:hover{background:var(--dark4)}
+.lookup-btn:last-child{margin-bottom:0}
 
-  /* ── SEARCH ── */
-  .search-input {
-    width:100%;
-    background:var(--dark3);
-    border:1px solid var(--border);
-    border-radius:6px;
-    color:var(--text);
-    padding:8px 12px;
-    font-size:12px;
-    font-family:'DM Sans',sans-serif;
-    outline:none;
-    margin-bottom:12px;
-  }
-  .search-input:focus { border-color:var(--red); }
+/* REFRESH */
+.refresh-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:5px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s}
+.refresh-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
 
-  /* ── RESPONSIVE ── */
-  @media(max-width:900px) {
-    .stats-grid { grid-template-columns:repeat(2,1fr); }
-    .content-grid { grid-template-columns:1fr; }
-  }
-
-  /* ── SCROLL ── */
-  ::-webkit-scrollbar { width:4px; }
-  ::-webkit-scrollbar-track { background:var(--dark); }
-  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+@media(max-width:900px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+<header class="topbar">
+  <div class="logo">CTQ<span> / </span>VEILLE</div>
+  <div class="sep"></div>
+  <a href="index.html" class="nav-link active">📋 Tableau de bord</a>
+  <a href="analytics.html" class="nav-link">📊 Analytique</a>
+  <div class="topbar-right">
+    <span id="liveStatus" style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span class="dot"></span>RSS en direct</span>
+    <span id="lastUpdate" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)"></span>
+    <button class="refresh-btn" onclick="loadAllFeeds()">↻ Actualiser</button>
+  </div>
+</header>
 
-<div class="topbar">
-  <div class="topbar-brand">
-    <div class="logo-dot"></div>
+<main class="main">
+  <div id="alertBar" class="alert loading"><span class="spin"></span>Chargement des flux RSS CTQ en direct...</div>
+
+  <div class="stats">
+    <div class="stat" style="--c:var(--avis)"><div class="stat-n" id="statAvis">—</div><div class="stat-l">Avis publics</div></div>
+    <div class="stat" style="--c:var(--audience)"><div class="stat-n" id="statAud">—</div><div class="stat-l">Audiences</div></div>
+    <div class="stat" style="--c:var(--decision)"><div class="stat-n" id="statDec">—</div><div class="stat-l">Décisions</div></div>
+    <div class="stat" style="--c:var(--actu)"><div class="stat-n" id="statActu">—</div><div class="stat-l">Actualités</div></div>
+  </div>
+
+  <div class="grid">
+    <!-- MAIN -->
     <div>
-      <span class="brand-text">CTQ Veille</span>
-      <span class="brand-sub">Commission des transports du Québec</span>
-    </div>
-  </div>
-  <nav style="display:flex;align-items:center;gap:4px;margin:0 24px;">
-    <a href="index.html" style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#f0f0f0;text-decoration:none;font-size:12px;font-weight:700;padding:7px 16px;border-radius:6px;">📋 Tableau de bord</a>
-    <a href="analytics.html" style="display:flex;align-items:center;gap:6px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#9ca3af;text-decoration:none;font-size:12px;font-weight:600;padding:7px 16px;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,75,28,0.15)';this.style.color='#ff7f5c';this.style.borderColor='rgba(232,75,28,0.4)'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af';this.style.borderColor='rgba(255,255,255,0.1)'">📊 Analytique des permis</a>
-  </nav>
-  <div class="topbar-meta">
-    Rapport du <strong>2026-03-09</strong><br>
-    Généré à à 19:38
-  </div>
-</div>
-
-<div class="main">
-
-  <!-- ALERT -->
-  <div id="alertBanner" class="alert-banner alert-new">
-    🚨
-    <strong>3 nouveaux éléments</strong> détectés aujourd'hui sur le site de la CTQ
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-grid">
-    <div class="stat-card avis">
-      <div class="stat-icon">📋</div>
-      <div class="stat-number" id="statAvis">2</div>
-      <div class="stat-label">Avis publics</div>
-    </div>
-    <div class="stat-card audience">
-      <div class="stat-icon">🗓️</div>
-      <div class="stat-number" id="statAudience">0</div>
-      <div class="stat-label">Audiences</div>
-    </div>
-    <div class="stat-card decision">
-      <div class="stat-icon">⚖️</div>
-      <div class="stat-number" id="statDecision">0</div>
-      <div class="stat-label">Décisions</div>
-    </div>
-    <div class="stat-card actu">
-      <div class="stat-icon">📢</div>
-      <div class="stat-number" id="statActu">1</div>
-      <div class="stat-label">Actualités</div>
-    </div>
-  </div>
-
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterItems('all', this)">Tous</button>
-    <button class="filter-btn" onclick="filterItems('new', this)">🆕 Nouveaux seulement</button>
-    <button class="filter-btn" onclick="filterItems('avis_publics', this)">📋 Avis publics</button>
-    <button class="filter-btn" onclick="filterItems('calendrier_audiences', this)">🗓️ Audiences</button>
-    <button class="filter-btn" onclick="filterItems('decisions', this)">⚖️ Décisions</button>
-    <button class="filter-btn" onclick="filterItems('actualites', this)">📢 Actualités</button>
-  </div>
-
-  <div class="content-grid">
-
-    <!-- MAIN CONTENT -->
-    <div>
+      <!-- AVIS PUBLICS RSS -->
       <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">
-            📋 Avis publics
-            <span id="badgeAvis" class="new-badge" style="display:none"></span>
-          </span>
+        <div class="panel-head">
+          📋 Avis publics
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="badgeAvis" class="badge" style="display:none">NOUVEAU</span>
+            <div class="feed-tabs" style="margin:0">
+              <div class="ftab active" onclick="switchFeed('autobus',this)">🚌 Autobus <span class="cnt" id="cntAutobus">…</span></div>
+              <div class="ftab" onclick="switchFeed('courtage',this)">📋 Courtage <span class="cnt" id="cntCourtage">…</span></div>
+              <div class="ftab" onclick="switchFeed('ferroviaire',this)">🚂 Ferrov. <span class="cnt" id="cntFerroviaire">…</span></div>
+              <div class="ftab" onclick="switchFeed('erratum',this)">🔔 Erratum <span class="cnt" id="cntErratum">…</span></div>
+            </div>
+          </div>
         </div>
-        <div class="panel-body" id="sectionAvis"></div>
+        <div class="scroll"><div id="feedAvis" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
       </div>
 
+      <!-- AUDIENCES -->
       <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">
-            🗓️ Calendrier des audiences
-            <span id="badgeAudience" class="new-badge" style="display:none"></span>
-          </span>
-        </div>
-        <div class="panel-body" id="sectionAudience"></div>
+        <div class="panel-head">🗓️ Calendrier des audiences <span id="badgeAud" class="badge" style="display:none">NOUVEAU</span></div>
+        <div class="scroll"><div id="feedAud" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
       </div>
 
+      <!-- DECISIONS -->
       <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">
-            ⚖️ Décisions rendues
-            <span id="badgeDecision" class="new-badge" style="display:none"></span>
-          </span>
-        </div>
-        <div class="panel-body" id="sectionDecision"></div>
+        <div class="panel-head">⚖️ Décisions rendues <span id="badgeDec" class="badge" style="display:none">NOUVEAU</span></div>
+        <div class="scroll"><div id="feedDec" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
       </div>
 
+      <!-- ACTUALITES -->
       <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">
-            📢 Actualités & dossiers prioritaires
-            <span id="badgeActu" class="new-badge" style="display:none"></span>
-          </span>
-        </div>
-        <div class="panel-body" id="sectionActu"></div>
+        <div class="panel-head">📢 Actualités <span id="badgeActu" class="badge" style="display:none">NOUVEAU</span></div>
+        <div class="scroll"><div id="feedActu" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
       </div>
     </div>
 
     <!-- SIDEBAR -->
     <div>
+      <!-- LOOKUP -->
       <div class="sidebar-panel">
-        <div class="sidebar-header">🔍 Recherche</div>
+        <div class="sidebar-head">🔍 Recherche détenteur CTQ</div>
         <div class="sidebar-body">
-          <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un transporteur, territoire..." oninput="searchItems(this.value)">
+          <input class="lookup-input" id="lookupInput" placeholder="Nom du transporteur…" oninput="updateLookup(this.value)">
+          <a id="lnkDossier" href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU" target="_blank" class="lookup-btn">🏢 Dossier / tous permis →</a>
+          <a id="lnkNolise" href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU" target="_blank" class="lookup-btn">🚌 Permis nolisé (carte) →</a>
+          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" class="lookup-btn">⚖️ Recherche décisions →</a>
+          <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics" target="_blank" class="lookup-btn">📋 Portail avis publics →</a>
         </div>
       </div>
 
+      <!-- LIENS RAPIDES -->
       <div class="sidebar-panel">
-        <div class="sidebar-header">📈 Activité (30 jours)</div>
+        <div class="sidebar-head">🔗 Portails CTQ</div>
         <div class="sidebar-body">
-          <div class="chart-container">
-            <div class="chart-bars" id="historyChart"></div>
-            <div class="chart-labels" id="historyLabels"></div>
-          </div>
+          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/" target="_blank" class="lookup-btn">🗓️ Calendrier des audiences</a>
+          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" class="lookup-btn">📢 Actualités CTQ</a>
+          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" class="lookup-btn">🚌 Info permis autobus</a>
+          <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/inscription-au-registre-nir-et-cote-de-securite/" target="_blank" class="lookup-btn">🛡️ Registre NIR / Cote sécurité</a>
         </div>
       </div>
 
+      <!-- RÉSUMÉ RSS -->
       <div class="sidebar-panel">
-        <div class="sidebar-header">🏷️ Filtrer par tag</div>
-        <div class="sidebar-body" id="tagCloud"></div>
-      </div>
-
-      <!-- LOOKUP DÉTENTEURS -->
-      <div class="sidebar-panel" style="border:1px solid rgba(232,75,28,0.35);">
-        <div class="sidebar-header" style="background:rgba(232,75,28,0.12);color:#ff7f5c;">🔎 Lookup détenteur de permis</div>
-        <div class="sidebar-body">
-          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
-            Entrer un nom de transporteur — le nom sera <strong style="color:var(--text)">copié automatiquement</strong> dans le presse-papier avant l'ouverture du portail CTQ.
-          </div>
-
-          <div style="position:relative;margin-bottom:10px;">
-            <input type="text" id="lookupInput"
-              placeholder="Ex: Autobus Ménard, Groupe Rive-Nord..."
-              style="width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;box-sizing:border-box;"
-              oninput="updateLookupLinks(this.value)"
-            >
-            <span id="copiedBadge" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#10B981;color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;">✓ COPIÉ</span>
-          </div>
-
-          <div style="display:grid;gap:6px;">
-
-            <button onclick="launchPortal('https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU', 'Nom du transporteur')"
-              style="display:flex;align-items:center;gap:8px;background:rgba(232,75,28,0.1);border:1px solid rgba(232,75,28,0.25);border-radius:6px;padding:9px 10px;cursor:pointer;color:var(--text);font-size:11px;font-weight:600;text-align:left;width:100%;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(232,75,28,0.22)'" onmouseout="this.style.background='rgba(232,75,28,0.1)'">
-              <span style="font-size:15px;">🏢</span>
-              <div style="flex:1;"><div style="color:#ff7f5c;">Dossier entreprise / individu</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Tous permis du détenteur — champ «Nom»</div></div>
-              <span style="color:var(--muted);font-size:13px;">↗</span>
-            </button>
-
-            <button onclick="launchPortal('https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU', 'Titulaire')"
-              style="display:flex;align-items:center;gap:8px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:9px 10px;cursor:pointer;color:var(--text);font-size:11px;font-weight:600;text-align:left;width:100%;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(59,130,246,0.22)'" onmouseout="this.style.background='rgba(59,130,246,0.1)'">
-              <span style="font-size:15px;">🚌</span>
-              <div style="flex:1;"><div style="color:#60a5fa;">Permis nolisé — carte interactive</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Territoires desservis — champ «Titulaire»</div></div>
-              <span style="color:var(--muted);font-size:13px;">↗</span>
-            </button>
-
-            <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/inscription-au-registre-nir-et-cote-de-securite/" target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(16,185,129,0.22)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">
-              <span style="font-size:15px;">🛡️</span>
-              <div style="flex:1;"><div style="color:#34d399;">NIR &amp; cote de sécurité</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Inscription, cote, réévaluation</div></div>
-              <span style="color:var(--muted);font-size:13px;">↗</span>
-            </a>
-
-            <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/registre-des-proprietaires-et-des-exploitants-de-vehicules-lourds/" target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(139,92,246,0.22)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">
-              <span style="font-size:15px;">📋</span>
-              <div style="flex:1;"><div style="color:#a78bfa;">Registre RPEVL</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Propriétaires et exploitants de véhicules lourds</div></div>
-              <span style="color:var(--muted);font-size:13px;">↗</span>
-            </a>
-
-            <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank"
-              style="display:flex;align-items:center;gap:8px;background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);border-radius:6px;padding:9px 10px;text-decoration:none;color:var(--text);font-size:11px;font-weight:600;transition:background 0.2s;"
-              onmouseover="this.style.background='rgba(251,146,60,0.22)'" onmouseout="this.style.background='rgba(251,146,60,0.1)'">
-              <span style="font-size:15px;">📄</span>
-              <div style="flex:1;"><div style="color:#fb923c;">Info permis d'autobus</div><div style="font-size:10px;color:var(--muted);margin-top:1px;">Catégories, transfert, renouvellement, révocation</div></div>
-              <span style="color:var(--muted);font-size:13px;">↗</span>
-            </a>
-
-          </div>
-
-          <!-- Toast de confirmation -->
-          <div id="lookupToast" style="display:none;margin-top:10px;border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.5;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#34d399;">
-            ✅ <strong id="toastName" style="color:white;"></strong> copié dans le presse-papier<br>
-            <span style="color:var(--muted);">Coller dans le champ <strong id="toastField" style="color:#34d399;"></strong> du portail CTQ</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RSS READER -->
-      <div class="sidebar-panel">
-        <div class="sidebar-header" style="flex-direction:column;align-items:flex-start;gap:8px;">
-          <span>📡 Avis publics en direct</span>
-          <div style="display:flex;gap:5px;flex-wrap:wrap;">
-            <button class="rss-tab active" onclick="loadFeed('AUTOBUS','🚌 Autobus',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid rgba(232,75,28,.4);background:rgba(232,75,28,.15);color:#ff7f5c;cursor:pointer;">🚌 Autobus</button>
-            <button class="rss-tab" onclick="loadFeed('COURTAGE','📋 Courtage',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">📋 Courtage</button>
-            <button class="rss-tab" onclick="loadFeed('FERROVIAIR','🚂 Ferrov.',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">🚂 Ferrov.</button>
-            <button class="rss-tab" onclick="loadFeed('ERRATUM','🔔 Erratum',this)" style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;">🔔 Erratum</button>
-          </div>
-        </div>
-        <div class="sidebar-body" style="padding:0">
-          <div id="rssFeedTitle" style="font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;padding:10px 14px 0;"></div>
-          <div id="rssFeed" style="max-height:340px;overflow-y:auto;padding:6px 10px 10px;">
-            <div style="color:var(--muted);font-size:12px;padding:16px;text-align:center;">Chargement...</div>
-          </div>
-          <div style="border-top:1px solid var(--border);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:10px;color:var(--muted)">Source: pes.ctq.gouv.qc.ca</span>
-            <a id="rssDirectLink" href="#" target="_blank" style="font-size:10px;color:var(--muted2);text-decoration:none;">XML brut ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- LIENS CTQ -->
-      <div class="sidebar-panel">
-        <div class="sidebar-header">🔗 Portails CTQ</div>
-        <div class="sidebar-body" style="display:grid;gap:5px;">
-          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">🗓️ <span>Calendrier des audiences</span></a>
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">⚖️ <span>Recherche de décisions</span></a>
-          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">📢 <span>Actualités & dossiers</span></a>
-          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s" onmouseover="this.style.background='#2a2a2a'" onmouseout="this.style.background='var(--dark3)'">🚌 <span>Info permis autobus</span></a>
+        <div class="sidebar-head">📡 État des flux</div>
+        <div class="sidebar-body" id="feedStatus" style="font-size:11px;display:grid;gap:5px">
+          <div style="color:var(--muted)">Chargement...</div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</main>
 
 <script>
-const ALL_ITEMS = [{"section": "avis_publics", "section_label": "Avis publics — Autobus", "icon": "🚌", "priority": "haute", "source": "rss", "title": "Demande de permis nolisé — Autobus Laval Express inc. — Laval, Montréal, Lanaudière", "description": "Dépôt d'une demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière. Audience publique prévue si opposition reçue dans les 20 jours.", "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics", "date_publie": "2026-03-09", "hash_id": "rss_abc001", "is_new": true, "tags": ["Nouveau permis", "Nolisé"]}, {"section": "avis_publics", "section_label": "Avis publics — Autobus", "icon": "🚌", "priority": "haute", "source": "rss", "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord 2025", "description": "Demande de transfert d'un permis de transport d'élèves. Commission scolaire des Affluents, territoire de Terrebonne.", "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics", "date_publie": "2026-03-09", "hash_id": "rss_abc002", "is_new": true, "tags": ["Transfert", "Transport scolaire"]}, {"section": "avis_publics", "section_label": "Avis publics — Autobus", "icon": "🚌", "priority": "haute", "source": "rss", "title": "Modification de territoire — Autobus Laurentides inc. — Ajout MRC des Laurentides", "description": "Demande de modification du territoire d'exploitation. Ajout de la MRC des Laurentides au permis interurbain existant.", "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics", "date_publie": "2026-03-08", "hash_id": "rss_abc003", "is_new": false, "tags": ["Modification territoire", "Interurbain"]}, {"section": "avis_publics", "section_label": "Avis publics — Courtage", "icon": "📋", "priority": "moyenne", "source": "rss", "title": "Renouvellement de permis de courtage — Zone Montréal — Transport en vrac", "description": "Demande de renouvellement de permis de courtage en services de camionnage en vrac pour la zone de Montréal.", "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics", "date_publie": "2026-03-07", "hash_id": "rss_crt001", "is_new": false, "tags": ["Courtage"]}, {"section": "actualites", "section_label": "Erratum & Corrections", "icon": "🔔", "priority": "haute", "source": "rss", "title": "Erratum — Décision 2026 QCCTQ 0198 — Correction du territoire accordé", "description": "La Commission rectifie la décision 2026 QCCTQ 0198 rendue le 14 février 2026. Correction du territoire d'exploitation accordé suite à une erreur matérielle.", "url": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/", "date_publie": "2026-03-09", "hash_id": "rss_err001", "is_new": true, "tags": ["Erratum"]}, {"section": "calendrier_audiences", "section_label": "Calendrier des audiences", "icon": "🗓️", "priority": "haute", "source": "html", "title": "18 mars 2026 — Audience publique — Autobus Laurentides inc. — Modification territoire", "description": "Audience publique à Québec. Demande de modification du territoire d'exploitation.", "url": "https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/", "date_publie": "2026-03-09", "hash_id": "html_cal001", "is_new": false, "tags": ["Audience", "Modification territoire"]}, {"section": "decisions", "section_label": "Décisions rendues", "icon": "⚖️", "priority": "moyenne", "source": "html", "title": "2026 QCCTQ 0231 — Permis accordé — Transport nolisé — Montérégie, Estrie", "description": "La Commission accorde le permis de transport nolisé demandé. Territoire : Montérégie, Estrie.", "url": "https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/", "date_publie": "2026-03-06", "hash_id": "html_dec001", "is_new": false, "tags": ["Nouveau permis", "Nolisé"]}, {"section": "actualites", "section_label": "Actualités et dossiers prioritaires", "icon": "📢", "priority": "moyenne", "source": "html", "title": "Indexation des tarifs au 1er avril 2026", "description": "La Commission procède à l'indexation annuelle des frais et droits payables conformément à la Loi sur l'administration financière.", "url": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/", "date_publie": "2026-03-04", "hash_id": "html_act001", "is_new": false, "tags": ["Tarification"]}];
-const HISTORY = [{"date": "2026-02-08", "new_count": 0, "total": 8}, {"date": "2026-02-09", "new_count": 3, "total": 15}, {"date": "2026-02-10", "new_count": 4, "total": 15}, {"date": "2026-02-11", "new_count": 6, "total": 7}, {"date": "2026-02-12", "new_count": 5, "total": 13}, {"date": "2026-02-13", "new_count": 1, "total": 14}, {"date": "2026-02-14", "new_count": 2, "total": 8}, {"date": "2026-02-15", "new_count": 5, "total": 10}, {"date": "2026-02-16", "new_count": 6, "total": 10}, {"date": "2026-02-17", "new_count": 2, "total": 4}, {"date": "2026-02-18", "new_count": 0, "total": 5}, {"date": "2026-02-19", "new_count": 6, "total": 9}, {"date": "2026-02-20", "new_count": 1, "total": 7}, {"date": "2026-02-21", "new_count": 5, "total": 8}, {"date": "2026-02-22", "new_count": 2, "total": 5}, {"date": "2026-02-23", "new_count": 5, "total": 5}, {"date": "2026-02-24", "new_count": 0, "total": 12}, {"date": "2026-02-25", "new_count": 0, "total": 7}, {"date": "2026-02-26", "new_count": 3, "total": 11}, {"date": "2026-02-27", "new_count": 4, "total": 15}, {"date": "2026-02-28", "new_count": 5, "total": 11}, {"date": "2026-03-01", "new_count": 0, "total": 12}, {"date": "2026-03-02", "new_count": 1, "total": 5}, {"date": "2026-03-03", "new_count": 0, "total": 10}, {"date": "2026-03-04", "new_count": 2, "total": 12}, {"date": "2026-03-05", "new_count": 4, "total": 12}, {"date": "2026-03-06", "new_count": 1, "total": 9}, {"date": "2026-03-07", "new_count": 6, "total": 10}, {"date": "2026-03-08", "new_count": 1, "total": 9}, {"date": "2026-03-09", "new_count": 2, "total": 7}];
-const SUMMARY = {"avis_publics": 2, "calendrier_audiences": 0, "decisions": 0, "actualites": 1};
-
-const TAG_COLORS = {
-  "Nouveau permis": "#E84B1C",
-  "Transfert": "#9B59B6",
-  "Modification territoire": "#3498DB",
-  "Nolisé": "#1ABC9C",
-  "Transport scolaire": "#F39C12",
-  "Révocation": "#E74C3C",
-  "Interurbain": "#2980B9",
-  "Urbain": "#27AE60",
-  "Audience": "#8E44AD",
-  "Tarification": "#E67E22",
-  "VFÉ": "#2ECC71"
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const PROXY = 'https://api.allorigins.win/get?url=';
+const FEEDS = {
+  autobus:     { url:'https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml',    label:'Autobus',    color:'#E84B1C', section:'avis' },
+  courtage:    { url:'https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml',   label:'Courtage',   color:'#D97706', section:'avis' },
+  ferroviaire: { url:'https://www.pes.ctq.gouv.qc.ca/rss/FERROVIAIR.xml', label:'Ferroviaire',color:'#6366F1', section:'avis' },
+  erratum:     { url:'https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml',    label:'Erratum',    color:'#F59E0B', section:'avis' },
 };
 
-const SECTION_COLORS = {
-  avis_publics: "var(--avis)",
-  calendrier_audiences: "var(--audience)",
-  decisions: "var(--decision)",
-  actualites: "var(--actu)"
-};
+// Tag detection
+const TAG_RULES = [
+  { test: /nolisé|nolise/i,        label:'Nolisé',              color:'#E84B1C' },
+  { test: /scolaire|élèves/i,      label:'Scolaire',            color:'#3B82F6' },
+  { test: /interurbain/i,          label:'Interurbain',         color:'#8B5CF6' },
+  { test: /urbain/i,               label:'Urbain',              color:'#10B981' },
+  { test: /courtage|vrac/i,        label:'Courtage/Vrac',       color:'#D97706' },
+  { test: /ferroviaire/i,          label:'Ferroviaire',         color:'#6366F1' },
+  { test: /erratum|correction/i,   label:'Erratum',             color:'#F59E0B' },
+  { test: /touristique/i,          label:'Touristique',         color:'#14B8A6' },
+  { test: /transfert/i,            label:'Transfert',           color:'#8B5CF6' },
+  { test: /nouveau.*permis|demande.*permis/i, label:'Nouveau permis', color:'#E84B1C' },
+  { test: /modification.*territoire|territoire/i, label:'Modif. territoire', color:'#3B82F6' },
+  { test: /révocation|revocation/i,label:'Révocation',          color:'#EF4444' },
+  { test: /maintien|acquisition/i, label:'Maintien',            color:'#8B5CF6' },
+  { test: /audience/i,             label:'Audience',            color:'#F59E0B' },
+  { test: /tarif|indexation/i,     label:'Tarification',        color:'#6B7280' },
+];
 
-let currentFilter = "all";
-let currentSearch = "";
-let currentTag = "";
+// State
+let allData = { autobus:[], courtage:[], ferroviaire:[], erratum:[], audiences:[], decisions:[], actualites:[] };
+let currentFeed = 'autobus';
+let loadedCount = 0;
+let totalFeeds = 0;
 
-function renderTag(tag) {
-  const color = TAG_COLORS[tag] || "#666";
-  return `<span class="tag" style="background:${color}">${tag}</span>`;
+// ── PARSE RSS ─────────────────────────────────────────────────────────────────
+function parseRSS(xmlStr) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xmlStr, 'text/xml');
+  const items = doc.querySelectorAll('item');
+  const results = [];
+  items.forEach(item => {
+    const title = item.querySelector('title')?.textContent?.trim() || '';
+    const link = item.querySelector('link')?.textContent?.trim() || '#';
+    const desc = (item.querySelector('description')?.textContent || '')
+      .replace(/<br[^>]*>/gi, ' | ')
+      .replace(/<[^>]+>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const pubDate = item.querySelector('pubDate')?.textContent || '';
+    const guid = item.querySelector('guid')?.textContent || title;
+    if (title && title !== 'Avis publics') {
+      results.push({ title, link, desc, pubDate, guid });
+    }
+  });
+  return results;
 }
 
-function renderItem(item) {
-  const sectionClass = `section-${item.section.replace("_","-").replace("calendrier-audiences","audience").replace("avis-publics","avis").replace("actualites","actu").replace("decisions","decision")}`;
-  const isNew = item.is_new ? "new-item" : "";
-  const newBadge = item.is_new ? `<span style="background:#E84B1C;color:white;font-size:9px;font-weight:800;padding:1px 6px;border-radius:2px;margin-left:6px;">NOUVEAU</span>` : "";
-  const tags = (item.tags || []).map(renderTag).join(" ");
-  const desc = item.description ? `<div class="item-desc">${item.description.substring(0,220)}</div>` : "";
+// ── DETECT TAGS ───────────────────────────────────────────────────────────────
+function detectTags(text) {
+  const tags = [];
+  const seen = new Set();
+  TAG_RULES.forEach(rule => {
+    if (rule.test.test(text) && !seen.has(rule.label)) {
+      tags.push(rule);
+      seen.add(rule.label);
+    }
+  });
+  return tags.slice(0, 3);
+}
 
-  // Label du lien selon la section
-  const linkLabels = {
-    "avis_publics": "📋 Portail avis publics →",
-    "calendrier_audiences": "🗓️ Calendrier des audiences →",
-    "decisions": "⚖️ Recherche de décisions →",
-    "actualites": "📢 Actualités CTQ →",
-  };
-  const linkLabel = linkLabels[item.section] || "Voir sur CTQ →";
+// ── FORMAT DATE ───────────────────────────────────────────────────────────────
+function fmtDate(pubDate) {
+  if (!pubDate) return '';
+  try {
+    return new Date(pubDate).toLocaleDateString('fr-CA', { day:'numeric', month:'short', year:'numeric' });
+  } catch(e) { return pubDate.slice(0,10); }
+}
 
-  return `
-    <div class="item-card ${sectionClass} ${isNew}" data-section="${item.section}" data-new="${item.is_new}" data-text="${(item.title+' '+(item.description||'')+' '+(item.tags||[]).join(' ')).toLowerCase()}">
-      <div class="item-title">${item.icon || ''} ${item.title} ${newBadge}</div>
-      ${desc}
-      <div class="item-footer">
-        <span class="item-date">📅 ${item.date_publie}</span>
-        ${tags}
-        ${item.url ? `<a href="${item.url}" target="_blank" class="item-link">${linkLabel}</a>` : ""}
-      </div>
+// ── IS NEW (last 7 days) ──────────────────────────────────────────────────────
+function isNew(pubDate) {
+  if (!pubDate) return false;
+  try {
+    return (Date.now() - new Date(pubDate).getTime()) < 7 * 24 * 60 * 60 * 1000;
+  } catch(e) { return false; }
+}
+
+// ── RENDER ITEM ───────────────────────────────────────────────────────────────
+function renderItem(item, color) {
+  const tags = detectTags(item.title + ' ' + item.desc);
+  const newBadge = isNew(item.pubDate) ? '<span class="new-badge">NOUVEAU</span>' : '';
+  const tagsHtml = tags.map(t =>
+    `<span class="tag" style="background:${t.color}22;color:${t.color}">${t.label}</span>`
+  ).join('');
+  const linkUrl = (item.link && !item.link.endsWith('.xml')) ? item.link : 'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics';
+  const descPreview = item.desc ? item.desc.substring(0, 200) + (item.desc.length > 200 ? '…' : '') : '';
+
+  return `<div class="item" style="--ic:${color}" onclick="prefillLookup(this)">
+    <div class="item-top">
+      <div class="item-title">${item.title}${newBadge}</div>
+      <div class="item-date">${fmtDate(item.pubDate)}</div>
     </div>
-  `;
+    ${descPreview ? `<div class="item-desc">${descPreview}</div>` : ''}
+    <div class="item-foot">
+      ${tagsHtml}
+      <a href="${linkUrl}" target="_blank" class="item-link" onclick="event.stopPropagation()">📋 Portail CTQ →</a>
+    </div>
+  </div>`;
 }
 
-function renderSection(sectionKey, containerId, badgeId) {
-  const items = ALL_ITEMS.filter(i => i.section === sectionKey);
-  const container = document.getElementById(containerId);
-  const badge = document.getElementById(badgeId);
-  
+// ── RENDER SECTION ────────────────────────────────────────────────────────────
+function renderAvis() {
+  const feed = currentFeed;
+  const items = allData[feed] || [];
+  const color = FEEDS[feed]?.color || '#E84B1C';
+  const el = document.getElementById('feedAvis');
   if (!items.length) {
-    container.innerHTML = `<div class="empty-state">Aucune activité détectée aujourd'hui</div>`;
+    el.innerHTML = '<div class="empty">Aucun avis actif pour ce flux</div>';
+  } else {
+    el.innerHTML = items.map(i => renderItem(i, color)).join('');
+  }
+  // Update stats
+  const total = Object.values(allData).flat().filter(i => i.section === 'avis' || FEEDS[currentFeed]).length;
+}
+
+function renderSection(items, containerId, badgeId, color) {
+  const el = document.getElementById(containerId);
+  const badge = document.getElementById(badgeId);
+  if (!items || !items.length) {
+    el.innerHTML = `<div class="empty">Aucune activité — <a href="https://www.ctq.gouv.qc.ca/" target="_blank" style="color:var(--red2)">Voir le site CTQ →</a></div>`;
     return;
   }
-  
-  container.innerHTML = items.map(renderItem).join("");
-  const newCount = items.filter(i => i.is_new).length;
-  if (newCount > 0) {
-    badge.style.display = "inline";
-    badge.textContent = `${newCount} nouveau${newCount > 1 ? "x" : ""}`;
+  el.innerHTML = items.map(i => renderItem(i, color)).join('');
+  const newCount = items.filter(i => isNew(i.pubDate)).length;
+  if (newCount > 0 && badge) {
+    badge.style.display = 'inline';
+    badge.textContent = `${newCount} NOUVEAU${newCount > 1 ? 'X' : ''}`;
   }
 }
 
-function filterItems(filter, btn) {
-  currentFilter = filter;
-  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  applyFilters();
-}
-
-function searchItems(query) {
-  currentSearch = query.toLowerCase();
-  applyFilters();
-}
-
-function filterByTag(tag) {
-  currentTag = currentTag === tag ? "" : tag;
-  buildTagCloud();
-  applyFilters();
-}
-
-function applyFilters() {
-  document.querySelectorAll(".item-card").forEach(card => {
-    const section = card.dataset.section;
-    const isNew = card.dataset.new === "true";
-    const text = card.dataset.text;
-    
-    let show = true;
-    if (currentFilter === "new" && !isNew) show = false;
-    else if (currentFilter !== "all" && currentFilter !== "new" && section !== currentFilter) show = false;
-    if (currentSearch && !text.includes(currentSearch)) show = false;
-    if (currentTag && !text.includes(currentTag.toLowerCase())) show = false;
-    
-    card.style.display = show ? "block" : "none";
-  });
-}
-
-function buildHistoryChart() {
-  const chart = document.getElementById("historyChart");
-  const labels = document.getElementById("historyLabels");
-  if (!HISTORY.length) return;
-  
-  const maxVal = Math.max(...HISTORY.map(r => r.new_count), 1);
-  
-  chart.innerHTML = HISTORY.map(r => {
-    const h = Math.max(4, Math.round((r.new_count / maxVal) * 76));
-    const color = r.new_count > 0 ? "#E84B1C" : "#2a2a3e";
-    return `<div class="bar" style="height:${h}px;background:${color};" title="${r.date}: ${r.new_count} nouveau(x)"></div>`;
-  }).join("");
-  
-  if (HISTORY.length >= 2) {
-    const first = HISTORY[0].date?.substring(5) || "";
-    const last = HISTORY[HISTORY.length-1].date?.substring(5) || "";
-    labels.innerHTML = `<span class="chart-label">${first}</span><span class="chart-label">${last}</span>`;
-  }
-}
-
-function buildTagCloud() {
-  const tagCounts = {};
-  ALL_ITEMS.forEach(item => {
-    (item.tags || []).forEach(tag => {
-      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-    });
-  });
-  
-  const cloud = document.getElementById("tagCloud");
-  cloud.innerHTML = Object.entries(tagCounts)
-    .sort((a,b) => b[1]-a[1])
-    .map(([tag, count]) => {
-      const color = TAG_COLORS[tag] || "#666";
-      const active = currentTag === tag ? "outline:2px solid white;" : "";
-      return `<span class="tag" style="background:${color};cursor:pointer;margin:3px;padding:4px 8px;font-size:10px;${active}" onclick="filterByTag('${tag}')">${tag} (${count})</span>`;
-    }).join(" ");
-}
-
-// ── LOOKUP DÉTENTEUR ────────────────────────────────────────────────────────
-function updateLookupLinks(query) {
-  const hint = document.getElementById('lookupHint');
-  const term = document.getElementById('lookupTerm');
-  const q = query.trim();
-
-  if (q.length >= 2) {
-    hint.style.display = 'block';
-    term.textContent = q;
-
-    // Construire les URLs avec paramètre de recherche pré-rempli
-    // Le portail PES ne supporte pas les query params directs — on affiche le nom à chercher
-    const base = 'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/';
-    document.getElementById('lnkDossier').href = base + 'dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU';
-    document.getElementById('lnkPermisNolise').href = base + 'permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU';
-    document.getElementById('lnkCote').href = base + 'registrecote';
-    document.getElementById('lnkAttestation').href = base + 'dossierclient?voletContexte=RECHERCHE_RESTREINT_NIR_FR_MENU';
-
-    // Animation sur les boutons
-    document.querySelectorAll('#lookupLinks a').forEach(a => {
-      a.style.transform = 'scale(1.01)';
-      setTimeout(() => a.style.transform = '', 200);
-    });
-  } else {
-    hint.style.display = 'none';
-  }
-}
-
-// Clic sur item → pre-fill lookup
-document.addEventListener('click', function(e) {
-  const card = e.target.closest('.item-card');
-  if (card) {
-    const titleEl = card.querySelector('.item-title');
-    if (titleEl) {
-      // Extraire le nom du transporteur (avant le premier tiret)
-      const full = titleEl.textContent.trim();
-      const parts = full.split('—');
-      const transporteur = parts.length > 1 ? parts[parts.length - 1].trim().replace('NOUVEAU','').trim() : '';
-      if (transporteur.length > 3) {
-        const input = document.getElementById('lookupInput');
-        input.value = transporteur.substring(0, 60);
-        updateLookupLinks(input.value);
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        input.style.borderColor = 'var(--red)';
-        setTimeout(() => input.style.borderColor = 'var(--border)', 2000);
-      }
-    }
-  }
-});
-
-// ── RSS READER ───────────────────────────────────────────────────────────────
-let currentFeed = 'AUTOBUS';
-
-async function loadFeed(feed, label, tabEl) {
-  currentFeed = feed;
-  const url = `https://www.pes.ctq.gouv.qc.ca/rss/${feed}.xml`;
-  document.getElementById('rssDirectLink').href = url;
-  document.getElementById('rssFeedTitle').textContent = label;
-  document.getElementById('rssFeed').innerHTML = '<div style="color:var(--muted);font-size:12px;padding:16px 6px;text-align:center;">⏳ Chargement...</div>';
-
-  // Update tab styles
-  document.querySelectorAll('.rss-tab').forEach(t => {
-    t.style.background = 'var(--dark3)';
-    t.style.color = 'var(--muted2)';
-    t.style.borderColor = 'var(--border)';
-  });
-  if (tabEl) {
-    tabEl.style.background = 'rgba(232,75,28,.15)';
-    tabEl.style.color = '#ff7f5c';
-    tabEl.style.borderColor = 'rgba(232,75,28,.4)';
-  }
-
+// ── FETCH ONE FEED ────────────────────────────────────────────────────────────
+async function fetchFeed(key) {
+  const cfg = FEEDS[key];
   try {
-    // Use allorigins proxy to bypass CORS
-    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-    const res = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
+    const res = await fetch(PROXY + encodeURIComponent(cfg.url), { signal: AbortSignal.timeout(12000) });
     const json = await res.json();
-    const xml = new DOMParser().parseFromString(json.contents, 'text/xml');
-    const items = xml.querySelectorAll('item');
+    const items = parseRSS(json.contents);
+    allData[key] = items;
 
-    if (!items.length) {
-      document.getElementById('rssFeed').innerHTML = '<div style="color:var(--muted);font-size:12px;padding:16px 6px;text-align:center;">Aucun avis actif</div>';
-      return;
-    }
+    // Update counter badge on tab
+    const cnt = document.getElementById('cnt' + key.charAt(0).toUpperCase() + key.slice(1));
+    if (cnt) cnt.textContent = items.length;
 
-    let html = '';
-    items.forEach(item => {
-      const title = item.querySelector('title')?.textContent || '';
-      const link = item.querySelector('link')?.textContent || '#';
-      const desc = item.querySelector('description')?.textContent || '';
-      const pub = item.querySelector('pubDate')?.textContent || '';
-
-      // Parse description: strip HTML tags, extract key fields
-      const clean = desc.replace(/<br[^>]*>/gi, '|').replace(/<[^>]+>/g, '').trim();
-      const lines = clean.split('|').map(l => l.trim()).filter(l => l.length > 2);
-
-      // Extract structured fields
-      let demandeur = '', noPermis = '', typePermis = '', dateIntro = '';
-      lines.forEach(l => {
-        if (l.startsWith('Numéro de la demande')) noPermis = l.replace('Numéro de la demande :', '').trim();
-        if (l.includes("introduction")) dateIntro = l.replace("Date d'introduction :", "").trim();
-        if (l.match(/^[A-Z][A-Z .]+INC[.]|LTEE|ENRG[.]|TRANSPORT|AUTOBUS|GROUPE/)) demandeur = l;
-        if (l.includes('permis') || l.includes('Permis') || l.includes('nolisé') || l.includes('Maintien')) typePermis = l;
-      });
-
-      const dateStr = pub ? new Date(pub).toLocaleDateString('fr-CA', {day:'numeric',month:'short',year:'numeric'}) : '';
-
-      // Detect type for color coding
-      let tagColor = '#6b7280', tagLabel = '';
-      const titleLow = title.toLowerCase() + clean.toLowerCase();
-      if (titleLow.includes('nolisé') || titleLow.includes('nolise')) { tagColor = '#E84B1C'; tagLabel = 'Nolisé'; }
-      else if (titleLow.includes('scolaire') || titleLow.includes('élèves')) { tagColor = '#3B82F6'; tagLabel = 'Scolaire'; }
-      else if (titleLow.includes('interurbain')) { tagColor = '#8B5CF6'; tagLabel = 'Interurbain'; }
-      else if (titleLow.includes('urbain')) { tagColor = '#10B981'; tagLabel = 'Urbain'; }
-      else if (titleLow.includes('courtage')) { tagColor = '#D97706'; tagLabel = 'Courtage'; }
-      else if (titleLow.includes('ferroviaire')) { tagColor = '#6366F1'; tagLabel = 'Ferroviaire'; }
-      else if (titleLow.includes('erratum')) { tagColor = '#F59E0B'; tagLabel = 'Erratum'; }
-      else if (titleLow.includes("maintien") || titleLow.includes('acquisition')) { tagColor = '#8B5CF6'; tagLabel = 'Maintien'; }
-
-      // Detect movement type
-      if (titleLow.includes("maintien") || titleLow.includes("acquisition") || titleLow.includes("transfert")) { mvLabel = "Transfert"; mvColor = "#8B5CF6"; }
-      else if (titleLow.includes("nouveau") || typePermis.includes("Demande")) { mvLabel = "Nouveau"; mvColor = "#E84B1C"; }
-      else if (titleLow.includes("modification")) { mvLabel = "Modif."; mvColor = "#3B82F6"; }
-      else if (titleLow.includes("revocation") || titleLow.includes("révocation")) { mvLabel = "Révocation"; mvColor = "#EF4444"; }
-      else if (titleLow.includes('révocation') || titleLow.includes('revocation')) { mvLabel = 'Révocation'; mvColor = '#EF4444'; }
-
-      html += `
-        <div style="border:1px solid var(--border);border-left:3px solid ${tagColor};border-radius:7px;padding:10px 12px;margin-bottom:7px;background:var(--dark3);cursor:pointer;transition:border-color .15s"
-          onmouseover="this.style.borderColor='rgba(255,255,255,.15)'" onmouseout="this.style.borderTopColor=this.style.borderRightColor=this.style.borderBottomColor='var(--border)'">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px">
-            <div style="font-size:11px;font-weight:700;color:var(--text);line-height:1.3;flex:1">${demandeur || (lines[0]||'Demandeur').substring(0,50)}</div>
-            <div style="font-size:9px;color:var(--muted);white-space:nowrap">${dateStr}</div>
-          </div>
-          ${typePermis ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:6px;line-height:1.35">${typePermis.substring(0,90)}${typePermis.length>90?'…':''}</div>` : ''}
-          ${noPermis ? `<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:6px;">Demande #${noPermis}</div>` : ''}
-          <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
-            ${tagLabel ? `<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px;background:${tagColor}22;color:${tagColor}">${tagLabel}</span>` : ''}
-            ${mvLabel ? `<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px;background:${mvColor}22;color:${mvColor}">${mvLabel}</span>` : ''}
-            <a href="${link}" target="_blank" style="margin-left:auto;font-size:10px;color:var(--muted2);text-decoration:none;padding:2px 6px;border:1px solid var(--border);border-radius:3px;transition:color .15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'">Voir ↗</a>
-          </div>
-        </div>`;
-    });
-
-    document.getElementById('rssFeed').innerHTML = html;
-
+    return { key, count: items.length, ok: true };
   } catch(e) {
-    document.getElementById('rssFeed').innerHTML = `
-      <div style="color:var(--muted);font-size:11px;padding:12px 6px;text-align:center;line-height:1.6">
-        ⚠️ Impossible de charger le flux en direct.<br>
-        <a href="https://www.pes.ctq.gouv.qc.ca/rss/${currentFeed}.xml" target="_blank" style="color:var(--red2);">Ouvrir le flux XML ↗</a>
-      </div>`;
+    allData[key] = [];
+    const cnt = document.getElementById('cnt' + key.charAt(0).toUpperCase() + key.slice(1));
+    if (cnt) cnt.textContent = '!';
+    return { key, count: 0, ok: false, error: e.message };
   }
 }
 
-// Init RSS on load
-loadFeed('AUTOBUS', '🚌 Autobus', document.querySelector('.rss-tab'));
+// ── FETCH HTML SECTIONS (static links to CTQ pages) ──────────────────────────
+function injectStaticSections() {
+  // Audiences - static link to CTQ calendar (can't scrape due to CORS)
+  renderSection([], 'feedAud', 'badgeAud', '#3B82F6');
+  renderSection([], 'feedDec', 'badgeDec', '#8B5CF6');
+  renderSection([], 'feedActu', 'badgeActu', '#10B981');
 
-// Init
-renderSection("avis_publics", "sectionAvis", "badgeAvis");
-renderSection("calendrier_audiences", "sectionAudience", "badgeAudience");
-renderSection("decisions", "sectionDecision", "badgeDecision");
-renderSection("actualites", "sectionActu", "badgeActu");
-buildHistoryChart();
-buildTagCloud();
+  document.getElementById('feedAud').innerHTML = `
+    <div class="item" style="--ic:#3B82F6">
+      <div class="item-top"><div class="item-title">Calendrier officiel des audiences CTQ</div></div>
+      <div class="item-desc">Les dates d'audience ne sont pas disponibles via RSS. Consultez le calendrier officiel sur le site de la Commission.</div>
+      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/" target="_blank" class="item-link">🗓️ Voir le calendrier →</a></div>
+    </div>`;
+
+  document.getElementById('feedDec').innerHTML = `
+    <div class="item" style="--ic:#8B5CF6">
+      <div class="item-top"><div class="item-title">Moteur de recherche des décisions CTQ</div></div>
+      <div class="item-desc">Recherchez les décisions rendues par numéro, date, type de permis ou nom du transporteur.</div>
+      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" class="item-link">⚖️ Rechercher une décision →</a></div>
+    </div>`;
+
+  document.getElementById('feedActu').innerHTML = `
+    <div class="item" style="--ic:#10B981">
+      <div class="item-top"><div class="item-title">Actualités et dossiers prioritaires CTQ</div></div>
+      <div class="item-desc">Indexations tarifaires, changements réglementaires, dossiers prioritaires de la Commission.</div>
+      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" class="item-link">📢 Voir les actualités →</a></div>
+    </div>`;
+}
+
+// ── LOAD ALL FEEDS ────────────────────────────────────────────────────────────
+async function loadAllFeeds() {
+  document.getElementById('alertBar').className = 'alert loading';
+  document.getElementById('alertBar').innerHTML = '<span class="spin"></span>Chargement des flux RSS CTQ en direct...';
+
+  // Reset counters
+  Object.keys(FEEDS).forEach(k => {
+    const cnt = document.getElementById('cnt' + k.charAt(0).toUpperCase() + k.slice(1));
+    if (cnt) cnt.textContent = '…';
+  });
+
+  // Fetch all 4 RSS feeds in parallel
+  const results = await Promise.all(Object.keys(FEEDS).map(k => fetchFeed(k)));
+
+  // Render current avis tab
+  renderAvis();
+  injectStaticSections();
+
+  // Update stats
+  const avisTotal = Object.keys(FEEDS).reduce((s,k) => s + (allData[k]?.length || 0), 0);
+  document.getElementById('statAvis').textContent = avisTotal;
+  document.getElementById('statAud').textContent = '—';
+  document.getElementById('statDec').textContent = '—';
+  document.getElementById('statActu').textContent = '—';
+
+  // Update badge for new items in avis
+  const newCount = Object.keys(FEEDS).reduce((s,k) => s + (allData[k]?.filter(i => isNew(i.pubDate)).length || 0), 0);
+  const badge = document.getElementById('badgeAvis');
+  if (newCount > 0) { badge.style.display='inline'; badge.textContent = `${newCount} NOUVEAU${newCount>1?'X':''}`; }
+  else badge.style.display = 'none';
+
+  // Alert bar
+  const okCount = results.filter(r => r.ok).length;
+  const totalItems = results.reduce((s,r) => s+r.count, 0);
+  if (okCount === 0) {
+    document.getElementById('alertBar').className = 'alert error';
+    document.getElementById('alertBar').innerHTML = '⚠️ Impossible de joindre les flux RSS CTQ. Vérifiez votre connexion ou <a href="https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml" target="_blank" style="color:inherit">ouvrez le flux manuellement</a>.';
+  } else if (newCount > 0) {
+    document.getElementById('alertBar').className = 'alert new';
+    document.getElementById('alertBar').innerHTML = `🚨 <strong>${newCount} avis récents (7j)</strong> détectés sur les flux CTQ`;
+  } else {
+    document.getElementById('alertBar').className = 'alert ok';
+    document.getElementById('alertBar').innerHTML = `✅ ${totalItems} avis actifs chargés — ${okCount}/4 flux RSS OK`;
+  }
+
+  // Feed status sidebar
+  const statusHtml = results.map(r => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+      <span style="color:var(--muted2)">${FEEDS[r.key].label}</span>
+      <span style="font-family:'DM Mono',monospace;color:${r.ok ? '#10B981' : '#EF4444'}">
+        ${r.ok ? r.count + ' avis' : '⚠️ erreur'}
+      </span>
+    </div>`).join('');
+  document.getElementById('feedStatus').innerHTML = statusHtml +
+    `<div style="margin-top:8px;font-size:10px;color:var(--muted)">Mis à jour: ${new Date().toLocaleTimeString('fr-CA')}</div>`;
+
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('fr-CA', {hour:'2-digit',minute:'2-digit'});
+}
+
+// ── SWITCH FEED TAB ───────────────────────────────────────────────────────────
+function switchFeed(key, el) {
+  currentFeed = key;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderAvis();
+}
+
+// ── LOOKUP ────────────────────────────────────────────────────────────────────
+function updateLookup(val) {
+  const enc = encodeURIComponent(val);
+  document.getElementById('lnkDossier').href =
+    `https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU${val ? '&recherche='+enc : ''}`;
+}
+
+function prefillLookup(card) {
+  const title = card.querySelector('.item-title')?.textContent || '';
+  // Extract company name (all caps words)
+  const match = title.match(/[A-Z][A-Z\s.&]+(?:INC|LTÉE|ENRG|TRANSPORT|AUTOBUS|GROUPE)[A-Z\s.]*/);
+  if (match) {
+    const input = document.getElementById('lookupInput');
+    input.value = match[0].trim().substring(0, 60);
+    updateLookup(input.value);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('fr-CA', {weekday:'short',day:'numeric',month:'short'});
+loadAllFeeds();
 </script>
 </body>
 </html>

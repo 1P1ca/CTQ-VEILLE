@@ -6,90 +6,80 @@
 <title>CTQ Veille — Tableau de bord</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--red:#E84B1C;--red2:#ff7f5c;--dark1:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#242424;--border:rgba(255,255,255,.08);--text:#f0f0f0;--muted:#6b7280;--muted2:#9ca3af;--avis:#E84B1C;--audience:#3B82F6;--decision:#8B5CF6;--actu:#10B981}
+:root{--red:#E84B1C;--red2:#ff7f5c;--dark1:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#242424;--border:rgba(255,255,255,.08);--text:#f0f0f0;--muted:#6b7280;--muted2:#9ca3af}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
-
-/* TOPBAR */
-.topbar{background:var(--dark2);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--red);white-space:nowrap}
+body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5}
+.topbar{background:var(--dark2);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--red)}
 .logo span{color:var(--muted);font-weight:400}
 .sep{width:1px;height:22px;background:var(--border)}
-.nav-link{font-size:12px;font-weight:500;color:var(--muted2);text-decoration:none;padding:5px 12px;border-radius:5px;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+.nav-link{font-size:12px;font-weight:500;color:var(--muted2);text-decoration:none;padding:5px 12px;border-radius:5px;border:1px solid transparent;transition:all .15s}
 .nav-link:hover{color:var(--text);background:var(--dark4)}
 .nav-link.active{color:var(--text);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12)}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-.dot{width:7px;height:7px;border-radius:50%;background:#10B981;display:inline-block;animation:pulse 2s infinite}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.dot{width:7px;height:7px;border-radius:50%;background:#10B981;animation:pulse 2s infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.refresh-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:5px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s}
+.refresh-btn:hover{color:var(--text)}
 
-/* LAYOUT */
 .main{max-width:1300px;margin:0 auto;padding:22px 24px}
-.grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.alert{border-radius:8px;padding:11px 16px;margin-bottom:16px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px}
+.alert.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.alert.new{background:rgba(232,75,28,.08);border:1px solid rgba(232,75,28,.25);color:#ff7f5c}
+.alert.loading{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#60a5fa}
+.alert.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.1);border-top-color:#60a5fa;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ALERT */
-.alert{border-radius:8px;padding:12px 18px;margin-bottom:18px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px}
-.alert.loading{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa}
-.alert.ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#34d399}
-.alert.new{background:rgba(232,75,28,.1);border:1px solid rgba(232,75,28,.3);color:#ff7f5c}
-.alert.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#f87171}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--dark2);border:1px solid var(--border);border-top:2px solid var(--c,var(--red));border-radius:8px;padding:12px 14px}
+.stat-n{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--c,var(--red));line-height:1}
+.stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:3px}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
-.stat{background:var(--dark2);border:1px solid var(--border);border-top:2px solid var(--c);border-radius:8px;padding:12px 14px}
-.stat-n{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--c);line-height:1}
-.stat-l{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.7px;margin-top:3px}
-
-/* FEED TABS */
-.feed-tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
-.ftab{font-size:11px;font-weight:700;padding:5px 12px;border-radius:5px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s;white-space:nowrap}
-.ftab:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
-.ftab.active{background:rgba(232,75,28,.15);border-color:rgba(232,75,28,.4);color:var(--red2)}
-.ftab .cnt{display:inline-block;background:rgba(255,255,255,.08);border-radius:3px;padding:0 5px;font-size:9px;margin-left:4px;min-width:16px;text-align:center}
-.ftab.active .cnt{background:rgba(232,75,28,.25)}
-
-/* PANELS */
+.grid{display:grid;grid-template-columns:1fr 310px;gap:16px;align-items:start}
 .panel{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
-.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.badge{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px}
-.panel-body{padding:0}
-.scroll{max-height:420px;overflow-y:auto}
+.ph{padding:11px 16px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.badge{font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 6px;border-radius:3px}
+.scroll{max-height:400px;overflow-y:auto}
 .scroll::-webkit-scrollbar{width:4px}
 .scroll::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px}
 
+/* FILTER CHIPS */
+.chips{display:flex;gap:4px;flex-wrap:wrap}
+.chip{font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.chip:hover{color:var(--text)}
+.chip.on{background:rgba(232,75,28,.15);border-color:rgba(232,75,28,.4);color:var(--red2)}
+.cnt{display:inline-block;background:rgba(255,255,255,.08);border-radius:2px;padding:0 4px;font-size:9px;margin-left:3px}
+.chip.on .cnt{background:rgba(232,75,28,.25)}
+
 /* ITEMS */
-.item{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);border-left:3px solid var(--ic);cursor:pointer;transition:background .15s}
+.item{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);border-left:3px solid var(--ic,#666);transition:background .15s;cursor:pointer}
 .item:last-child{border-bottom:none}
-.item:hover{background:rgba(255,255,255,.03)}
+.item:hover{background:rgba(255,255,255,.025)}
 .item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:3px}
 .item-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.35;flex:1}
 .item-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
 .item-desc{font-size:11px;color:var(--muted2);line-height:1.4;margin-bottom:6px}
 .item-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-.tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px}
-.item-link{margin-left:auto;font-size:10px;color:var(--red2);text-decoration:none;padding:2px 8px;border:1px solid rgba(232,75,28,.3);border-radius:3px;transition:all .15s;flex-shrink:0}
-.item-link:hover{background:rgba(232,75,28,.12)}
-.new-badge{font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 5px;border-radius:2px;margin-left:4px}
-
-/* EMPTY / LOADING */
-.empty{padding:24px;text-align:center;color:var(--muted);font-size:12px}
-.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.1);border-top-color:#60a5fa;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
-@keyframes spin{to{transform:rotate(360deg)}}
+.tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:2px 6px;border-radius:3px}
+.new-b{font-size:9px;font-weight:800;background:var(--red);color:white;padding:1px 5px;border-radius:2px;margin-left:4px}
+.item-link{margin-left:auto;font-size:10px;color:var(--red2);text-decoration:none;padding:2px 8px;border:1px solid rgba(232,75,28,.3);border-radius:3px;flex-shrink:0;transition:all .15s}
+.item-link:hover{background:rgba(232,75,28,.1)}
+.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px}
 
 /* SIDEBAR */
-.sidebar-panel{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
-.sidebar-head{padding:11px 14px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:11px;font-weight:700}
-.sidebar-body{padding:12px 14px}
+.sp{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.sh{padding:11px 14px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:11px;font-weight:700}
+.sb{padding:12px 14px;display:grid;gap:5px}
+.lbtn{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:11px;font-weight:500;transition:background .15s}
+.lbtn:hover{background:var(--dark4)}
+.linput{width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+.linput:focus{border-color:var(--red)}
 
-/* LOOKUP */
-.lookup-input{width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;transition:border-color .15s}
-.lookup-input:focus{border-color:var(--red)}
-.lookup-btn{display:flex;align-items:center;gap:7px;width:100%;padding:7px 10px;border-radius:6px;background:var(--dark3);border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:11px;font-weight:500;margin-bottom:5px;transition:background .15s;cursor:pointer}
-.lookup-btn:hover{background:var(--dark4)}
-.lookup-btn:last-child{margin-bottom:0}
-
-/* REFRESH */
-.refresh-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:5px;border:1px solid var(--border);background:var(--dark3);color:var(--muted2);cursor:pointer;transition:all .15s}
-.refresh-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.info-row{display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.info-row:last-child{border-bottom:none}
+.info-label{color:var(--muted2)}
+.info-val{font-family:'DM Mono',monospace;color:var(--text)}
 
 @media(max-width:900px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 </style>
@@ -100,92 +90,99 @@ body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="sep"></div>
   <a href="index.html" class="nav-link active">📋 Tableau de bord</a>
   <a href="analytics.html" class="nav-link">📊 Analytique</a>
-  <div class="topbar-right">
-    <span id="liveStatus" style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span class="dot"></span>RSS en direct</span>
-    <span id="lastUpdate" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)"></span>
-    <button class="refresh-btn" onclick="loadAllFeeds()">↻ Actualiser</button>
+  <div class="tb-right">
+    <span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span class="dot"></span><span id="dataSource">Chargement...</span></span>
+    <span id="genDate" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)"></span>
+    <button class="refresh-btn" onclick="location.reload()">↻ Actualiser</button>
   </div>
 </header>
 
 <main class="main">
-  <div id="alertBar" class="alert loading"><span class="spin"></span>Chargement des flux RSS CTQ en direct...</div>
+  <div id="alert" class="alert loading"><span class="spin"></span> &nbsp;Chargement des données...</div>
 
   <div class="stats">
-    <div class="stat" style="--c:var(--avis)"><div class="stat-n" id="statAvis">—</div><div class="stat-l">Avis publics</div></div>
-    <div class="stat" style="--c:var(--audience)"><div class="stat-n" id="statAud">—</div><div class="stat-l">Audiences</div></div>
-    <div class="stat" style="--c:var(--decision)"><div class="stat-n" id="statDec">—</div><div class="stat-l">Décisions</div></div>
-    <div class="stat" style="--c:var(--actu)"><div class="stat-n" id="statActu">—</div><div class="stat-l">Actualités</div></div>
+    <div class="stat" style="--c:#E84B1C"><div class="stat-n" id="sN0">—</div><div class="stat-l">Avis publics</div></div>
+    <div class="stat" style="--c:#3B82F6"><div class="stat-n" id="sN1">—</div><div class="stat-l">Audiences</div></div>
+    <div class="stat" style="--c:#8B5CF6"><div class="stat-n" id="sN2">—</div><div class="stat-l">Décisions</div></div>
+    <div class="stat" style="--c:#10B981"><div class="stat-n" id="sN3">—</div><div class="stat-l">Actualités</div></div>
   </div>
 
   <div class="grid">
-    <!-- MAIN -->
     <div>
-      <!-- AVIS PUBLICS RSS -->
+      <!-- AVIS PUBLICS -->
       <div class="panel">
-        <div class="panel-head">
-          📋 Avis publics
-          <div style="display:flex;align-items:center;gap:8px">
-            <span id="badgeAvis" class="badge" style="display:none">NOUVEAU</span>
-            <div class="feed-tabs" style="margin:0">
-              <div class="ftab active" onclick="switchFeed('autobus',this)">🚌 Autobus <span class="cnt" id="cntAutobus">…</span></div>
-              <div class="ftab" onclick="switchFeed('courtage',this)">📋 Courtage <span class="cnt" id="cntCourtage">…</span></div>
-              <div class="ftab" onclick="switchFeed('ferroviaire',this)">🚂 Ferrov. <span class="cnt" id="cntFerroviaire">…</span></div>
-              <div class="ftab" onclick="switchFeed('erratum',this)">🔔 Erratum <span class="cnt" id="cntErratum">…</span></div>
-            </div>
+        <div class="ph">
+          <span>📋 Avis publics <span id="badgeAvis" class="badge" style="display:none"></span></span>
+          <div class="chips" id="chipsAvis">
+            <div class="chip on" onclick="filterSection('avis_publics','all',this)" data-section="avis_publics" data-filter="all">Tous <span class="cnt" id="cntAvisAll">—</span></div>
+            <div class="chip" onclick="filterSection('avis_publics','Nolisé',this)" data-section="avis_publics" data-filter="Nolisé">🚌 Nolisé</div>
+            <div class="chip" onclick="filterSection('avis_publics','scolaire',this)" data-section="avis_publics" data-filter="scolaire">🎒 Scolaire</div>
+            <div class="chip" onclick="filterSection('avis_publics','Transfert',this)" data-section="avis_publics" data-filter="Transfert">🔄 Transfert</div>
+            <div class="chip" onclick="filterSection('avis_publics','Courtage',this)" data-section="avis_publics" data-filter="Courtage">📋 Courtage</div>
           </div>
         </div>
-        <div class="scroll"><div id="feedAvis" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
+        <div class="scroll"><div id="secAvis"><div class="empty"><span class="spin"></span></div></div></div>
       </div>
 
       <!-- AUDIENCES -->
       <div class="panel">
-        <div class="panel-head">🗓️ Calendrier des audiences <span id="badgeAud" class="badge" style="display:none">NOUVEAU</span></div>
-        <div class="scroll"><div id="feedAud" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
+        <div class="ph">🗓️ Audiences <span id="badgeAud" class="badge" style="display:none"></span></div>
+        <div class="scroll"><div id="secAud"><div class="empty"><span class="spin"></span></div></div></div>
       </div>
 
       <!-- DECISIONS -->
       <div class="panel">
-        <div class="panel-head">⚖️ Décisions rendues <span id="badgeDec" class="badge" style="display:none">NOUVEAU</span></div>
-        <div class="scroll"><div id="feedDec" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
+        <div class="ph">⚖️ Décisions <span id="badgeDec" class="badge" style="display:none"></span></div>
+        <div class="scroll"><div id="secDec"><div class="empty"><span class="spin"></span></div></div></div>
       </div>
 
       <!-- ACTUALITES -->
       <div class="panel">
-        <div class="panel-head">📢 Actualités <span id="badgeActu" class="badge" style="display:none">NOUVEAU</span></div>
-        <div class="scroll"><div id="feedActu" class="panel-body"><div class="empty"><span class="spin"></span>Chargement...</div></div></div>
+        <div class="ph">📢 Actualités <span id="badgeActu" class="badge" style="display:none"></span></div>
+        <div class="scroll"><div id="secActu"><div class="empty"><span class="spin"></span></div></div></div>
       </div>
     </div>
 
     <!-- SIDEBAR -->
     <div>
-      <!-- LOOKUP -->
-      <div class="sidebar-panel">
-        <div class="sidebar-head">🔍 Recherche détenteur CTQ</div>
-        <div class="sidebar-body">
-          <input class="lookup-input" id="lookupInput" placeholder="Nom du transporteur…" oninput="updateLookup(this.value)">
-          <a id="lnkDossier" href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU" target="_blank" class="lookup-btn">🏢 Dossier / tous permis →</a>
-          <a id="lnkNolise" href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/permisautobus?voletContexte=RECHERCHE_AUTOBUS_NOLISE_MENU" target="_blank" class="lookup-btn">🚌 Permis nolisé (carte) →</a>
-          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" class="lookup-btn">⚖️ Recherche décisions →</a>
-          <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics" target="_blank" class="lookup-btn">📋 Portail avis publics →</a>
+      <div class="sp">
+        <div class="sh">🔍 Recherche détenteur</div>
+        <div style="padding:12px 14px;display:grid;gap:6px">
+          <input class="linput" id="lookupInput" placeholder="Nom du transporteur…" oninput="updateLookup(this.value)">
+          <a id="lnkDossier" href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU" target="_blank" class="lbtn">🏢 Dossier — tous permis →</a>
+          <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics" target="_blank" class="lbtn">📋 Portail avis publics →</a>
+          <a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" class="lbtn">⚖️ Recherche décisions →</a>
         </div>
       </div>
 
-      <!-- LIENS RAPIDES -->
-      <div class="sidebar-panel">
-        <div class="sidebar-head">🔗 Portails CTQ</div>
-        <div class="sidebar-body">
-          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/" target="_blank" class="lookup-btn">🗓️ Calendrier des audiences</a>
-          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" class="lookup-btn">📢 Actualités CTQ</a>
-          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" class="lookup-btn">🚌 Info permis autobus</a>
-          <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/inscription-au-registre-nir-et-cote-de-securite/" target="_blank" class="lookup-btn">🛡️ Registre NIR / Cote sécurité</a>
+      <div class="sp">
+        <div class="sh">🔗 Portails CTQ</div>
+        <div class="sb">
+          <a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/" target="_blank" class="lbtn">🗓️ Calendrier des audiences</a>
+          <a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" class="lbtn">📢 Actualités CTQ</a>
+          <a href="https://www.ctq.gouv.qc.ca/permis-et-autorisations-de-transport/autobus/permis/" target="_blank" class="lbtn">🚌 Info permis autobus</a>
+          <a href="https://www.ctq.gouv.qc.ca/securite-routiere/proprietaires-et-exploitants-de-vehicules-lourds/inscription-au-registre-nir-et-cote-de-securite/" target="_blank" class="lbtn">🛡️ Registre NIR</a>
         </div>
       </div>
 
-      <!-- RÉSUMÉ RSS -->
-      <div class="sidebar-panel">
-        <div class="sidebar-head">📡 État des flux</div>
-        <div class="sidebar-body" id="feedStatus" style="font-size:11px;display:grid;gap:5px">
-          <div style="color:var(--muted)">Chargement...</div>
+      <div class="sp">
+        <div class="sh">📡 Données</div>
+        <div style="padding:12px 14px">
+          <div id="dataInfo" style="display:grid;gap:2px">
+            <div class="info-row"><span class="info-label">Dernière mise à jour</span><span class="info-val" id="infoDate">—</span></div>
+            <div class="info-row"><span class="info-label">Avis publics</span><span class="info-val" id="infoAvis">—</span></div>
+            <div class="info-row"><span class="info-label">Nouveaux (7j)</span><span class="info-val" id="infoNew">—</span></div>
+            <div class="info-row"><span class="info-label">Source</span><span class="info-val">RSS CTQ</span></div>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:6px">Flux RSS officiels</div>
+            <div style="display:grid;gap:4px">
+              <a href="https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml" target="_blank" style="font-size:10px;color:var(--red2);text-decoration:none">🚌 Autobus XML ↗</a>
+              <a href="https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml" target="_blank" style="font-size:10px;color:var(--red2);text-decoration:none">📋 Courtage XML ↗</a>
+              <a href="https://www.pes.ctq.gouv.qc.ca/rss/FERROVIAIR.xml" target="_blank" style="font-size:10px;color:var(--red2);text-decoration:none">🚂 Ferroviaire XML ↗</a>
+              <a href="https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml" target="_blank" style="font-size:10px;color:var(--red2);text-decoration:none">🔔 Erratum XML ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -193,284 +190,164 @@ body{background:var(--dark1);color:var(--text);font-family:'DM Sans',sans-serif;
 </main>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
-const PROXY = 'https://api.allorigins.win/get?url=';
-const FEEDS = {
-  autobus:     { url:'https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml',    label:'Autobus',    color:'#E84B1C', section:'avis' },
-  courtage:    { url:'https://www.pes.ctq.gouv.qc.ca/rss/COURTAGE.xml',   label:'Courtage',   color:'#D97706', section:'avis' },
-  ferroviaire: { url:'https://www.pes.ctq.gouv.qc.ca/rss/FERROVIAIR.xml', label:'Ferroviaire',color:'#6366F1', section:'avis' },
-  erratum:     { url:'https://www.pes.ctq.gouv.qc.ca/rss/ERRATUM.xml',    label:'Erratum',    color:'#F59E0B', section:'avis' },
+const TAG_COLORS = {
+  "Nouveau permis":"#E84B1C","Transfert":"#8B5CF6","Modification territoire":"#3B82F6",
+  "Nolisé":"#1ABC9C","Transport scolaire":"#F39C12","Révocation":"#EF4444",
+  "Interurbain":"#2980B9","Urbain":"#27AE60","Audience":"#8E44AD",
+  "Tarification":"#6B7280","VFÉ":"#2ECC71","Courtage":"#D97706","Erratum":"#F59E0B"
+};
+const SEC_COLORS = {
+  avis_publics:"#E84B1C", calendrier_audiences:"#3B82F6", decisions:"#8B5CF6", actualites:"#10B981"
 };
 
-// Tag detection
-const TAG_RULES = [
-  { test: /nolisé|nolise/i,        label:'Nolisé',              color:'#E84B1C' },
-  { test: /scolaire|élèves/i,      label:'Scolaire',            color:'#3B82F6' },
-  { test: /interurbain/i,          label:'Interurbain',         color:'#8B5CF6' },
-  { test: /urbain/i,               label:'Urbain',              color:'#10B981' },
-  { test: /courtage|vrac/i,        label:'Courtage/Vrac',       color:'#D97706' },
-  { test: /ferroviaire/i,          label:'Ferroviaire',         color:'#6366F1' },
-  { test: /erratum|correction/i,   label:'Erratum',             color:'#F59E0B' },
-  { test: /touristique/i,          label:'Touristique',         color:'#14B8A6' },
-  { test: /transfert/i,            label:'Transfert',           color:'#8B5CF6' },
-  { test: /nouveau.*permis|demande.*permis/i, label:'Nouveau permis', color:'#E84B1C' },
-  { test: /modification.*territoire|territoire/i, label:'Modif. territoire', color:'#3B82F6' },
-  { test: /révocation|revocation/i,label:'Révocation',          color:'#EF4444' },
-  { test: /maintien|acquisition/i, label:'Maintien',            color:'#8B5CF6' },
-  { test: /audience/i,             label:'Audience',            color:'#F59E0B' },
-  { test: /tarif|indexation/i,     label:'Tarification',        color:'#6B7280' },
-];
+let ALL_ITEMS = [];
+let activeFilters = {};
 
-// State
-let allData = { autobus:[], courtage:[], ferroviaire:[], erratum:[], audiences:[], decisions:[], actualites:[] };
-let currentFeed = 'autobus';
-let loadedCount = 0;
-let totalFeeds = 0;
-
-// ── PARSE RSS ─────────────────────────────────────────────────────────────────
-function parseRSS(xmlStr) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(xmlStr, 'text/xml');
-  const items = doc.querySelectorAll('item');
-  const results = [];
-  items.forEach(item => {
-    const title = item.querySelector('title')?.textContent?.trim() || '';
-    const link = item.querySelector('link')?.textContent?.trim() || '#';
-    const desc = (item.querySelector('description')?.textContent || '')
-      .replace(/<br[^>]*>/gi, ' | ')
-      .replace(/<[^>]+>/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    const pubDate = item.querySelector('pubDate')?.textContent || '';
-    const guid = item.querySelector('guid')?.textContent || title;
-    if (title && title !== 'Avis publics') {
-      results.push({ title, link, desc, pubDate, guid });
-    }
-  });
-  return results;
+function isRecent(dateStr) {
+  if (!dateStr) return false;
+  return (Date.now() - new Date(dateStr).getTime()) < 7*24*60*60*1000;
 }
 
-// ── DETECT TAGS ───────────────────────────────────────────────────────────────
-function detectTags(text) {
-  const tags = [];
-  const seen = new Set();
-  TAG_RULES.forEach(rule => {
-    if (rule.test.test(text) && !seen.has(rule.label)) {
-      tags.push(rule);
-      seen.add(rule.label);
-    }
-  });
-  return tags.slice(0, 3);
+function fmtDate(d) {
+  if (!d) return '';
+  try { return new Date(d).toLocaleDateString('fr-CA',{day:'numeric',month:'short'}); }
+  catch(e) { return d.slice(0,10); }
 }
 
-// ── FORMAT DATE ───────────────────────────────────────────────────────────────
-function fmtDate(pubDate) {
-  if (!pubDate) return '';
-  try {
-    return new Date(pubDate).toLocaleDateString('fr-CA', { day:'numeric', month:'short', year:'numeric' });
-  } catch(e) { return pubDate.slice(0,10); }
+function renderTag(tag) {
+  const c = TAG_COLORS[tag] || '#666';
+  return `<span class="tag" style="background:${c}22;color:${c}">${tag}</span>`;
 }
 
-// ── IS NEW (last 7 days) ──────────────────────────────────────────────────────
-function isNew(pubDate) {
-  if (!pubDate) return false;
-  try {
-    return (Date.now() - new Date(pubDate).getTime()) < 7 * 24 * 60 * 60 * 1000;
-  } catch(e) { return false; }
-}
+function renderItem(item) {
+  const color = SEC_COLORS[item.section] || '#666';
+  const newBadge = item.is_new ? '<span class="new-b">NOUVEAU</span>' : '';
+  const tags = (item.tags || []).map(renderTag).join('');
+  const desc = item.description ? `<div class="item-desc">${item.description.substring(0,180)}${item.description.length>180?'…':''}</div>` : '';
+  const linkLabels = {
+    avis_publics:'📋 Portail avis publics →',
+    calendrier_audiences:'🗓️ Calendrier audiences →',
+    decisions:'⚖️ Recherche décisions →',
+    actualites:'📢 Actualités CTQ →'
+  };
+  const linkLabel = linkLabels[item.section] || 'Voir sur CTQ →';
+  const linkUrl = item.url || 'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics';
 
-// ── RENDER ITEM ───────────────────────────────────────────────────────────────
-function renderItem(item, color) {
-  const tags = detectTags(item.title + ' ' + item.desc);
-  const newBadge = isNew(item.pubDate) ? '<span class="new-badge">NOUVEAU</span>' : '';
-  const tagsHtml = tags.map(t =>
-    `<span class="tag" style="background:${t.color}22;color:${t.color}">${t.label}</span>`
-  ).join('');
-  const linkUrl = (item.link && !item.link.endsWith('.xml')) ? item.link : 'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics';
-  const descPreview = item.desc ? item.desc.substring(0, 200) + (item.desc.length > 200 ? '…' : '') : '';
-
-  return `<div class="item" style="--ic:${color}" onclick="prefillLookup(this)">
+  return `<div class="item" style="--ic:${color}" onclick="prefill('${(item.title||'').replace(/'/g,"\\'")}')">
     <div class="item-top">
-      <div class="item-title">${item.title}${newBadge}</div>
-      <div class="item-date">${fmtDate(item.pubDate)}</div>
+      <div class="item-title">${item.icon||''} ${item.title}${newBadge}</div>
+      <div class="item-date">${fmtDate(item.date_publie)}</div>
     </div>
-    ${descPreview ? `<div class="item-desc">${descPreview}</div>` : ''}
+    ${desc}
     <div class="item-foot">
-      ${tagsHtml}
-      <a href="${linkUrl}" target="_blank" class="item-link" onclick="event.stopPropagation()">📋 Portail CTQ →</a>
+      ${tags}
+      <a href="${linkUrl}" target="_blank" class="item-link" onclick="event.stopPropagation()">${linkLabel}</a>
     </div>
   </div>`;
 }
 
-// ── RENDER SECTION ────────────────────────────────────────────────────────────
-function renderAvis() {
-  const feed = currentFeed;
-  const items = allData[feed] || [];
-  const color = FEEDS[feed]?.color || '#E84B1C';
-  const el = document.getElementById('feedAvis');
-  if (!items.length) {
-    el.innerHTML = '<div class="empty">Aucun avis actif pour ce flux</div>';
-  } else {
-    el.innerHTML = items.map(i => renderItem(i, color)).join('');
+function renderSection(sectionKey, containerId, badgeId) {
+  let items = ALL_ITEMS.filter(i => i.section === sectionKey);
+  const filter = activeFilters[sectionKey];
+  if (filter && filter !== 'all') {
+    items = items.filter(i =>
+      (i.title || '').toLowerCase().includes(filter.toLowerCase()) ||
+      (i.description || '').toLowerCase().includes(filter.toLowerCase()) ||
+      (i.tags || []).some(t => t.toLowerCase().includes(filter.toLowerCase()))
+    );
   }
-  // Update stats
-  const total = Object.values(allData).flat().filter(i => i.section === 'avis' || FEEDS[currentFeed]).length;
-}
 
-function renderSection(items, containerId, badgeId, color) {
   const el = document.getElementById(containerId);
   const badge = document.getElementById(badgeId);
-  if (!items || !items.length) {
-    el.innerHTML = `<div class="empty">Aucune activité — <a href="https://www.ctq.gouv.qc.ca/" target="_blank" style="color:var(--red2)">Voir le site CTQ →</a></div>`;
-    return;
-  }
-  el.innerHTML = items.map(i => renderItem(i, color)).join('');
-  const newCount = items.filter(i => isNew(i.pubDate)).length;
-  if (newCount > 0 && badge) {
-    badge.style.display = 'inline';
-    badge.textContent = `${newCount} NOUVEAU${newCount > 1 ? 'X' : ''}`;
-  }
-}
 
-// ── FETCH ONE FEED ────────────────────────────────────────────────────────────
-async function fetchFeed(key) {
-  const cfg = FEEDS[key];
-  try {
-    const res = await fetch(PROXY + encodeURIComponent(cfg.url), { signal: AbortSignal.timeout(12000) });
-    const json = await res.json();
-    const items = parseRSS(json.contents);
-    allData[key] = items;
-
-    // Update counter badge on tab
-    const cnt = document.getElementById('cnt' + key.charAt(0).toUpperCase() + key.slice(1));
-    if (cnt) cnt.textContent = items.length;
-
-    return { key, count: items.length, ok: true };
-  } catch(e) {
-    allData[key] = [];
-    const cnt = document.getElementById('cnt' + key.charAt(0).toUpperCase() + key.slice(1));
-    if (cnt) cnt.textContent = '!';
-    return { key, count: 0, ok: false, error: e.message };
-  }
-}
-
-// ── FETCH HTML SECTIONS (static links to CTQ pages) ──────────────────────────
-function injectStaticSections() {
-  // Audiences - static link to CTQ calendar (can't scrape due to CORS)
-  renderSection([], 'feedAud', 'badgeAud', '#3B82F6');
-  renderSection([], 'feedDec', 'badgeDec', '#8B5CF6');
-  renderSection([], 'feedActu', 'badgeActu', '#10B981');
-
-  document.getElementById('feedAud').innerHTML = `
-    <div class="item" style="--ic:#3B82F6">
-      <div class="item-top"><div class="item-title">Calendrier officiel des audiences CTQ</div></div>
-      <div class="item-desc">Les dates d'audience ne sont pas disponibles via RSS. Consultez le calendrier officiel sur le site de la Commission.</div>
-      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/" target="_blank" class="item-link">🗓️ Voir le calendrier →</a></div>
-    </div>`;
-
-  document.getElementById('feedDec').innerHTML = `
-    <div class="item" style="--ic:#8B5CF6">
-      <div class="item-top"><div class="item-title">Moteur de recherche des décisions CTQ</div></div>
-      <div class="item-desc">Recherchez les décisions rendues par numéro, date, type de permis ou nom du transporteur.</div>
-      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/" target="_blank" class="item-link">⚖️ Rechercher une décision →</a></div>
-    </div>`;
-
-  document.getElementById('feedActu').innerHTML = `
-    <div class="item" style="--ic:#10B981">
-      <div class="item-top"><div class="item-title">Actualités et dossiers prioritaires CTQ</div></div>
-      <div class="item-desc">Indexations tarifaires, changements réglementaires, dossiers prioritaires de la Commission.</div>
-      <div class="item-foot"><a href="https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/" target="_blank" class="item-link">📢 Voir les actualités →</a></div>
-    </div>`;
-}
-
-// ── LOAD ALL FEEDS ────────────────────────────────────────────────────────────
-async function loadAllFeeds() {
-  document.getElementById('alertBar').className = 'alert loading';
-  document.getElementById('alertBar').innerHTML = '<span class="spin"></span>Chargement des flux RSS CTQ en direct...';
-
-  // Reset counters
-  Object.keys(FEEDS).forEach(k => {
-    const cnt = document.getElementById('cnt' + k.charAt(0).toUpperCase() + k.slice(1));
-    if (cnt) cnt.textContent = '…';
-  });
-
-  // Fetch all 4 RSS feeds in parallel
-  const results = await Promise.all(Object.keys(FEEDS).map(k => fetchFeed(k)));
-
-  // Render current avis tab
-  renderAvis();
-  injectStaticSections();
-
-  // Update stats
-  const avisTotal = Object.keys(FEEDS).reduce((s,k) => s + (allData[k]?.length || 0), 0);
-  document.getElementById('statAvis').textContent = avisTotal;
-  document.getElementById('statAud').textContent = '—';
-  document.getElementById('statDec').textContent = '—';
-  document.getElementById('statActu').textContent = '—';
-
-  // Update badge for new items in avis
-  const newCount = Object.keys(FEEDS).reduce((s,k) => s + (allData[k]?.filter(i => isNew(i.pubDate)).length || 0), 0);
-  const badge = document.getElementById('badgeAvis');
-  if (newCount > 0) { badge.style.display='inline'; badge.textContent = `${newCount} NOUVEAU${newCount>1?'X':''}`; }
-  else badge.style.display = 'none';
-
-  // Alert bar
-  const okCount = results.filter(r => r.ok).length;
-  const totalItems = results.reduce((s,r) => s+r.count, 0);
-  if (okCount === 0) {
-    document.getElementById('alertBar').className = 'alert error';
-    document.getElementById('alertBar').innerHTML = '⚠️ Impossible de joindre les flux RSS CTQ. Vérifiez votre connexion ou <a href="https://www.pes.ctq.gouv.qc.ca/rss/AUTOBUS.xml" target="_blank" style="color:inherit">ouvrez le flux manuellement</a>.';
-  } else if (newCount > 0) {
-    document.getElementById('alertBar').className = 'alert new';
-    document.getElementById('alertBar').innerHTML = `🚨 <strong>${newCount} avis récents (7j)</strong> détectés sur les flux CTQ`;
+  if (!items.length) {
+    el.innerHTML = `<div class="empty">Aucun avis — <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics" target="_blank" style="color:var(--red2)">Portail CTQ →</a></div>`;
   } else {
-    document.getElementById('alertBar').className = 'alert ok';
-    document.getElementById('alertBar').innerHTML = `✅ ${totalItems} avis actifs chargés — ${okCount}/4 flux RSS OK`;
+    el.innerHTML = items.map(renderItem).join('');
+    const newCount = items.filter(i => i.is_new).length;
+    if (newCount > 0 && badge) {
+      badge.style.display = 'inline';
+      badge.textContent = newCount + ' NOUVEAU' + (newCount > 1 ? 'X' : '');
+    }
   }
-
-  // Feed status sidebar
-  const statusHtml = results.map(r => `
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)">
-      <span style="color:var(--muted2)">${FEEDS[r.key].label}</span>
-      <span style="font-family:'DM Mono',monospace;color:${r.ok ? '#10B981' : '#EF4444'}">
-        ${r.ok ? r.count + ' avis' : '⚠️ erreur'}
-      </span>
-    </div>`).join('');
-  document.getElementById('feedStatus').innerHTML = statusHtml +
-    `<div style="margin-top:8px;font-size:10px;color:var(--muted)">Mis à jour: ${new Date().toLocaleTimeString('fr-CA')}</div>`;
-
-  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('fr-CA', {hour:'2-digit',minute:'2-digit'});
 }
 
-// ── SWITCH FEED TAB ───────────────────────────────────────────────────────────
-function switchFeed(key, el) {
-  currentFeed = key;
-  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  renderAvis();
+function filterSection(section, filter, el) {
+  activeFilters[section] = filter;
+  const chips = el.closest('.chips').querySelectorAll('.chip');
+  chips.forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderSection(section, {
+    avis_publics:'secAvis', calendrier_audiences:'secAud', decisions:'secDec', actualites:'secActu'
+  }[section], 'badge'+section.slice(0,3).charAt(0).toUpperCase()+section.slice(1,4));
 }
 
-// ── LOOKUP ────────────────────────────────────────────────────────────────────
 function updateLookup(val) {
   const enc = encodeURIComponent(val);
   document.getElementById('lnkDossier').href =
-    `https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU${val ? '&recherche='+enc : ''}`;
+    'https://www.pes.ctq.gouv.qc.ca/pes2/mvc/dossierclient?voletContexte=RECHERCHE_GLOBAL_MENU' + (val ? '&recherche='+enc : '');
 }
 
-function prefillLookup(card) {
-  const title = card.querySelector('.item-title')?.textContent || '';
-  // Extract company name (all caps words)
-  const match = title.match(/[A-Z][A-Z\s.&]+(?:INC|LTÉE|ENRG|TRANSPORT|AUTOBUS|GROUPE)[A-Z\s.]*/);
-  if (match) {
-    const input = document.getElementById('lookupInput');
-    input.value = match[0].trim().substring(0, 60);
-    updateLookup(input.value);
+function prefill(title) {
+  const m = title.match(/[A-Z][A-Z .&]{3,}(?:INC|INC\.|LTÉE|ENRG|TRANSPORT|AUTOBUS|GROUPE)/i);
+  if (m) {
+    document.getElementById('lookupInput').value = m[0].trim().substring(0, 60);
+    updateLookup(document.getElementById('lookupInput').value);
   }
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('fr-CA', {weekday:'short',day:'numeric',month:'short'});
-loadAllFeeds();
+async function loadData() {
+  try {
+    const res = await fetch('feeds.json?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+
+    ALL_ITEMS = data.items || [];
+
+    // Stats
+    const counts = {};
+    ALL_ITEMS.forEach(i => { counts[i.section] = (counts[i.section]||0) + 1; });
+    document.getElementById('sN0').textContent = counts.avis_publics || 0;
+    document.getElementById('sN1').textContent = counts.calendrier_audiences || 0;
+    document.getElementById('sN2').textContent = counts.decisions || 0;
+    document.getElementById('sN3').textContent = counts.actualites || 0;
+
+    // Avis count chip
+    const avisCount = document.getElementById('cntAvisAll');
+    if (avisCount) avisCount.textContent = counts.avis_publics || 0;
+
+    // Render sections
+    renderSection('avis_publics', 'secAvis', 'badgeAvis');
+    renderSection('calendrier_audiences', 'secAud', 'badgeAud');
+    renderSection('decisions', 'secDec', 'badgeDec');
+    renderSection('actualites', 'secActu', 'badgeActu');
+
+    // Alert
+    const newCount = ALL_ITEMS.filter(i => i.is_new).length;
+    const alert = document.getElementById('alert');
+    if (newCount > 0) {
+      alert.className = 'alert new';
+      alert.innerHTML = `🚨 <strong>${newCount} nouveau${newCount>1?'x':''} avis</strong> détecté${newCount>1?'s':''} — données du ${data.generated_date || ''}`;
+    } else {
+      alert.className = 'alert ok';
+      alert.innerHTML = `✅ ${ALL_ITEMS.length} avis chargés — données du ${data.generated_date || data.generated_at?.slice(0,10) || ''}`;
+    }
+
+    // Info sidebar
+    document.getElementById('infoDate').textContent = data.generated_date || '—';
+    document.getElementById('infoAvis').textContent = counts.avis_publics || 0;
+    document.getElementById('infoNew').textContent = newCount;
+    document.getElementById('genDate').textContent = data.generated_date || '';
+    document.getElementById('dataSource').textContent = 'Données GitHub Actions';
+
+  } catch(e) {
+    document.getElementById('alert').className = 'alert error';
+    document.getElementById('alert').innerHTML = `⚠️ Impossible de charger les données (${e.message}). <a href="https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics" target="_blank" style="color:inherit">Portail CTQ direct →</a>`;
+    document.getElementById('dataSource').textContent = 'Erreur de chargement';
+  }
+}
+
+loadData();
 </script>
 </body>
 </html>

@@ -39,6 +39,15 @@ def main():
     except Exception as e:
         log.error(f"❌ Dashboard ÉCHOUÉ: {e}")
 
+    # 2b. EXPORT JSON pour dashboard live
+    log.info("Étape 2b — Export feeds.json...")
+    try:
+        from export_feeds import export_feeds_json
+        export_feeds_json(report)
+        log.info("✅ feeds.json exporté")
+    except Exception as e:
+        log.error(f"❌ Export ÉCHOUÉ: {e}")
+
     # 3. COURRIEL
     log.info("Étape 3/3 — Envoi du rapport courriel...")
     try:

@@ -1,146 +1,231 @@
 {
-  "generated_at": "2026-03-16T21:31:22.470370Z",
+  "generated_at": "2026-03-16T22:22:48.438800Z",
   "generated_date": "2026-03-16",
   "items": [
     {
-      "section": "avis_publics",
-      "section_label": "Avis publics — Autobus",
-      "icon": "🚌",
-      "priority": "haute",
-      "source": "rss",
-      "title": "Demande de permis nolisé — Autobus Laval Express inc. — Laval, Montréal, Lanaudière",
-      "description": "Dépôt d'une demande de nouveau permis de transport nolisé. Territoire visé : Laval, Montréal, Lanaudière. Audience publique prévue si opposition reçue dans les 20 jours.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
-      "date_publie": "2026-03-09",
-      "hash_id": "rss_abc001",
-      "is_new": true,
-      "tags": [
-        "Nouveau permis",
-        "Nolisé"
-      ]
-    },
-    {
-      "section": "avis_publics",
-      "section_label": "Avis publics — Autobus",
-      "icon": "🚌",
-      "priority": "haute",
-      "source": "rss",
-      "title": "Transfert de permis — Transport scolaire — Autobus Tremblay & Fils → Groupe Rive-Nord 2025",
-      "description": "Demande de transfert d'un permis de transport d'élèves. Commission scolaire des Affluents, territoire de Terrebonne.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
-      "date_publie": "2026-03-09",
-      "hash_id": "rss_abc002",
-      "is_new": true,
-      "tags": [
-        "Transfert",
-        "Transport scolaire"
-      ]
-    },
-    {
-      "section": "avis_publics",
-      "section_label": "Avis publics — Autobus",
-      "icon": "🚌",
-      "priority": "haute",
-      "source": "rss",
-      "title": "Modification de territoire — Autobus Laurentides inc. — Ajout MRC des Laurentides",
-      "description": "Demande de modification du territoire d'exploitation. Ajout de la MRC des Laurentides au permis interurbain existant.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
-      "date_publie": "2026-03-08",
-      "hash_id": "rss_abc003",
-      "is_new": false,
-      "tags": [
-        "Modification territoire",
-        "Interurbain"
-      ]
-    },
-    {
-      "section": "avis_publics",
-      "section_label": "Avis publics — Courtage",
-      "icon": "📋",
-      "priority": "moyenne",
-      "source": "rss",
-      "title": "Renouvellement de permis de courtage — Zone Montréal — Transport en vrac",
-      "description": "Demande de renouvellement de permis de courtage en services de camionnage en vrac pour la zone de Montréal.",
-      "url": "https://www.pes.ctq.gouv.qc.ca/pes2/mvc/avispublics",
-      "date_publie": "2026-03-07",
-      "hash_id": "rss_crt001",
-      "is_new": false,
-      "tags": [
-        "Courtage"
-      ]
-    },
-    {
       "section": "actualites",
-      "section_label": "Erratum & Corrections",
-      "icon": "🔔",
-      "priority": "haute",
-      "source": "rss",
-      "title": "Erratum — Décision 2026 QCCTQ 0198 — Correction du territoire accordé",
-      "description": "La Commission rectifie la décision 2026 QCCTQ 0198 rendue le 14 février 2026. Correction du territoire d'exploitation accordé suite à une erreur matérielle.",
-      "url": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/",
-      "date_publie": "2026-03-09",
-      "hash_id": "rss_err001",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Indexation des droits et des frais relatifs au transport rémunéré de personnes par automobile le 1er janvier 2026",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/indexation-des-droits-et-des-frais-relatifs-au-transport-remunere-de-personnes-par-automobile-le-1er-janvier-2026/",
+      "date_publie": "2026-03-16",
+      "hash_id": "a400615e1512",
       "is_new": true,
       "tags": [
-        "Erratum"
-      ]
-    },
-    {
-      "section": "calendrier_audiences",
-      "section_label": "Calendrier des audiences",
-      "icon": "🗓️",
-      "priority": "haute",
-      "source": "html",
-      "title": "18 mars 2026 — Audience publique — Autobus Laurentides inc. — Modification territoire",
-      "description": "Audience publique à Québec. Demande de modification du territoire d'exploitation.",
-      "url": "https://www.ctq.gouv.qc.ca/la-commission/laudience/calendrier-des-audiences/",
-      "date_publie": "2026-03-09",
-      "hash_id": "html_cal001",
-      "is_new": false,
-      "tags": [
-        "Audience",
-        "Modification territoire"
-      ]
-    },
-    {
-      "section": "decisions",
-      "section_label": "Décisions rendues",
-      "icon": "⚖️",
-      "priority": "moyenne",
-      "source": "html",
-      "title": "2026 QCCTQ 0231 — Permis accordé — Transport nolisé — Montérégie, Estrie",
-      "description": "La Commission accorde le permis de transport nolisé demandé. Territoire : Montérégie, Estrie.",
-      "url": "https://www.ctq.gouv.qc.ca/services-en-ligne/recherche-de-decisions/",
-      "date_publie": "2026-03-06",
-      "hash_id": "html_dec001",
-      "is_new": false,
-      "tags": [
-        "Nouveau permis",
-        "Nolisé"
-      ]
+        "Tarification"
+      ],
+      "source": "html"
     },
     {
       "section": "actualites",
       "section_label": "Actualités et dossiers prioritaires",
       "icon": "📢",
       "priority": "moyenne",
-      "source": "html",
-      "title": "Indexation des tarifs au 1er avril 2026",
-      "description": "La Commission procède à l'indexation annuelle des frais et droits payables conformément à la Loi sur l'administration financière.",
-      "url": "https://www.ctq.gouv.qc.ca/actualites-et-dossiers-prioritaires/",
-      "date_publie": "2026-03-04",
-      "hash_id": "html_act001",
-      "is_new": false,
+      "title": "Voir l'actualité: Indexation des droits et des frais relatifs au transport rémunéré de personnes par automobile le 1er janvier 2026.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/indexation-des-droits-et-des-frais-relatifs-au-transport-remunere-de-personnes-par-automobile-le-1er-janvier-2026/",
+      "date_publie": "2026-03-16",
+      "hash_id": "555c25a16105",
+      "is_new": true,
       "tags": [
         "Tarification"
-      ]
+      ],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Modification à la liste des mandataires en taximètre",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-28/",
+      "date_publie": "2026-03-16",
+      "hash_id": "284181cab6c5",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Modification à la liste des mandataires en taximètre.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-28/",
+      "date_publie": "2026-03-16",
+      "hash_id": "a761c3e43075",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Horaire des services durant la période des Fêtes",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/horaire-des-services-durant-la-periode-des-fetes-3/",
+      "date_publie": "2026-03-16",
+      "hash_id": "eb9e8a87630c",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Horaire des services durant la période des Fêtes.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/horaire-des-services-durant-la-periode-des-fetes-3/",
+      "date_publie": "2026-03-16",
+      "hash_id": "848aafbd76a7",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Résultat de l'analyse à la suite de la consultation publique sur l'opportunité de modifier les tarifs de transport rémunéré de personnes par automobil",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/decision-de-la-commission-a-la-suite-de-la-consultation-publique-sur-les-tarifs-de-transport-remunere-de-personnes-par-automobile/",
+      "date_publie": "2026-03-16",
+      "hash_id": "4876310dfe8a",
+      "is_new": true,
+      "tags": [
+        "Tarification"
+      ],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Résultat de l'analyse à la suite de la consultation publique sur l'opportunité de modifier les tarifs de transport rémunéré de perso",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/decision-de-la-commission-a-la-suite-de-la-consultation-publique-sur-les-tarifs-de-transport-remunere-de-personnes-par-automobile/",
+      "date_publie": "2026-03-16",
+      "hash_id": "b52a9350099f",
+      "is_new": true,
+      "tags": [
+        "Tarification"
+      ],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Modification à la liste des mandataires en taximètre",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-27/",
+      "date_publie": "2026-03-16",
+      "hash_id": "3a056cc3152c",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Modification à la liste des mandataires en taximètre.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-27/",
+      "date_publie": "2026-03-16",
+      "hash_id": "9513d5a380dd",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Dépôt du rapport annuel de gestion 2024-2025",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/depot-du-rapport-annuel-de-gestion-2024-2025/",
+      "date_publie": "2026-03-16",
+      "hash_id": "83d676eb98d0",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Dépôt du rapport annuel de gestion 2024-2025.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/depot-du-rapport-annuel-de-gestion-2024-2025/",
+      "date_publie": "2026-03-16",
+      "hash_id": "7870ed7a341c",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Modification à la liste des mandataires en taximètre",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-26/",
+      "date_publie": "2026-03-16",
+      "hash_id": "5e90c6e97bd3",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Voir l'actualité: Modification à la liste des mandataires en taximètre.",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-26/",
+      "date_publie": "2026-03-16",
+      "hash_id": "3b3f2fc1306e",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
+    },
+    {
+      "section": "actualites",
+      "section_label": "Actualités et dossiers prioritaires",
+      "icon": "📢",
+      "priority": "moyenne",
+      "title": "Modification à la liste des mandataires en taximètre",
+      "description": "",
+      "url": "https://www.ctq.gouv.qc.ca/actualites/detail/modification-a-la-liste-des-mandataires-en-taximetre-25/",
+      "date_publie": "2026-03-16",
+      "hash_id": "a0723b34be21",
+      "is_new": true,
+      "tags": [],
+      "source": "html"
     }
   ],
-  "new_count": 3,
+  "new_count": 15,
   "summary": {
-    "avis_publics": 2,
+    "avis_publics": 0,
     "calendrier_audiences": 0,
     "decisions": 0,
-    "actualites": 1
+    "actualites": 15
   }
 }
